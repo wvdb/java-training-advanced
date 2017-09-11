@@ -15,6 +15,8 @@ import java.util.Map;
  */
 public class OefeningGenerics {
     public static void demoBasic() {
+        // actual problem before Java 1.5 (no generics available)
+
         List employees = new ArrayList();
         Employee createdEmployee = new Employee(1, "wim van den brande", 49, null, null);
         String string = "dit is een test";

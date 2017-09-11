@@ -7,6 +7,12 @@ public class Department extends DatabaseEntity {
     private String departmentName;
     private String departmentAddress;
 
+    public Department(Integer id, String departmentName, String departmentAddress) {
+        super(id);
+        this.departmentName = departmentName;
+        this.departmentAddress = departmentAddress;
+    }
+
     private Department(DepartmentBuilder builder) {
         this.departmentName = builder.nestedDepartmentName;
         this.departmentAddress = builder.nestedDepartmentAddress;

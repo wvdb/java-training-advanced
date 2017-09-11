@@ -13,11 +13,6 @@ public class MyApplication {
         System.out.println("Geef identifier van de oefening: ");
         int oefeningInteger = reader.nextInt();
 
-        Department department = new Department.DepartmentBuilder()
-                .departmentAddress("example of an address")
-                .departmentName("example of a department")
-                .build();
-
         switch (oefeningInteger) {
             case 0:
                 MyApplication.oefeningGenerics();

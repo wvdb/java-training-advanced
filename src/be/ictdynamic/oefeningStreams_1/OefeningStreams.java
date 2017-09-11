@@ -21,15 +21,15 @@ public class OefeningStreams {
 
         Employee employee = new Employee(1, "wim van den brande", 50, Worker.Gender.MALE, null);
         Set<Department> departments1 = new LinkedHashSet<>();
-        departments1.add(new Department(1, "department 1"));
-        departments1.add(new Department(2, "department 2"));
+        departments1.add(new Department(1, "department 1", ""));
+        departments1.add(new Department(2, "department 2", ""));
         employee.setDepartment(departments1);
         employees.add(employee);
 
         employee = new Employee(2, "kris van den brande", 48, null, null);
         Set<Department> departments2 = new LinkedHashSet<>();
-        departments2.add(new Department(2, "department 2"));
-        departments2.add(new Department(3, "department 3"));
+        departments2.add(new Department(2, "department 2", ""));
+        departments2.add(new Department(3, "department 3", ""));
         employee.setDepartment(departments2);
         employees.add(employee);
 
