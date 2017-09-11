@@ -1,6 +1,6 @@
 package be.ictdynamic;
 
-import be.ictdynamic.oefeningStreams_20.OefeningStreams;
+import be.ictdynamic.oefeningStreams_1.OefeningStreams;
 
 import java.util.Scanner;
 
@@ -12,15 +12,17 @@ public class MyApplication {
         int oefeningInteger = reader.nextInt();
 
         switch (oefeningInteger) {
-            case 0:
-                MyApplication.oefeningInheritance();
+            case 1:
+                MyApplication.oefeningStreams();
                 break;
+            default :
+                System.out.println("geen oefening voorzien");
         }
 
         reader.close();
     }
 
-    private static void oefeningInheritance() {
+    private static void oefeningStreams() {
         OefeningStreams oefeningStreams = new OefeningStreams();
         oefeningStreams.exec();
     }

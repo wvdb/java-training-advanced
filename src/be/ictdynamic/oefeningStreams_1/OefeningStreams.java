@@ -1,4 +1,4 @@
-package be.ictdynamic.oefeningStreams_20;
+package be.ictdynamic.oefeningStreams_1;
 
 import be.ictdynamic.domain.Department;
 import be.ictdynamic.domain.Employee;
@@ -14,9 +14,11 @@ import static java.util.Comparator.comparing;
  */
 public class OefeningStreams {
 
-    private Set<Employee> employees = new LinkedHashSet<>(10);
+    private Set<Employee> employees;
 
     public OefeningStreams() {
+        employees = this.getEmployees();
+
         Employee employee = new Employee(1, "wim van den brande", 50, Worker.Gender.MALE, null);
         Set<Department> departments1 = new LinkedHashSet<>();
         departments1.add(new Department(1, "department 1"));
@@ -45,6 +47,9 @@ public class OefeningStreams {
     }
 
     public Set<Employee> getEmployees() {
+        if (employees == null) {
+            employees = new LinkedHashSet<>(10);
+        }
         return employees;
     }
 
@@ -63,14 +68,30 @@ public class OefeningStreams {
         // collect closes the pipeline and returns a result
 
         List<Employee> femaleEmployees = getEmployees().stream().filter(employee -> employee.getGender() == Worker.Gender.FEMALE).collect(Collectors.toList());
-        System.out.println("number of employees = " + femaleEmployees.size() + ", : " + femaleEmployees);
+        System.out.println("number of female employees = " + femaleEmployees.size() + ", : " + femaleEmployees);
 
         List<Integer> ages = getEmployees().stream().map(employee -> employee.getAge()).collect(Collectors.toList());
         System.out.println("number of ages = " + femaleEmployees.size() + ", : " + ages);
 
+        // DO NOT check for nulls
+
+        // Avoid coding a method that returns null
+        // The idea is to not force calling code to immediately handle issues
+        List<Employee> otherEmployees = getEmployees().stream().filter(employee -> employee.getGender() == Worker.Gender.OTHER).collect(Collectors.toList());
+        System.out.println("number of other employees = " + otherEmployees.size() + ", : " + otherEmployees);
+
         // be aware - sorting is expensive
         List<Employee> employeesSortedByAge = getEmployees().stream().sorted(comparing(Employee::getAge)).collect(Collectors.toList());
         System.out.println("employeesSortedByAge: " + employeesSortedByAge);
+
+        // example of Optional
+        Optional<Employee> optionalEmployee = getEmployees().stream().filter(employee -> employee.getGender() == Worker.Gender.FEMALE).findFirst();
+        if (optionalEmployee.isPresent()) {
+            System.out.println("Our employees contain multiple genders.");
+        }
+        else {
+            System.out.println("No woman across our employees.");
+        }
 
         // BTW : streams work on Arrays as well
         Employee myEmployeesArray[] = employeesSortedByAge.toArray(new Employee[employeesSortedByAge.size()]);
@@ -81,10 +102,10 @@ public class OefeningStreams {
         System.out.println("anyMatchBoolean: " + anyMatchBoolean);
 
         Boolean allMatch = getEmployees().stream().allMatch(employee -> employee.getId() > 0);
-        System.out.println("anyMatchBoolean: " + allMatch);
+        System.out.println("allMatchBoolean: " + allMatch);
 
         // example of the flatmap !!! (asked in an interview)
-        // NPE als getDepartment geen logica bevat
+        // NPE als getDepartment geen lazy initialization bevat
         List<Department> departments =
                 getEmployees()
                         .stream()

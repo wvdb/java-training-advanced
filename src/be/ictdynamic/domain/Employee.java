@@ -78,6 +78,6 @@ public class Employee extends Worker {
                 ", hireDate=" + hireDate +
                 ", projects=" + projects +
                 ", department=" + department +
-                '}';
+                "}\n";
     }
 }
