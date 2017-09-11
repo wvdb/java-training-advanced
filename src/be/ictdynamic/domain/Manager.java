@@ -12,6 +12,9 @@ public class Manager extends Worker {
 
     private Set<Employee> subordinates;
 
+    public Manager() {
+    }
+
     public Manager(Integer id, String name, Integer age, Gender gender, Date hireDate) {
         super(id, name, age, gender);
         this.hireDate = hireDate;
