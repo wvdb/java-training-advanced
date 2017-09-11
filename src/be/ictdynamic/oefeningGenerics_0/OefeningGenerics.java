@@ -27,7 +27,8 @@ public class OefeningGenerics {
         Employee employee1 = (Employee) employees.get(0);
 
         // throws ClassCastException
-        Employee employee2 = (Employee) employees.get(1);
+        // GENERICS HAVE BEEN DESIGNED TO AVOID RUNTIME ERRORS (and to make java more secure!!!)
+//        Employee employee2 = (Employee) employees.get(1);
     }
 
     public static void demo0() {
@@ -58,11 +59,13 @@ public class OefeningGenerics {
         // if Foo is a subtype of Bar, and G is some generic type declaration, it is not the case that G<Foo> is a subtype of G<Bar>
 
         List<Employee> employees = new ArrayList<>();
+        employees.add(employee);
         // does not compile !!!
-        // WHY ???
+        // WHY -> course -> page 271
 //        List<Worker> workers = employees;
-        List<Worker> workers = new ArrayList<>();
 
+        List<Worker> workers = new ArrayList<>();
+        workers.remove(0);
         workers.add(new Manager());
     }
 

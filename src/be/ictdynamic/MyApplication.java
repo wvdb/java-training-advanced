@@ -25,6 +25,7 @@ public class MyApplication {
         }
 
         reader.close();
+
     }
 
     private static void oefeningGenerics() {
