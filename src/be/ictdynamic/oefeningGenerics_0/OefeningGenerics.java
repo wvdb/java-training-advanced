@@ -84,12 +84,15 @@ public class OefeningGenerics {
     }
 
     // second example of a GENERIC METHOD - schrijfwijze 1
+    // Type Variable can be used within the entire method
     private static <T1, T2 extends DatabaseEntity> int countNumberOfWorkers3A(List<T1> genericList, List<T2> otherList) {
         return genericList.size();
     }
 
     // second example of a GENERIC METHOD - schrijfwijze 2
+    // Type Variable can be used within the entire method
     private static <S, T extends DatabaseEntity> int countNumberOfWorkers3B(List<S> genericList, List<T> otherList) {
+        List<S> arrayList1 = new ArrayList<>();
         return genericList.size();
     }
 

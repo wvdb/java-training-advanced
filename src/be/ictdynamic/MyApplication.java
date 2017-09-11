@@ -1,5 +1,6 @@
 package be.ictdynamic;
 
+import be.ictdynamic.domain.Department;
 import be.ictdynamic.oefeningGenerics_0.OefeningGenerics;
 import be.ictdynamic.oefeningStreams_1.OefeningStreams;
 
@@ -11,6 +12,11 @@ public class MyApplication {
         Scanner reader = new Scanner(System.in);
         System.out.println("Geef identifier van de oefening: ");
         int oefeningInteger = reader.nextInt();
+
+        Department department = new Department.DepartmentBuilder()
+                .departmentAddress("example of an address")
+                .departmentName("example of a department")
+                .build();
 
         switch (oefeningInteger) {
             case 0:
