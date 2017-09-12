@@ -22,17 +22,17 @@ public class OefeningCollections {
         // When you iterate through a HashSet the order is unpredictable,
         // LinkedHashSet allows insertion-order iterations.
 
-        Set<Employee> uniqueEmployeesWithPredictableOrder = new LinkedHashSet<>(
-                Arrays.asList(  new Employee(1, "wim van den brande", 49, Worker.Gender.MALE, null),
-                                new Employee(2, "hillary clinton", 72, Worker.Gender.FEMALE, null),
-                                new Employee(3, "bill clinton", 72, Worker.Gender.MALE, null),
-                                new Employee(1, "wim van den brande", 50, Worker.Gender.MALE, null)));
-
         Set<Employee> uniqueEmployeesWithUnPredictableOrder = new HashSet<>(
                 Arrays.asList(  new Employee(1, "wim van den brande", 49, Worker.Gender.MALE, null),
                         new Employee(2, "hillary clinton", 72, Worker.Gender.FEMALE, null),
                         new Employee(3, "bill clinton", 72, Worker.Gender.MALE, null),
                         new Employee(1, "wim van den brande", 50, Worker.Gender.MALE, null)));
+
+        Set<Employee> uniqueEmployeesWithPredictableOrder = new LinkedHashSet<>(
+                Arrays.asList(  new Employee(1, "wim van den brande", 49, Worker.Gender.MALE, null),
+                                new Employee(2, "hillary clinton", 72, Worker.Gender.FEMALE, null),
+                                new Employee(3, "bill clinton", 72, Worker.Gender.MALE, null),
+                                new Employee(1, "wim van den brande", 50, Worker.Gender.MALE, null)));
 
         System.out.println("number of entries in employees = " + employees.size());
         System.out.println("number of entries in uniqueEmployee = " + uniqueEmployeesWithPredictableOrder.size());
