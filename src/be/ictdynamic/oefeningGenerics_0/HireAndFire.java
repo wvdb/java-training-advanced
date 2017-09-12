@@ -7,8 +7,8 @@ import be.ictdynamic.domain.Worker;
 /**
  * Created by admin on 11/09/2017.
  */
-public class HireAndFire<T extends Worker> {
-    public float fire(T worker, int noticePeriod) {
+public class HireAndFire<T extends Worker> extends Hire<T> {
+    public float executeFire(T worker, int noticePeriod) {
         if (worker instanceof Employee) {
             noticePeriod *= 1.5;
         } else if (worker instanceof Manager) {

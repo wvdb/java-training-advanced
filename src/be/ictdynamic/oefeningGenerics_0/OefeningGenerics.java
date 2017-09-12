@@ -63,10 +63,6 @@ public class OefeningGenerics {
         // does not compile !!!
         // WHY -> course -> page 271
 //        List<Worker> workers = employees;
-
-        List<Worker> workers = new ArrayList<>();
-        workers.remove(0);
-        workers.add(new Manager());
     }
 
     public static void demo2() {
@@ -77,6 +73,16 @@ public class OefeningGenerics {
         countNumberOfWorkers2(employees);
         countNumberOfWorkers2(managers);
         countNumberOfWorkers2(strings);
+    }
+
+    public static void demo3() {
+        Hire hire = new Hire();
+        String dummy = "";
+        hire.executeHire(dummy);
+
+        HireAndFire hireAndFire = new HireAndFire();
+        // does not compile
+//        hireAndFire.executeFire(dummy);
     }
 
     private static int countNumberOfWorkers1(List<? extends Worker> listOfWorkers) {
@@ -106,7 +112,7 @@ public class OefeningGenerics {
         Object object = new Object();
         // does not compile !!!
         // you cannot just shove objects into a collection of unknown type.
-        // ? tells the compiler that we’re dealing with a subtype of the type T, but we cannot know which one
+        // ? tells the compiler that weï¿½re dealing with a subtype of the type T, but we cannot know which one
         // genericList.add(object);
         return genericList.size();
     }

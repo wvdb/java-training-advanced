@@ -1,4 +1,4 @@
-package be.ictdynamic.oefeningStreams_1;
+package be.ictdynamic.oefeningStreams_4;
 
 import be.ictdynamic.domain.Department;
 import be.ictdynamic.domain.Employee;
@@ -92,6 +92,12 @@ public class OefeningStreams {
         else {
             System.out.println("No woman across our employees.");
         }
+
+        // example of parallel stream
+        // Parallel streams make sense if the collection is large enough and your computer has enough cores!!!
+        // Issues ????
+
+        getEmployees().parallelStream().filter(employee -> employee.getGender() == Worker.Gender.OTHER).collect(Collectors.toList());
 
         // BTW : streams work on Arrays as well
         Employee myEmployeesArray[] = employeesSortedByAge.toArray(new Employee[employeesSortedByAge.size()]);
