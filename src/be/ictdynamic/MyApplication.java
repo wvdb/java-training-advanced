@@ -25,6 +25,7 @@ public class MyApplication {
                 break;
             case 1:
                 MyApplication.oefeningCollectionsList();
+                OefeningCollections.demoLinkedList();
                 break;
             case 2:
                 MyApplication.oefeningCollectionsMap();

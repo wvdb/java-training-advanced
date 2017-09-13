@@ -63,4 +63,22 @@ public class OefeningCollections {
             System.out.println("Entry has key " + entry.getKey() + " and value " + entry.getValue());
         }
     }
+
+    public static void demoLinkedList() {
+//        ArrayList<String> list = new ArrayList<>();
+        LinkedList<String> list = new LinkedList<>();
+
+        list.add("this");
+        list.add("is");
+        list.add(2, "something ");
+        list.add(3, "we cannot do with an ArrayList");
+
+        list.addFirst("Ho Ho Ho");
+
+        for (String string : list) {
+            System.out.println(string);
+        }
+
+    }
+
 }
