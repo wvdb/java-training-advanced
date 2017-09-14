@@ -41,6 +41,9 @@ public class MyApplication {
             case 4:
                 MyApplication.oefeningStreams();
                 break;
+            case 10:
+                MyApplication.oefeningThreads();
+                break;
             default :
                 System.out.println("!!!Geen oefening voorzien.");
         }
@@ -63,6 +66,7 @@ public class MyApplication {
 
     private static void oefeningCollectionsMap() {
         OefeningCollections.demoHashMapVersusLinkedHashMap();
+        OefeningCollections.demoQueue();
     }
 
     private static void oefeningLambdas() {
@@ -125,4 +129,34 @@ public class MyApplication {
         public static boolean isEven(Integer n) { return n % 2 == 0; }
         public static boolean isPositive(Integer n) { return n >= 0; }
     }
+
+    private static void oefeningThreads() {
+        Runnable task = () -> {
+            String threadName = Thread.currentThread().getName();
+            System.out.println("Hello " + threadName);
+        };
+
+        task.run();
+
+        Thread thread = new Thread(task);
+        thread.start();
+
+        System.out.println("Done!");
+
+        // possible output (volgorde is niet voorspelbaar)
+
+//        Geef identifier van de oefening:
+//        10
+//        Hello main
+//        Done!
+//        Hello Thread-0
+
+//        Geef identifier van de oefening:
+//        10
+//        Hello main
+//        Hello Thread-0
+//        Done!
+
+    }
+
 }

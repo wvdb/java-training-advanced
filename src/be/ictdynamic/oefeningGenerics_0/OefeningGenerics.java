@@ -112,7 +112,7 @@ public class OefeningGenerics {
         Object object = new Object();
         // does not compile !!!
         // you cannot just shove objects into a collection of unknown type.
-        // ? tells the compiler that we�re dealing with a subtype of the type T, but we cannot know which one
+        // ? tells the compiler that we are dealing with a subtype of the type T, but we cannot know which one
         // genericList.add(object);
         return genericList.size();
     }

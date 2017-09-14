@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * Created by wvdbrand on 24/08/2017.
  */
-public class Employee extends Worker {
+public class Employee extends Worker implements Comparable<Employee> {
     // every sub-class of worker has a hireDate, a worker doesn't
     private Date hireDate;
     private Set<Project> projects;
@@ -79,5 +79,10 @@ public class Employee extends Worker {
                 ", projects=" + projects +
                 ", department=" + department +
                 "}\n";
+    }
+
+    @Override
+    public int compareTo(Employee employeeOther) {
+        return getId().compareTo(employeeOther.getId());
     }
 }

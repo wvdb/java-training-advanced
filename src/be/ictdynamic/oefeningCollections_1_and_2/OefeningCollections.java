@@ -64,6 +64,34 @@ public class OefeningCollections {
         }
     }
 
+    public static void demoQueue() {
+        Queue<Employee> employees = new LinkedList<>(
+                Arrays.asList(  new Employee(1, "wim van den brande", 49, Worker.Gender.MALE, null),
+                        new Employee(2, "hillary clinton", 72, Worker.Gender.FEMALE, null),
+                        new Employee(3, "bill clinton", 72, Worker.Gender.MALE, null),
+                        new Employee(4, "floriaan van den brande", 50, Worker.Gender.MALE, null)));
+
+        if (employees.peek() != null) {
+            Employee firstEmployee = employees.remove();
+            System.out.println("firstEmployee = " + firstEmployee);
+        }
+
+        System.out.println("Number of entries in queue = " + employees.size());
+
+        if (employees.peek() != null) {
+            Employee secondEmployee = employees.remove();
+            System.out.println("secondEmployee = " + secondEmployee);
+        }
+
+        System.out.println("Number of entries in queue = " + employees.size());
+
+        while (employees.peek() != null) {
+            Employee nextEmployee = employees.remove();
+            System.out.println("nextEmployee = " + nextEmployee);
+        }
+
+    }
+
     public static void demoLinkedList() {
 //        ArrayList<String> list = new ArrayList<>();
         LinkedList<String> list = new LinkedList<>();

@@ -33,16 +33,16 @@ public class OefeningStreams {
         employee.setDepartment(departments2);
         employees.add(employee);
 
-        employee = new Employee(3 ,"jan van den brande", 52, Worker.Gender.MALE, null);
-        employees.add(employee);
-
-        employee = new Employee(4, "hilary clinton", 72, Worker.Gender.FEMALE, null);
+        employee = new Employee(6, "michelle obama", 55, Worker.Gender.FEMALE, null);
         employees.add(employee);
 
         employee = new Employee(5, "donald trump", 71, Worker.Gender.MALE, null);
         employees.add(employee);
 
-        employee = new Employee(6, "michelle obama", 55, Worker.Gender.FEMALE, null);
+        employee = new Employee(4, "hilary clinton", 72, Worker.Gender.FEMALE, null);
+        employees.add(employee);
+
+        employee = new Employee(3 ,"jan van den brande", 52, Worker.Gender.MALE, null);
         employees.add(employee);
     }
 
@@ -119,6 +119,15 @@ public class OefeningStreams {
                         .flatMap(Collection::stream)
                         .distinct()
                         .collect(Collectors.toList());
-        System.out.println("departments: " + departments);
+        System.out.println("departments (collected with a flatmap) : " + departments);
+
+
+        // streams and sort by Id (using Comparable interface and compareTo method)
+        System.out.println("Streams and sort - example 1");
+        getEmployees().stream().sorted().forEach(System.out::println);
+
+        // streams and sort by Age (using Comparable interface and compareTo method)
+        System.out.println("Streams and sort - example 2");
+        getEmployees().stream().sorted(comparing(Worker::getAge)).forEach(System.out::println);
     }
 }
