@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Created by wvdbrand on 24/08/2017.
  */
-public abstract class Worker extends DatabaseEntity implements Serializable{
+public abstract class Worker extends DatabaseEntity{
     private String name;
     private Integer age;
     private Gender gender;

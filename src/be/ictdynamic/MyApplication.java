@@ -1,6 +1,8 @@
 package be.ictdynamic;
 
 import be.ictdynamic.domain.Employee;
+import be.ictdynamic.domain.Project;
+import be.ictdynamic.domain.Project2;
 import be.ictdynamic.domain.Worker;
 import be.ictdynamic.oefeningCollections_1_and_2.OefeningCollections;
 import be.ictdynamic.oefeningGenerics_0.OefeningGenerics;
@@ -14,7 +16,9 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Timer;
 import java.util.function.Predicate;
+import java.util.zip.GZIPOutputStream;
 
 public class MyApplication {
 
@@ -24,7 +28,14 @@ public class MyApplication {
     public static final String HANS_DULFER_FILE = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\streetbeats.mp3";
     public static final String COPY_HANS_DULFER_FILE = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\copy - streetbeats.mp3";
 
+    public static final String SERIALIZED_FILE = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\Test.ser";
+    public static final String LARGE_SERIALIZED_FILE_1 = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\LargeTest1.ser";
+    public static final String LARGE_SERIALIZED_FILE_2 = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\LargeTest2.ser";
+
     public static final String TEMP_TXT = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\temp.txt";
+    private static final String VERY_LARGE_NAME = "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT" +
+                                                  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS" +
+                                                  "UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU";
 
     public static void main(String[] args) {
         Scanner reader = new Scanner(System.in);
@@ -56,6 +67,13 @@ public class MyApplication {
             case 5:
                 MyApplication.oefeningFile_5();
                 break;
+            case 6:
+                MyApplication.oefeningSerialisation_6();
+                break;
+            case 7:
+                MyApplication.oefeningSerialisation_7a();
+                MyApplication.oefeningSerialisation_7b();
+                break;
             case 10:
                 MyApplication.oefeningThreads();
                 break;
@@ -82,7 +100,7 @@ public class MyApplication {
         }
 
         try (BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(JSP_PDF_FILE));
-             BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(COPY_JSP_PDF_FILE));
+             BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(COPY_JSP_PDF_FILE))
             ){
             // get number of bytes available
             int numByte = inputStream.available();
@@ -109,9 +127,58 @@ public class MyApplication {
 
             // remark 1: if we would like to store this in a DBMS we need a BLOB
             // remark 2: with Apache TIKA framework we get additional metadata of the file (mime-type)
+            // remark 3: problem HP -> DMS + Wicket : working on Windows, not working on customer-acceptance environment (Unix)
         }
         catch (IOException e) {
             System.out.println("!!!Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private static void oefeningSerialisation_6() {
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(SERIALIZED_FILE));
+        ){
+            Project2 project2 = new Project2();
+            outputStream.writeObject(project2);
+        }
+        catch (IOException e) {
+            System.out.println("!!!Something went wrong: " + e.getMessage());
+//            System.out.println("!!!Something went wrong: Message = " + e.getMessage() + ". Type exception = " + e.getClass());
+        }
+    }
+
+    private static void oefeningSerialisation_7a() {
+        try {
+            Project project = new Project();
+            project.setName(VERY_LARGE_NAME);
+
+            GZIPOutputStream zippedOutputStream = new GZIPOutputStream(new FileOutputStream(LARGE_SERIALIZED_FILE_1));
+            ObjectOutputStream outputStream2 = new ObjectOutputStream(zippedOutputStream);
+            outputStream2.writeObject(project);
+
+            outputStream2.flush();
+            outputStream2.close();
+
+            // remark 1: verify number of bytes -> properties of the file
+            // remark 2: recommend dedicated libraries
+        }
+        catch (IOException e) {
+            System.out.println("!!!Something went wrong: Message = " + e.getMessage() + ". Type exception = " + e.getClass());
+        }
+    }
+
+    private static void oefeningSerialisation_7b() {
+        try {
+            Project project = new Project();
+            project.setName(VERY_LARGE_NAME);
+
+            ObjectOutputStream outputStream2 = new ObjectOutputStream(new FileOutputStream(LARGE_SERIALIZED_FILE_2));
+            outputStream2.writeObject(project);
+
+            outputStream2.flush();
+            outputStream2.close();
+        }
+        catch (IOException e) {
+            System.out.println("!!!Something went wrong: Message = " + e.getMessage() + ". Type exception = " + e.getClass());
         }
     }
 
