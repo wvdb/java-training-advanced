@@ -7,12 +7,24 @@ import be.ictdynamic.oefeningGenerics_0.OefeningGenerics;
 import be.ictdynamic.oefeningStreams_4.OefeningStreams;
 import be.ictdynamic.oefening_function_10.ExampleOfAFunction;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
 public class MyApplication {
+
+    public static final String JSP_PDF_FILE = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\jsp.pdf";
+    public static final String COPY_JSP_PDF_FILE = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\copy - jsp.pdf";
+
+    public static final String HANS_DULFER_FILE = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\streetbeats.mp3";
+    public static final String COPY_HANS_DULFER_FILE = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\copy - streetbeats.mp3";
+
+    public static final String TEMP_TXT = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\temp.txt";
 
     public static void main(String[] args) {
         Scanner reader = new Scanner(System.in);
@@ -41,6 +53,9 @@ public class MyApplication {
             case 4:
                 MyApplication.oefeningStreams();
                 break;
+            case 5:
+                MyApplication.oefeningFile_5();
+                break;
             case 10:
                 MyApplication.oefeningThreads();
                 break;
@@ -50,6 +65,54 @@ public class MyApplication {
 
         reader.close();
 
+    }
+
+    private static void oefeningFile_5() {
+        Path path = Paths.get(TEMP_TXT);
+        byte[] bytes = {1,2,3};
+//        List<String> strings = Arrays.asList("1", "2", "3");
+
+        try {
+            Files.createFile(path);
+            Files.write(path, bytes);
+//            Files.write(path, strings, Charset.defaultCharset(), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            // TO BE AVOIDED
+            e.printStackTrace();
+        }
+
+        try (BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(JSP_PDF_FILE));
+             BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(COPY_JSP_PDF_FILE));
+            ){
+            // get number of bytes available
+            int numByte = inputStream.available();
+
+            // ho ho : we allocate a lot of memory at once
+            byte[] myByteArray = new byte[numByte];
+
+            // perform actual read (one go)
+            int bytesRead = inputStream.read(myByteArray);
+
+            // impl with blocks of 1024 bytes
+            //            while (inputStream.read(myByteArray, 0 , 1024) > 0) {
+            //                outputStream.write(myByteArray);
+            //            }
+
+            // let's create a corrupt PDF -> explain the importance of correctness of every single byte/bit
+//            myByteArray[0] = 0;
+
+            System.out.println("Number of bytes available = " + numByte);
+            System.out.println("Number of bytes read = " + bytesRead);
+
+            // perform actual write (one go)
+            outputStream.write(myByteArray);
+
+            // remark 1: if we would like to store this in a DBMS we need a BLOB
+            // remark 2: with Apache TIKA framework we get additional metadata of the file (mime-type)
+        }
+        catch (IOException e) {
+            System.out.println("!!!Something went wrong: " + e.getMessage());
+        }
     }
 
     private static void oefeningGenerics() {
