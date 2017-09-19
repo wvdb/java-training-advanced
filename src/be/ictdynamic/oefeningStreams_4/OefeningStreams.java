@@ -167,6 +167,5 @@ public class OefeningStreams {
         SortedSet tailSet = employeesSorted.tailSet(employee4);
         System.out.println("tailSet: " + tailSet);
 
-
     }
 }
