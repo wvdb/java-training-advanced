@@ -302,17 +302,18 @@ public class MyApplication {
     }
 
     private static void oefeningThreads_13() {
-        Runnable task = () -> {
-            String threadName = Thread.currentThread().getName();
-            System.out.println("Hello " + threadName);
-        };
+        char[] charactersToPrint = {'!', '?', '*', ':', '='};
 
-        task.run();
+        // thread with lambda
 
-        Thread thread = new Thread(task);
-        thread.start();
+        for (char characterToPrint : charactersToPrint) {
+            Thread thread = new Thread(() -> {
+                testMethod(characterToPrint, 60);
+            });
+            thread.start();
+        }
 
-        System.out.println("Done with oefeningThreads_12!");
+        System.out.println("Done with oefeningThreads_13!");
 
         // possible output (volgorde is niet voorspelbaar)
 
@@ -328,6 +329,12 @@ public class MyApplication {
 //        Hello Thread-0
 //        Done!
 
+    }
+
+    private static void testMethod(char c, int count) {
+        for (int i=0; i<count; i++) {
+            System.out.print(c);
+        }
     }
 
 }
