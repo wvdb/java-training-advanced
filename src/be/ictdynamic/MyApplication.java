@@ -7,6 +7,8 @@ import be.ictdynamic.domain.Worker;
 import be.ictdynamic.oefeningCollections_1_and_2.OefeningCollections;
 import be.ictdynamic.oefeningGenerics_0.OefeningGenerics;
 import be.ictdynamic.oefeningStreams_4.OefeningStreams;
+import be.ictdynamic.oefeningThreads_11.MyRunnable;
+import be.ictdynamic.oefeningThreads_11.OefeningThreads;
 import be.ictdynamic.oefening_function_10.ExampleOfAFunction;
 
 import java.io.*;
@@ -74,8 +76,14 @@ public class MyApplication {
                 MyApplication.oefeningSerialisation_7a();
                 MyApplication.oefeningSerialisation_7b();
                 break;
-            case 10:
-                MyApplication.oefeningThreads();
+            case 11:
+                MyApplication.oefeningThreads_11();
+                break;
+            case 12:
+                MyApplication.oefeningThreads_12();
+                break;
+            case 13:
+                MyApplication.oefeningThreads_13();
                 break;
             default :
                 System.out.println("!!!Geen oefening voorzien.");
@@ -260,7 +268,40 @@ public class MyApplication {
         public static boolean isPositive(Integer n) { return n >= 0; }
     }
 
-    private static void oefeningThreads() {
+    private static void oefeningThreads_11() {
+        char[] charactersToPrint = {'!', '?', '*', ':', '='};
+
+        for (char characterToPrint : charactersToPrint) {
+            OefeningThreads myThread = new OefeningThreads(characterToPrint, 60);
+            myThread.start();
+        }
+
+        for (int i = 0; i<charactersToPrint.length; i++) {
+            OefeningThreads myThread = new OefeningThreads(charactersToPrint[i], 60);
+            // TODO : this throws an IAE
+//            myThread.setPriority(i);
+            myThread.setPriority(i+1);
+            myThread.start();
+        }
+
+        System.out.println("Done with oefeningThreads_11!");
+    }
+
+    private static void oefeningThreads_12() {
+        char[] charactersToPrint = {'!', '?', '*', ':', '='};
+
+        for (char characterToPrint : charactersToPrint) {
+            MyRunnable myRunnable = new MyRunnable(characterToPrint, 60);
+
+            // TODO : inspect constructor of Thread
+            Thread myThread = new Thread(myRunnable);
+            myThread.start();
+        }
+
+        System.out.println("Done with oefeningThreads_12!");
+    }
+
+    private static void oefeningThreads_13() {
         Runnable task = () -> {
             String threadName = Thread.currentThread().getName();
             System.out.println("Hello " + threadName);
@@ -271,7 +312,7 @@ public class MyApplication {
         Thread thread = new Thread(task);
         thread.start();
 
-        System.out.println("Done!");
+        System.out.println("Done with oefeningThreads_12!");
 
         // possible output (volgorde is niet voorspelbaar)
 
