@@ -18,7 +18,6 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Timer;
 import java.util.function.Predicate;
 import java.util.zip.GZIPOutputStream;
 
@@ -41,7 +40,7 @@ public class MyApplication {
 
     public static void main(String[] args) {
         Scanner reader = new Scanner(System.in);
-        System.out.println("Geef identifier van de oefening: ");
+        System.out.println("Enter identifier of the exercise ");
         int oefeningInteger = reader.nextInt();
 
         switch (oefeningInteger) {
@@ -86,7 +85,7 @@ public class MyApplication {
                 MyApplication.oefeningThreads_13();
                 break;
             default :
-                System.out.println("!!!Geen oefening voorzien.");
+                System.err.println("!!!No exercise supported.");
         }
 
         reader.close();
@@ -315,7 +314,7 @@ public class MyApplication {
 
         System.out.println("Done with oefeningThreads_13!");
 
-        // possible output (volgorde is niet voorspelbaar)
+        // possible output (the sequence of logging is not predictable)
 
 //        Geef identifier van de oefening:
 //        10
