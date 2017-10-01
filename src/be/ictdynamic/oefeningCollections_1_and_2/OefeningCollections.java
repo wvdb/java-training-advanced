@@ -107,6 +107,7 @@ public class OefeningCollections {
             System.out.println(string);
         }
 
+        list.forEach(System.out::println);
     }
 
 }

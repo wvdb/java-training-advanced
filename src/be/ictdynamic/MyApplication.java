@@ -48,7 +48,7 @@ public class MyApplication {
                 MyApplication.oefeningGenerics();
                 break;
             case 1:
-                MyApplication.oefeningCollectionsList();
+//                MyApplication.demoSetVersusList();
                 OefeningCollections.demoLinkedList();
                 break;
             case 2:
@@ -197,7 +197,7 @@ public class MyApplication {
         OefeningGenerics.demo3();
     }
 
-    private static void oefeningCollectionsList() {
+    private static void demoSetVersusList() {
         OefeningCollections.demoSetVersusList();
     }
 

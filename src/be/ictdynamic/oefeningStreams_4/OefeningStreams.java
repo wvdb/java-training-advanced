@@ -99,7 +99,6 @@ public class OefeningStreams {
 
         initEmployees().parallelStream().filter(employee -> employee.getGender() == Worker.Gender.OTHER).collect(Collectors.toList());
 
-        // BTW : streams work on Arrays as well
         Employee myEmployeesArray[] = employeesSortedByAge.toArray(new Employee[employeesSortedByAge.size()]);
         List<Employee> employeesSortedByName = Arrays.stream(myEmployeesArray).sorted(comparing(Employee::getName)).collect(Collectors.toList());
         System.out.println("employeesSortedByName: " + employeesSortedByName);
