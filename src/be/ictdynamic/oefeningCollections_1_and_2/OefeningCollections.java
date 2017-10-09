@@ -9,36 +9,25 @@ import java.util.*;
  * Created by wvdbrand on 12/09/2017.
  */
 public class OefeningCollections {
-    public static void demoSetVersusList() {
-        // ArrayList allows insertion-order iterations
-        List<Employee> employees = Arrays.asList(new Employee(1, "wim van den brande", 49, Worker.Gender.MALE, null),
-                                                 new Employee(2, "hillary clinton", 72, Worker.Gender.FEMALE, null),
-                                                 new Employee(3, "bill clinton", 72, Worker.Gender.MALE, null),
-                                                 new Employee(1, "wim van den brande", 49, Worker.Gender.MALE, null));
-
-        // ask which method will be invoked to verify the employee is unique !!!
-        // comment out this code and run again
-
-        // When you iterate through a HashSet the order is unpredictable,
-        // LinkedHashSet allows insertion-order iterations.
-
+    public static void demoHashSetVsLinkedHashSetAndEquals() {
         Set<Employee> uniqueEmployeesWithUnPredictableOrder = new HashSet<>(
                 Arrays.asList(  new Employee(1, "wim van den brande", 49, Worker.Gender.MALE, null),
                         new Employee(2, "hillary clinton", 72, Worker.Gender.FEMALE, null),
                         new Employee(3, "bill clinton", 72, Worker.Gender.MALE, null),
-                        new Employee(1, "wim van den brande", 50, Worker.Gender.MALE, null)));
+                        new Employee(1, "kris van den brande", 50, Worker.Gender.MALE, null)));
 
         Set<Employee> uniqueEmployeesWithPredictableOrder = new LinkedHashSet<>(
                 Arrays.asList(  new Employee(1, "wim van den brande", 49, Worker.Gender.MALE, null),
                                 new Employee(2, "hillary clinton", 72, Worker.Gender.FEMALE, null),
                                 new Employee(3, "bill clinton", 72, Worker.Gender.MALE, null),
-                                new Employee(1, "wim van den brande", 50, Worker.Gender.MALE, null)));
+                                new Employee(4, "donald trump", 72, Worker.Gender.MALE, null),
+                                new Employee(1, "kris van den brande", 50, Worker.Gender.MALE, null)));
 
-        System.out.println("number of entries in employees = " + employees.size());
-        System.out.println("number of entries in uniqueEmployee = " + uniqueEmployeesWithPredictableOrder.size());
+        System.out.println("uniqueEmployeesWithUnPredictableOrder size = " + uniqueEmployeesWithUnPredictableOrder.size());
+        System.out.println("uniqueEmployeesWithPredictableOrder size = " + uniqueEmployeesWithPredictableOrder.size());
 
-        System.out.println("uniqueEmployeesWithPredictableOrder = " + uniqueEmployeesWithPredictableOrder);
         System.out.println("uniqueEmployeesWithUnPredictableOrder = " + uniqueEmployeesWithUnPredictableOrder);
+        System.out.println("uniqueEmployeesWithPredictableOrder = " + uniqueEmployeesWithPredictableOrder);
     }
 
     public static void demoHashMapVersusLinkedHashMap() {
@@ -93,6 +82,9 @@ public class OefeningCollections {
     }
 
     public static void demoLinkedList() {
+        List listOfIntegers = new ArrayList();
+        listOfIntegers.add(1);
+
 //        ArrayList<String> list = new ArrayList<>();
         LinkedList<String> list = new LinkedList<>();
 

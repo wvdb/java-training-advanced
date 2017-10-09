@@ -3,6 +3,7 @@ package be.ictdynamic.domain;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by wvdbrand on 24/08/2017.
@@ -11,7 +12,7 @@ public abstract class Worker extends DatabaseEntity{
     private String name;
     private Integer age;
     private Gender gender;
-    private Map<String, Object> remunerations;
+    private Set<Remuneration> remunerations;
 
     public enum Gender {
         MALE, FEMALE, OTHER
@@ -62,14 +63,22 @@ public abstract class Worker extends DatabaseEntity{
     // abstract method - the actual impl will be taken care of by the worker's sub-classes
     public abstract Float calculateSalary(Float... objects);
 
-    public Map<String, Object> getRemunerations() {
-        if (remunerations == null) {
-            remunerations = new HashMap<>();
-        }
-        return remunerations;
-    }
-
-    public void setRemunerations(Map<String, Object> remunerations) {
-        this.remunerations = remunerations;
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof Worker)) return false;
+//        if (!super.equals(o)) return false;
+//
+//        Worker worker = (Worker) o;
+//
+//        return getName().equals(worker.getName());
+//
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int result = super.hashCode();
+//        result = 31 * result + getName().hashCode();
+//        return result;
+//    }
 }

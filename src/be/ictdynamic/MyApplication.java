@@ -48,8 +48,8 @@ public class MyApplication {
                 MyApplication.oefeningGenerics();
                 break;
             case 1:
-//                MyApplication.demoSetVersusList();
-                OefeningCollections.demoLinkedList();
+                MyApplication.demoHashSetVsLinkedHashSetAndEquals();
+//                OefeningCollections.demoLinkedList();
                 break;
             case 2:
                 MyApplication.oefeningCollectionsMap();
@@ -57,10 +57,10 @@ public class MyApplication {
             case 3:
                 // A lambda expression represents an anonymous function.
                 // It comprises of a set of parameters, a lambda operator (->) and a function body.
-                MyApplication.oefeningLambdas();
+                MyApplication.oefeningLambdas_3();
                 ExampleOfAFunction exampleOfAFunction = new ExampleOfAFunction();
-                exampleOfAFunction.gettingNameOfTheEmployeeVeryFancy();
-                exampleOfAFunction.gettingNameOfTheEmployeeRegular();
+                exampleOfAFunction.gettingNameOfTheEmployeeVeryFancy_3();
+                exampleOfAFunction.gettingNameOfTheEmployeeRegular_3();
                 break;
             case 4:
                 MyApplication.oefeningStreams();
@@ -190,15 +190,15 @@ public class MyApplication {
     }
 
     private static void oefeningGenerics() {
-        OefeningGenerics.demoBasic();
-        OefeningGenerics.demo0();
-        OefeningGenerics.demo1();
-        OefeningGenerics.demo2();
-        OefeningGenerics.demo3();
+        OefeningGenerics.demoGenericsBasic();
+        OefeningGenerics.demoGenerics0();
+        OefeningGenerics.demoGenerics1();
+        OefeningGenerics.demoGenerics2();
+        OefeningGenerics.demoGenerics3();
     }
 
-    private static void demoSetVersusList() {
-        OefeningCollections.demoSetVersusList();
+    private static void demoHashSetVsLinkedHashSetAndEquals() {
+        OefeningCollections.demoHashSetVsLinkedHashSetAndEquals();
     }
 
     private static void oefeningCollectionsMap() {
@@ -206,7 +206,7 @@ public class MyApplication {
         OefeningCollections.demoQueue();
     }
 
-    private static void oefeningLambdas() {
+    private static void oefeningLambdas_3() {
         List<Employee> employees = Arrays.asList(  new Employee(1, "wim van den brande", 49, Worker.Gender.MALE, null)
                                                  , new Employee(2, "hillary clinton", 72, Worker.Gender.FEMALE, null)
                                                  , new Employee(3, "floriaan van den brande", 16, Worker.Gender.MALE, null)
@@ -244,8 +244,7 @@ public class MyApplication {
     // Predicate is an example of a functional interfaces
 
     private static Predicate<Employee> getAllMaleEmployeesPredicate() {
-        Predicate<Employee> predicate = employee -> employee.getGender() == Worker.Gender.MALE;
-        return predicate;
+        return employee -> employee.getGender() == Worker.Gender.MALE;
     }
 
     private static Predicate<Employee> getAllNotRetiredMaleEmployeesPredicate() {
@@ -256,7 +255,7 @@ public class MyApplication {
 
     private static void oefeningStreams() {
         OefeningStreams oefeningStreams = new OefeningStreams();
-        oefeningStreams.exec();
+        oefeningStreams.execStreams_4();
     }
 
     // Predicate using Static Method References
@@ -268,20 +267,24 @@ public class MyApplication {
     }
 
     private static void oefeningThreads_11() {
+        System.out.println("Enter number of chars to produce ");
+        Scanner reader = new Scanner(System.in);
+        int numberOfCharsToProduce = reader.nextInt();
+
         char[] charactersToPrint = {'!', '?', '*', ':', '='};
 
         for (char characterToPrint : charactersToPrint) {
-            OefeningThreads myThread = new OefeningThreads(characterToPrint, 60);
+            OefeningThreads myThread = new OefeningThreads(characterToPrint, numberOfCharsToProduce);
             myThread.start();
         }
 
-        for (int i = 0; i<charactersToPrint.length; i++) {
-            OefeningThreads myThread = new OefeningThreads(charactersToPrint[i], 60);
-            // TODO : this throws an IAE
-//            myThread.setPriority(i);
-            myThread.setPriority(i+1);
-            myThread.start();
-        }
+//        for (int i = 0; i<charactersToPrint.length; i++) {
+//            OefeningThreads myThread = new OefeningThreads(charactersToPrint[i], numberOfCharsToProduce);
+//            // TODO : this throws an IAE
+////            myThread.setPriority(i);
+//            myThread.setPriority(i+1);
+//            myThread.start();
+//        }
 
         System.out.println("Done with oefeningThreads_11!");
     }

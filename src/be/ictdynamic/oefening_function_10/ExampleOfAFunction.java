@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Created by wvdbrand on 24/08/2017.
  */
 public class ExampleOfAFunction {
-    public void gettingNameOfTheEmployeeVeryFancy() {
+    public void gettingNameOfTheEmployeeVeryFancy_3() {
         Function<Employee, String> getNameOfEmployeeFunction = Employee::getName;
 
         List<Employee> employees = getEmployees();
@@ -23,7 +23,7 @@ public class ExampleOfAFunction {
         empNameList.forEach(System.out::println);
     }
 
-    public void gettingNameOfTheEmployeeRegular() {
+    public void gettingNameOfTheEmployeeRegular_3() {
         List<Employee> employees = getEmployees();
 
         List<String> empNameList = this.convertEmpListToNamesList2(employees);

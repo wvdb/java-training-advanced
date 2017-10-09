@@ -14,31 +14,41 @@ import java.util.Map;
  * Created by wvdbrand on 11/09/2017.
  */
 public class OefeningGenerics {
-    public static void demoBasic() {
+    public static void demoGenericsBasic() {
         // actual problem before Java 1.5 (no generics available)
 
-        List employees = new ArrayList();
+        List employees1 = new ArrayList();
         Employee createdEmployee = new Employee(1, "wim van den brande", 49, null, null);
         String string = "dit is een test";
 
-        employees.add(createdEmployee);
-        employees.add(string);
+        employees1.add(createdEmployee);
+        employees1.add(string);
 
-        Employee employee1 = (Employee) employees.get(0);
+        List<Employee> employees2 = new ArrayList<>();
+
+//        employees2.add(createdEmployee);
+//        employees2.add(string);
+
+//        for (Object o : employees) {
+//
+//        }
+
+        Employee employee1 = (Employee) employees1.get(1);
 
         // throws ClassCastException
         // GENERICS HAVE BEEN DESIGNED TO AVOID RUNTIME ERRORS (and to make java more secure!!!)
 //        Employee employee2 = (Employee) employees.get(1);
     }
 
-    public static void demo0() {
+    public static void demoGenerics0() {
         List<Employee> employees = new ArrayList<>();
         List<Employee> managers = new ArrayList<>();
+
         List<String> strings = new ArrayList<>();
 
         countNumberOfWorkers1(employees);
         countNumberOfWorkers1(managers);
-        // does not compile !!!
+        // does not compile (generics issue) !!!
 //        countNumberOfWorkers1(strings);
         countEntriesInList(strings);
 
@@ -52,7 +62,7 @@ public class OefeningGenerics {
 //        exampleWithAMap(mapOfStrings);
     }
 
-    public static void demo1() {
+    public static void demoGenerics1() {
         Employee employee = new Employee(1, "wim van den brande", 49, null, null);
         Worker worker = employee;
 
@@ -65,7 +75,7 @@ public class OefeningGenerics {
 //        List<Worker> workers = employees;
     }
 
-    public static void demo2() {
+    public static void demoGenerics2() {
         List<Employee> employees = new ArrayList<>();
         List<Employee> managers = new ArrayList<>();
         List<String> strings = new ArrayList<>();
@@ -75,7 +85,7 @@ public class OefeningGenerics {
         countNumberOfWorkers2(strings);
     }
 
-    public static void demo3() {
+    public static void demoGenerics3() {
         Hire hire = new Hire();
         String dummy = "";
         hire.executeHire(dummy);

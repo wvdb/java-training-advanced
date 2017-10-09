@@ -3,9 +3,13 @@ package be.ictdynamic.oefeningStreams_4;
 import be.ictdynamic.domain.Department;
 import be.ictdynamic.domain.Employee;
 import be.ictdynamic.domain.Worker;
+import com.sun.org.apache.xpath.internal.SourceTree;
 
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static java.util.Comparator.comparing;
 
@@ -57,7 +61,7 @@ public class OefeningStreams {
         this.employees = employees;
     }
 
-    public void exec() {
+    public void execStreams_4() {
         // possible NPE !!!
         List<Employee> vdbEmployees1 = initEmployees().stream().filter(employee -> employee.getName().toLowerCase().lastIndexOf("van den brande") >= 0).collect(Collectors.toList());
         System.out.println("number of employees = " + vdbEmployees1.size() + ", : " + vdbEmployees1);
@@ -73,13 +77,10 @@ public class OefeningStreams {
         List<Integer> ages = initEmployees().stream().map(employee -> employee.getAge()).collect(Collectors.toList());
         System.out.println("number of ages = " + femaleEmployees.size() + ", : " + ages);
 
-        // DO NOT check for nulls
-
-        // Avoid coding a method that returns null
-        // The idea is to not force calling code to immediately handle issues
         List<Employee> otherEmployees = initEmployees().stream().filter(employee -> employee.getGender() == Worker.Gender.OTHER).collect(Collectors.toList());
         System.out.println("number of other employees = " + otherEmployees.size() + ", : " + otherEmployees);
 
+        // example of sort
         // be aware - sorting is expensive
         List<Employee> employeesSortedByAge = initEmployees().stream().sorted(comparing(Employee::getAge)).collect(Collectors.toList());
         System.out.println("employeesSortedByAge: " + employeesSortedByAge);
@@ -92,6 +93,11 @@ public class OefeningStreams {
         else {
             System.out.println("No woman across our employees.");
         }
+
+        // example with array (useful ???)
+        String[] words = {"dit", "is", "een", "een", "test"};
+        System.out.println("aantal woorden" + Stream.of(words).count());
+        System.out.println("aantal woorden (distinct)" + Stream.of(words).distinct().count());
 
         // example of parallel stream
         // Parallel streams make sense if the collection is large enough and your computer has enough cores!!!
@@ -151,9 +157,9 @@ public class OefeningStreams {
         employee = new Employee(0 ,"jan van den brande", 52, Worker.Gender.MALE, null);
         employeesSorted.add(employee);
 
-        System.out.println("employeesSortedDefault first: " + employeesSorted.first());
+        System.out.println("emp3loyeesSortedDefault first: " + employeesSorted.first());
         System.out.println("employeesSortedDefault last: " + employeesSorted.last());
-        // comparator will be null as we are using the Comparable
+        // comparator will be null since we are using the Comparable
         System.out.println("employeesSortedDefault: " + employeesSorted.comparator());
 
         // usage of headset
@@ -165,6 +171,9 @@ public class OefeningStreams {
         // Returns a view of the portion of this set whose elements are greater than or equal to fromElement.
         SortedSet tailSet = employeesSorted.tailSet(employee4);
         System.out.println("tailSet: " + tailSet);
+
+        IntStream intStream = IntStream.rangeClosed(0, 10);
+        intStream.forEach(myInt -> System.out.println("Result = " + myInt));
 
     }
 }
