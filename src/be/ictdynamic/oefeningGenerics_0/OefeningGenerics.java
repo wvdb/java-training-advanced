@@ -1,9 +1,6 @@
 package be.ictdynamic.oefeningGenerics_0;
 
-import be.ictdynamic.domain.DatabaseEntity;
-import be.ictdynamic.domain.Employee;
-import be.ictdynamic.domain.Manager;
-import be.ictdynamic.domain.Worker;
+import be.ictdynamic.domain.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +11,49 @@ import java.util.Map;
  * Created by wvdbrand on 11/09/2017.
  */
 public class OefeningGenerics {
+    // DO WE EXTEND OR DO WE IMPLEMENT ???
+
+    // https://stackoverflow.com/questions/976441/java-generics-why-is-extends-t-allowed-but-not-implements-t
+
+    public class MyComparable<E extends Comparable<E>> {
+        public E dummy1;
+        public E dummy2;
+
+        public MyComparable(E dummy1, E dummy2) {
+            this.dummy1 = dummy1;
+            this.dummy2 = dummy2;
+        }
+
+        public E getHighest() {
+            if (dummy1.compareTo(dummy2) > 0 ) {
+                return dummy1;
+            }
+            else {
+                return dummy2;
+            }
+//            return dummy1.compareTo(dummy2);
+        }
+    }
+
+    public void demoComparable() {
+        MyComparable<String> myComparable = new MyComparable<>("ABC", "DEF");
+        System.out.println(myComparable.getHighest());
+
+        // DOES THIS WORK ???
+
+//        MyComparable<Department> myComparable2 = new MyComparable<>("ABC", "DEF");
+//        System.out.println(myComparable2.getHighest());
+
+        // THIS DOES WORK !!!
+
+        // TASK : USE MyComparable in combination with Employee and use AGE, id, totalCost ....
+
+        MyComparable<Employee> myComparable3 = new MyComparable<>(new Employee(1, "Wim", 50), new Employee(2, "Kris", 47));
+        System.out.println("Employee with highest age = " + myComparable3.getHighest().getName());
+
+//        System.out.println("ABC".compareTo("DEF") > 0 ? "ABC" : "DEF");
+    }
+
     public static void demoGenericsBasic() {
         // actual problem before Java 1.5 (no generics available)
 
@@ -24,32 +64,52 @@ public class OefeningGenerics {
         employees1.add(createdEmployee);
         employees1.add(string);
 
-        List<Employee> employees2 = new ArrayList<>();
+        // TODO : to ask question : is this gonna work
+
+        Employee employee1A = (Employee) employees1.get(0);
+        Employee employee1B = (Employee) employees1.get(1);
+
+        // throws ClassCastException
+        // GENERICS HAVE BEEN DESIGNED TO AVOID RUNTIME ERRORS (and to make java more secure!!!)
+
+                List<Employee> employees2 = new ArrayList<>();
+
+//         TODO : to ask question : is this gonna work
 
 //        employees2.add(createdEmployee);
 //        employees2.add(string);
 
-//        for (Object o : employees) {
+
+        // TODO : to ask question : which operator would be helpful
+
+//        List<Object> employees3 = new ArrayList();
 //
+//        employees3.add(createdEmployee);
+//        employees3.add(string);
+//
+//        for (Object object : employees3) {
+//            if (object instanceof Employee)  {
+//                Employee employee3 = (Employee) object;
+//            }
+//            else {
+//                String dummyString = (String) object;
+//            }
 //        }
 
-        Employee employee1 = (Employee) employees1.get(1);
 
-        // throws ClassCastException
-        // GENERICS HAVE BEEN DESIGNED TO AVOID RUNTIME ERRORS (and to make java more secure!!!)
-//        Employee employee2 = (Employee) employees.get(1);
     }
 
     public static void demoGenerics0() {
         List<Employee> employees = new ArrayList<>();
         List<Employee> managers = new ArrayList<>();
-
         List<String> strings = new ArrayList<>();
 
         countNumberOfWorkers1(employees);
         countNumberOfWorkers1(managers);
+
         // does not compile (generics issue) !!!
 //        countNumberOfWorkers1(strings);
+
         countEntriesInList(strings);
 
         Map<String, Employee> mapOfEmployees = new HashMap<>();
@@ -83,6 +143,8 @@ public class OefeningGenerics {
         countNumberOfWorkers2(employees);
         countNumberOfWorkers2(managers);
         countNumberOfWorkers2(strings);
+
+        countNumberOfWorkers3A(managers, employees);
     }
 
     public static void demoGenerics3() {
@@ -92,22 +154,31 @@ public class OefeningGenerics {
 
         HireAndFire hireAndFire = new HireAndFire();
         // does not compile
-//        hireAndFire.executeFire(dummy);
+//        hireAndFire.executeFire(dummy1);
     }
 
     private static int countNumberOfWorkers1(List<? extends Worker> listOfWorkers) {
         return listOfWorkers.size();
     }
 
-    // first example of a GENERIC METHOD
+    // first example of type parameters (17.4.4)
     private static <T> int countNumberOfWorkers2(List<T> genericList) {
         return genericList.size();
     }
 
-    // second example of a GENERIC METHOD - schrijfwijze 1
+    // second example of type parameters (17.4.4)
     // Type Variable can be used within the entire method
-    private static <T1, T2 extends DatabaseEntity> int countNumberOfWorkers3A(List<T1> genericList, List<T2> otherList) {
-        return genericList.size();
+    private static <T1, T2 extends DatabaseEntity>
+                void countNumberOfWorkers3A(   List<T1> genericListOfDatabaseEntities1
+                                            , List<T2> genericListOfDatabaseEntities2) {
+        if (genericListOfDatabaseEntities1.size() > genericListOfDatabaseEntities2.size()) {
+            System.out.println("genericListOfDatabaseEntities1 is de grootste");
+        }
+        else if (genericListOfDatabaseEntities1.size() < genericListOfDatabaseEntities2.size()) {
+            System.out.println("genericListOfDatabaseEntities2 is de grootste");
+        } else {
+            System.out.println("genericListOfDatabaseEntities zijn gelijk qua grootte");
+        }
     }
 
     // second example of a GENERIC METHOD - schrijfwijze 2
@@ -120,10 +191,14 @@ public class OefeningGenerics {
     // ? can be replaced as ???
     private static int countEntriesInList(List<?> genericList) {
         Object object = new Object();
+
         // does not compile !!!
         // you cannot just shove objects into a collection of unknown type.
-        // ? tells the compiler that we are dealing with a subtype of the type T, but we cannot know which one
-        // genericList.add(object);
+        // ? tells the compiler that we are dealing with a subtype of the type T,
+        // but we cannot know which one
+
+//        genericList.add(object);
+
         return genericList.size();
     }
 

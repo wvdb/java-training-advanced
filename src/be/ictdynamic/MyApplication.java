@@ -1,9 +1,6 @@
 package be.ictdynamic;
 
-import be.ictdynamic.domain.Employee;
-import be.ictdynamic.domain.Project;
-import be.ictdynamic.domain.Project2;
-import be.ictdynamic.domain.Worker;
+import be.ictdynamic.domain.*;
 import be.ictdynamic.oefeningCollections_1_and_2.OefeningCollections;
 import be.ictdynamic.oefeningGenerics_0.OefeningGenerics;
 import be.ictdynamic.oefeningStreams_4.OefeningStreams;
@@ -45,7 +42,7 @@ public class MyApplication {
 
         switch (oefeningInteger) {
             case 0:
-                MyApplication.oefeningGenerics();
+                MyApplication.oefeningGenerics_0();
                 break;
             case 1:
                 MyApplication.demoHashSetVsLinkedHashSetAndEquals();
@@ -189,12 +186,22 @@ public class MyApplication {
         }
     }
 
-    private static void oefeningGenerics() {
+    private static void oefeningGenerics_0() {
         OefeningGenerics.demoGenericsBasic();
-        OefeningGenerics.demoGenerics0();
-        OefeningGenerics.demoGenerics1();
-        OefeningGenerics.demoGenerics2();
-        OefeningGenerics.demoGenerics3();
+//        OefeningGenerics.demoGenerics0();
+
+        Woning<MateriaalHout> woning1 = new Woning<MateriaalHout>();
+
+//         TODO : compile or does not compile
+//        Woning<Object> woningx = new Woning<>();
+        Woning woning = new Woning();
+
+//        OefeningGenerics.demoGenerics1();
+//        OefeningGenerics.demoGenerics2();
+//        OefeningGenerics.demoGenerics3();
+
+        OefeningGenerics oefeningGenerics = new OefeningGenerics();
+        oefeningGenerics.demoComparable();
     }
 
     private static void demoHashSetVsLinkedHashSetAndEquals() {

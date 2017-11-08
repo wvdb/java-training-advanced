@@ -10,11 +10,12 @@ import java.util.*;
  */
 public class OefeningCollections {
     public static void demoHashSetVsLinkedHashSetAndEquals() {
+        // TODO : to ask how many entries each list will contain
         Set<Employee> uniqueEmployeesWithUnPredictableOrder = new HashSet<>(
                 Arrays.asList(  new Employee(1, "wim van den brande", 49, Worker.Gender.MALE, null),
-                        new Employee(2, "hillary clinton", 72, Worker.Gender.FEMALE, null),
-                        new Employee(3, "bill clinton", 72, Worker.Gender.MALE, null),
-                        new Employee(1, "kris van den brande", 50, Worker.Gender.MALE, null)));
+                                new Employee(2, "hillary clinton", 72, Worker.Gender.FEMALE, null),
+                                new Employee(3, "bill clinton", 72, Worker.Gender.MALE, null),
+                                new Employee(1, "kris van den brande", 50, Worker.Gender.MALE, null)));
 
         Set<Employee> uniqueEmployeesWithPredictableOrder = new LinkedHashSet<>(
                 Arrays.asList(  new Employee(1, "wim van den brande", 49, Worker.Gender.MALE, null),

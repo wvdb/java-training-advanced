@@ -1,8 +1,7 @@
 package be.ictdynamic.domain;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
+import be.ictdynamic.enums.TransportType;
+
 import java.util.Set;
 
 /**
@@ -12,6 +11,7 @@ public abstract class Worker extends DatabaseEntity{
     private String name;
     private Integer age;
     private Gender gender;
+    private Set<TransportType> transportTypes;
     private Set<Remuneration> remunerations;
 
     public enum Gender {

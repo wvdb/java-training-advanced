@@ -21,6 +21,10 @@ public class Employee extends Worker implements Comparable<Employee> {
     public Employee() {
     }
 
+    public Employee(Integer id, String name, Integer age) {
+        super(id, name, age, null);
+    }
+
     public Date getHireDate() {
         return hireDate;
     }
@@ -81,8 +85,11 @@ public class Employee extends Worker implements Comparable<Employee> {
                 "}\n";
     }
 
+
     @Override
     public int compareTo(Employee employeeOther) {
-        return getId().compareTo(employeeOther.getId());
+//        return getId().compareTo(employeeOther.getId());
+        return getAge().compareTo(employeeOther.getAge());
+//        if getName().compareTo(employeeOther.getName());
     }
 }
