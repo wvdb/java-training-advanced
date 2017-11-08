@@ -3,10 +3,8 @@ package be.ictdynamic.oefeningStreams_4;
 import be.ictdynamic.domain.Department;
 import be.ictdynamic.domain.Employee;
 import be.ictdynamic.domain.Worker;
-import com.sun.org.apache.xpath.internal.SourceTree;
 
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -135,6 +133,11 @@ public class OefeningStreams {
         System.out.println("Streams and sort - example 2");
         initEmployees().stream().sorted(comparing(Worker::getAge)).forEach(System.out::println);
 
+        IntStream intStream = IntStream.rangeClosed(0, 10);
+        intStream.forEach(myInt -> System.out.println("Result = " + myInt));
+    }
+
+    public void execSorted_41() {
         // example of Sorted Set
         // ---------------------
 
@@ -145,14 +148,14 @@ public class OefeningStreams {
         Employee employee2 = new Employee(2, "kris van den brande", 48, null, null);
         employeesSorted.add(employee2);
 
-        employee = new Employee(6, "michelle obama", 55, Worker.Gender.FEMALE, null);
-        employeesSorted.add(employee);
+        Employee employee3 = new Employee(6, "michelle obama", 55, Worker.Gender.FEMALE, null);
+        employeesSorted.add(employee3);
 
-        employee = new Employee(5, "donald trump", 71, Worker.Gender.MALE, null);
-        employeesSorted.add(employee);
-
-        Employee employee4 = new Employee(4, "hilary clinton", 72, Worker.Gender.FEMALE, null);
+        Employee employee4 = new Employee(5, "donald trump", 71, Worker.Gender.MALE, null);
         employeesSorted.add(employee4);
+
+        Employee employee5 = new Employee(4, "hilary clinton", 72, Worker.Gender.FEMALE, null);
+        employeesSorted.add(employee5);
 
         employee = new Employee(0 ,"jan van den brande", 52, Worker.Gender.MALE, null);
         employeesSorted.add(employee);
@@ -164,16 +167,14 @@ public class OefeningStreams {
 
         // usage of headset
         // Returns a view of the portion of this set whose elements are strictly less than element
-        SortedSet headSet = employeesSorted.headSet(employee2);
+        SortedSet headSet = employeesSorted.headSet(employee3);
         System.out.println("headSet: " + headSet);
 
         // usage of tailSet
         // Returns a view of the portion of this set whose elements are greater than or equal to fromElement.
-        SortedSet tailSet = employeesSorted.tailSet(employee4);
+        SortedSet tailSet = employeesSorted.tailSet(employee3);
         System.out.println("tailSet: " + tailSet);
-
-        IntStream intStream = IntStream.rangeClosed(0, 10);
-        intStream.forEach(myInt -> System.out.println("Result = " + myInt));
 
     }
 }
+

@@ -45,8 +45,9 @@ public class MyApplication {
                 MyApplication.oefeningGenerics_0();
                 break;
             case 1:
-                MyApplication.demoHashSetVsLinkedHashSetAndEquals_1A();
-//                OefeningCollections.demoLinkedList_1A();
+//                MyApplication.demoHashSetVsLinkedHashSetAndEquals_1A();
+//                OefeningCollections.demoLinkedList_1B();
+                OefeningCollections.demoListOfLists_1C();
                 break;
             case 2:
                 MyApplication.oefeningCollectionsMap();
@@ -60,7 +61,9 @@ public class MyApplication {
                 exampleOfAFunction.gettingNameOfTheEmployeeRegular_3();
                 break;
             case 4:
-                MyApplication.oefeningStreams();
+                OefeningStreams oefeningStreams = new OefeningStreams();
+//                oefeningStreams.execStreams_4();
+                oefeningStreams.execSorted_41();
                 break;
             case 5:
                 MyApplication.oefeningFile_5();
@@ -260,7 +263,7 @@ public class MyApplication {
         return predicate;
     }
 
-    private static void oefeningStreams() {
+    private static void oefeningStreams_4() {
         OefeningStreams oefeningStreams = new OefeningStreams();
         oefeningStreams.execStreams_4();
     }

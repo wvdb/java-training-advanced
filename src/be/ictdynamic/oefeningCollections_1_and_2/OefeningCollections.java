@@ -1,6 +1,7 @@
 package be.ictdynamic.oefeningCollections_1_and_2;
 
 import be.ictdynamic.domain.Employee;
+import be.ictdynamic.domain.Manager;
 import be.ictdynamic.domain.Worker;
 
 import java.util.*;
@@ -82,7 +83,7 @@ public class OefeningCollections {
 
     }
 
-    public static void demoLinkedList_1A() {
+    public static void demoLinkedList_1B() {
         List listOfIntegers = new ArrayList();
         listOfIntegers.add(1);
 
@@ -101,6 +102,37 @@ public class OefeningCollections {
         }
 
         list.forEach(System.out::println);
+    }
+
+    public static void demoListOfLists_1C() {
+        List<List<? extends Worker>> listOfLists = new ArrayList<>();
+
+        listOfLists.add(Arrays.asList(
+                              new Employee(1, "wim van den brande", 49, Worker.Gender.MALE, null)
+                            , new Employee(2, "hillary clinton", 72, Worker.Gender.FEMALE, null)
+                            , new Employee(3, "floriaan van den brande", 16, Worker.Gender.MALE, null)
+                            , new Employee(4, "leo van den brande", 80, Worker.Gender.MALE, null)));
+
+        listOfLists.add(Arrays.asList(
+                              new Manager(5, "wim van den brande", 49, Worker.Gender.MALE, null)
+                            , new Manager(6, "hillary clinton", 72, Worker.Gender.FEMALE, null)
+                            , new Manager(7, "floriaan van den brande", 16, Worker.Gender.MALE, null)
+                            , new Manager(8, "leo van den brande", 80, Worker.Gender.MALE, null)));
+
+        for (List list : listOfLists) {
+            if (list != null && list.get(0) instanceof Employee) {
+                System.out.println("we are dealing with the list of employees.");
+                for (Employee employee : (List<Employee>) list) {
+                    System.out.println("Employee = " + employee);
+                }
+            } else if (list != null && list.get(0) instanceof Manager) {
+                System.out.println("we are dealing with the list of managers.");
+                for (Manager manager : (List<Manager>) list) {
+                    System.out.println("Manager = " + manager);
+                }
+            }
+        } /* end for */
+
     }
 
 }

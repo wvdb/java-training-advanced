@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by wvdbrand on 6/09/2017.
  */
 public class DatabaseEntity implements Serializable{
-    private Integer id;
+    protected Integer id;
 
     public DatabaseEntity() {
     }

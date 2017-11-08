@@ -40,4 +40,9 @@ public class Manager extends Worker {
     public void setSubordinates(Set<Employee> subordinates) {
         this.subordinates = subordinates;
     }
+
+    @Override
+    public String toString() {
+        return "Manager{" + "id=" + super.id + ", hireDate=" + hireDate + ", subordinates=" + subordinates + '}';
+    }
 }
