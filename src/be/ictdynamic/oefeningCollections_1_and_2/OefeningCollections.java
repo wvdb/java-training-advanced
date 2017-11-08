@@ -9,15 +9,15 @@ import java.util.*;
  * Created by wvdbrand on 12/09/2017.
  */
 public class OefeningCollections {
-    public static void demoHashSetVsLinkedHashSetAndEquals() {
+    public static void demoHashSetVsLinkedHashSetAndEquals_1A() {
         // TODO : to ask how many entries each list will contain
         Set<Employee> uniqueEmployeesWithUnPredictableOrder = new HashSet<>(
-                Arrays.asList(  new Employee(1, "wim van den brande", 49, Worker.Gender.MALE, null),
+                Arrays.asList(  new Employee(1, "wim van den brande", 72, Worker.Gender.MALE, null),
                                 new Employee(2, "hillary clinton", 72, Worker.Gender.FEMALE, null),
                                 new Employee(3, "bill clinton", 72, Worker.Gender.MALE, null),
                                 new Employee(1, "kris van den brande", 50, Worker.Gender.MALE, null)));
 
-        Set<Employee> uniqueEmployeesWithPredictableOrder = new LinkedHashSet<>(
+        LinkedHashSet<Employee> uniqueEmployeesWithPredictableOrder = new LinkedHashSet<>(
                 Arrays.asList(  new Employee(1, "wim van den brande", 49, Worker.Gender.MALE, null),
                                 new Employee(2, "hillary clinton", 72, Worker.Gender.FEMALE, null),
                                 new Employee(3, "bill clinton", 72, Worker.Gender.MALE, null),
@@ -82,7 +82,7 @@ public class OefeningCollections {
 
     }
 
-    public static void demoLinkedList() {
+    public static void demoLinkedList_1A() {
         List listOfIntegers = new ArrayList();
         listOfIntegers.add(1);
 

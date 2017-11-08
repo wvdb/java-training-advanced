@@ -67,18 +67,19 @@ public abstract class Worker extends DatabaseEntity{
 //    public boolean equals(Object o) {
 //        if (this == o) return true;
 //        if (!(o instanceof Worker)) return false;
-//        if (!super.equals(o)) return false;
+////        if (!super.equals(o)) return false;
 //
 //        Worker worker = (Worker) o;
 //
-//        return getName().equals(worker.getName());
+//        return getAge().equals(worker.getAge());
 //
 //    }
 //
 //    @Override
 //    public int hashCode() {
-//        int result = super.hashCode();
-//        result = 31 * result + getName().hashCode();
+////        int result = this.hashCode();
+//        int result = 31 * getAge().hashCode();
 //        return result;
 //    }
+
 }

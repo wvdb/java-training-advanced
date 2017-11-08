@@ -45,8 +45,8 @@ public class MyApplication {
                 MyApplication.oefeningGenerics_0();
                 break;
             case 1:
-                MyApplication.demoHashSetVsLinkedHashSetAndEquals();
-//                OefeningCollections.demoLinkedList();
+                MyApplication.demoHashSetVsLinkedHashSetAndEquals_1A();
+//                OefeningCollections.demoLinkedList_1A();
                 break;
             case 2:
                 MyApplication.oefeningCollectionsMap();
@@ -204,8 +204,8 @@ public class MyApplication {
         oefeningGenerics.demoComparable();
     }
 
-    private static void demoHashSetVsLinkedHashSetAndEquals() {
-        OefeningCollections.demoHashSetVsLinkedHashSetAndEquals();
+    private static void demoHashSetVsLinkedHashSetAndEquals_1A() {
+        OefeningCollections.demoHashSetVsLinkedHashSetAndEquals_1A();
     }
 
     private static void oefeningCollectionsMap() {
