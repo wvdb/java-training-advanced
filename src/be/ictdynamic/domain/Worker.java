@@ -63,17 +63,17 @@ public abstract class Worker extends DatabaseEntity{
     // abstract method - the actual impl will be taken care of by the worker's sub-classes
     public abstract Float calculateSalary(Float... objects);
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (!(o instanceof Worker)) return false;
-////        if (!super.equals(o)) return false;
-//
-//        Worker worker = (Worker) o;
-//
-//        return getAge().equals(worker.getAge());
-//
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Worker)) return false;
+//        if (!super.equals(o)) return false;
+
+        Worker worker = (Worker) o;
+
+        return getAge().equals(worker.getAge());
+
+    }
 //
 //    @Override
 //    public int hashCode() {

@@ -1,6 +1,9 @@
 package be.ictdynamic;
 
 import be.ictdynamic.domain.*;
+import be.ictdynamic.functional_interfaces.TextUtil;
+import be.ictdynamic.functional_interfaces.WorldFilter;
+import be.ictdynamic.functional_interfaces.WordProcessor;
 import be.ictdynamic.oefeningCollections_1_and_2.OefeningCollections;
 import be.ictdynamic.oefeningGenerics_0.OefeningGenerics;
 import be.ictdynamic.oefeningStreams_4.OefeningStreams;
@@ -16,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.zip.GZIPOutputStream;
 
 public class MyApplication {
@@ -60,10 +64,13 @@ public class MyApplication {
                 exampleOfAFunction.gettingNameOfTheEmployeeVeryFancy_3();
                 exampleOfAFunction.gettingNameOfTheEmployeeRegular_3();
                 break;
+            case 30:
+                MyApplication.oefeningMethodReferences_30();
+                break;
             case 4:
                 OefeningStreams oefeningStreams = new OefeningStreams();
 //                oefeningStreams.execStreams_4();
-                oefeningStreams.execSorted_41();
+//                oefeningStreams.execSorted_41();
                 break;
             case 5:
                 MyApplication.oefeningFile_5();
@@ -193,15 +200,16 @@ public class MyApplication {
         OefeningGenerics.demoGenericsBasic();
 //        OefeningGenerics.demoGenerics0();
 
-        Woning<MateriaalHout> woning1 = new Woning<MateriaalHout>();
+        Woning<MateriaalHout> woning1 = new Woning<>();
+//        Woning<String> woning2 = new Woning<>();
 
 //         TODO : compile or does not compile
 //        Woning<Object> woningx = new Woning<>();
         Woning woning = new Woning();
 
-//        OefeningGenerics.demoGenerics1();
-//        OefeningGenerics.demoGenerics2();
-//        OefeningGenerics.demoGenerics3();
+        OefeningGenerics.demoGenerics1();
+        OefeningGenerics.demoGenerics2();
+        OefeningGenerics.demoGenerics3();
 
         OefeningGenerics oefeningGenerics = new OefeningGenerics();
         oefeningGenerics.demoComparable();
@@ -222,18 +230,69 @@ public class MyApplication {
                                                  , new Employee(3, "floriaan van den brande", 16, Worker.Gender.MALE, null)
                                                  , new Employee(4, "leo van den brande", 80, Worker.Gender.MALE, null));
 
-        debugEmployees(employees, getAllMaleEmployeesPredicate(), "All Male");
-        debugEmployees(employees, getAllNotRetiredMaleEmployeesPredicate(), "Not Retired");
-        debugEmployees(employees, employee -> employee.getGender() == Worker.Gender.FEMALE, "Female employees");
+        useEmployeePredicateAndLogResult(employees, getAllMaleEmployeesPredicate(), "All Male");
+        useEmployeePredicateAndLogResult(employees, getAllNotRetiredMaleEmployeesPredicate(), "Not Retired");
+        useEmployeePredicateAndLogResult(employees, employee -> employee.getGender() == Worker.Gender.FEMALE, "Female employees");
 
         List<Integer> myInts = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
-        debugGeneric(myInts, myInteger -> myInteger % 2 == 0, "Integer divisible by 2");
+        usePredicateAndLogResult(myInts, myInteger -> myInteger % 2 == 0, "Integer divisible by 2");
 
-        // We are not invoking the method, we are just referencing its name.
-        debugGeneric(myInts, IntPredicates::isEven, "Integer divisible by 2");
+        // We are not invoking the method, we are just referencing its name (method-references)
+        usePredicateAndLogResult(myInts, IntPredicates::isEven, "Integer divisible by 2");
     }
 
-    public static void debugEmployees(List<Employee> employees, Predicate<Employee> predicate, String predicateType){
+    private static void oefeningMethodReferences_30() {
+        class Text {
+            private String sentence;
+
+            private Text(String sentence) {
+                this.sentence = sentence;
+            }
+
+            private void printProcessedWords(WordProcessor wordProcessor) {
+                for (String word : sentence.split(" ")) {
+                    System.out.println(wordProcessor.process(word));
+                }
+            }
+
+            private void printFilteredWords(WorldFilter wordFilterProcessor) {
+                for (String word : sentence.split(" ")) {
+                    System.out.println(wordFilterProcessor.isValid(word));
+                }
+            }
+        }
+
+        Text text = new Text("Study hard. Work harder. Be kind. Stay humble.");
+
+        // ex 0
+        System.out.println("");
+        final String filterString = "e";
+//        String myWord;
+        text.printFilteredWords(myWord -> myWord.contains(filterString));
+
+        // ex 1
+        System.out.println("");
+        text.printProcessedWords(myWord -> String.format(">>%s<<", myWord));
+
+        // ex 2
+        System.out.println("");
+        text.printProcessedWords(TextUtil::formatQuote);
+
+        // ex 3 (simplified version with  streams)
+        System.out.println("");
+        List<String> words = Arrays.asList("Study hard. Work harder. Be kind. Stay humble.".split(" "));
+        List<String> myConvertedWords = words.stream().map(word -> ">>" + word + "<<").collect(Collectors.toList());
+
+        myConvertedWords.forEach(System.out::println);
+        // of
+        for (String myConvertedWord : myConvertedWords) {
+            System.out.println(myConvertedWord);
+        }
+
+        // ex 4 (predicates)
+    }
+
+    public static void useEmployeePredicateAndLogResult(List<Employee> employees, Predicate<Employee> predicate, String predicateType){
         System.out.println("Predicate type = " + predicateType);
         for (Employee employee : employees) {
             if (predicate.test(employee)) {
@@ -242,7 +301,7 @@ public class MyApplication {
         }
     }
 
-    public static <T> void debugGeneric(List<T> items, Predicate<T> predicate, String predicateType){
+    public static <T> void usePredicateAndLogResult(List<T> items, Predicate<T> predicate, String predicateType){
         System.out.println("Predicate type = " + predicateType);
         for (T item : items) {
             if (predicate.test(item)) {

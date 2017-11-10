@@ -84,27 +84,31 @@ public class OefeningCollections {
     }
 
     public static void demoLinkedList_1B() {
-        List listOfIntegers = new ArrayList();
-        listOfIntegers.add(1);
+        ArrayList arrayListOfIntegers = new ArrayList();
+        arrayListOfIntegers.add(1);
+        // ArrayList is a dynamic array (hence usage of get by index)
+        arrayListOfIntegers.get(0);
 
-//        ArrayList<String> list = new ArrayList<>();
-        LinkedList<String> list = new LinkedList<>();
+        LinkedList<String> linkedListOfIntegers = new LinkedList<>();
 
-        list.add("this");
-        list.add("is");
-        list.add(2, "something ");
-        list.add(3, "we cannot do with an ArrayList");
+        linkedListOfIntegers.add("this");
+        linkedListOfIntegers.add("is");
+        linkedListOfIntegers.add(2, "something ");
+        linkedListOfIntegers.add(3, "we cannot do with an ArrayList");
 
-        list.addFirst("Ho Ho Ho");
+        linkedListOfIntegers.addFirst("Ho Ho Ho");
 
-        for (String string : list) {
+        for (String string : linkedListOfIntegers) {
             System.out.println(string);
         }
 
-        list.forEach(System.out::println);
+        // TO DO : to elaborate on random - access = we do a get but
+        // because of impl, an iteration will occur
+        linkedListOfIntegers.get(0);
     }
 
     public static void demoListOfLists_1C() {
+        // TODO : do we need the ? ( we don't)
         List<List<? extends Worker>> listOfLists = new ArrayList<>();
 
         listOfLists.add(Arrays.asList(

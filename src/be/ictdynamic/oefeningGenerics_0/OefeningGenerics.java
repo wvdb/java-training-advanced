@@ -168,9 +168,12 @@ public class OefeningGenerics {
 
     // second example of type parameters (17.4.4)
     // Type Variable can be used within the entire method
-    private static <T1, T2 extends DatabaseEntity>
-                void countNumberOfWorkers3A(   List<T1> genericListOfDatabaseEntities1
-                                            , List<T2> genericListOfDatabaseEntities2) {
+    private static <T1 extends DatabaseEntity, T2 extends DatabaseEntity>
+    void countNumberOfWorkers3A(  List<T1> genericListOfDatabaseEntities1
+                                , List<T2> genericListOfDatabaseEntities2) {
+//    private static <DatabaseEntity>
+//                void countNumberOfWorkers3A(  List<DatabaseEntity> genericListOfDatabaseEntities1
+//                                            , List<DatabaseEntity> genericListOfDatabaseEntities2) {
         if (genericListOfDatabaseEntities1.size() > genericListOfDatabaseEntities2.size()) {
             System.out.println("genericListOfDatabaseEntities1 is de grootste");
         }
