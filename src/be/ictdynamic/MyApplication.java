@@ -2,14 +2,13 @@ package be.ictdynamic;
 
 import be.ictdynamic.domain.*;
 import be.ictdynamic.functional_interfaces.TextUtil;
-import be.ictdynamic.functional_interfaces.WorldFilter;
 import be.ictdynamic.functional_interfaces.WordProcessor;
+import be.ictdynamic.functional_interfaces.WorldFilter;
 import be.ictdynamic.oefeningCollections_1_and_2.OefeningCollections;
 import be.ictdynamic.oefeningGenerics_0.OefeningGenerics;
 import be.ictdynamic.oefeningStreams_4.OefeningStreams;
 import be.ictdynamic.oefeningThreads_11.MyRunnable;
 import be.ictdynamic.oefeningThreads_11.OefeningThreads;
-import be.ictdynamic.oefening_function_10.ExampleOfAFunction;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -60,17 +59,19 @@ public class MyApplication {
                 // A lambda expression represents an anonymous function.
                 // It comprises of a set of parameters, a lambda operator (->) and a function body.
                 MyApplication.oefeningLambdas_3();
-                ExampleOfAFunction exampleOfAFunction = new ExampleOfAFunction();
-                exampleOfAFunction.gettingNameOfTheEmployeeVeryFancy_3();
-                exampleOfAFunction.gettingNameOfTheEmployeeRegular_3();
+//                ExampleOfAFunction exampleOfAFunction = new ExampleOfAFunction();
+//                exampleOfAFunction.gettingNameOfTheEmployeeVeryFancy_3();
+//                exampleOfAFunction.gettingNameOfTheEmployeeRegular_3();
                 break;
             case 30:
                 MyApplication.oefeningMethodReferences_30();
                 break;
             case 4:
                 OefeningStreams oefeningStreams = new OefeningStreams();
-//                oefeningStreams.execStreams_4();
-//                oefeningStreams.execSorted_41();
+//                oefeningStreams.execBasicStreams_40();
+//                oefeningStreams.execStreams_41();
+//                oefeningStreams.execSorted_42();
+                oefeningStreams.execStreamsOlympicMedals_43();
                 break;
             case 5:
                 MyApplication.oefeningFile_5();
@@ -233,6 +234,7 @@ public class MyApplication {
         useEmployeePredicateAndLogResult(employees, getAllMaleEmployeesPredicate(), "All Male");
         useEmployeePredicateAndLogResult(employees, getAllNotRetiredMaleEmployeesPredicate(), "Not Retired");
         useEmployeePredicateAndLogResult(employees, employee -> employee.getGender() == Worker.Gender.FEMALE, "Female employees");
+        useEmployeePredicateAndLogResult(employees, getAllMaleEmployeesPredicate().and(getAllNotRetiredMaleEmployeesPredicate()), "Male and not retired");
 
         List<Integer> myInts = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
         usePredicateAndLogResult(myInts, myInteger -> myInteger % 2 == 0, "Integer divisible by 2");
@@ -278,7 +280,7 @@ public class MyApplication {
         System.out.println("");
         text.printProcessedWords(TextUtil::formatQuote);
 
-        // ex 3 (simplified version with  streams)
+        // ex 3 (simplified version with streams)
         System.out.println("");
         List<String> words = Arrays.asList("Study hard. Work harder. Be kind. Stay humble.".split(" "));
         List<String> myConvertedWords = words.stream().map(word -> ">>" + word + "<<").collect(Collectors.toList());
@@ -324,7 +326,7 @@ public class MyApplication {
 
     private static void oefeningStreams_4() {
         OefeningStreams oefeningStreams = new OefeningStreams();
-        oefeningStreams.execStreams_4();
+        oefeningStreams.execStreams_41();
     }
 
     // Predicate using Static Method References

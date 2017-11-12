@@ -5,6 +5,7 @@ import be.ictdynamic.domain.Employee;
 import be.ictdynamic.domain.Worker;
 
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -59,7 +60,16 @@ public class OefeningStreams {
         this.employees = employees;
     }
 
-    public void execStreams_4() {
+    public void execBasicStreams_40() {
+        System.out.println("usage of iterate and limit");
+        IntStream.iterate(0, i -> i + 1).limit(5).forEach(i -> System.out.println(i));
+        System.out.println("kwadraat");
+        IntStream.rangeClosed(1, 10).forEach((int i)->System.out.println(i*i));
+        System.out.println("... getallen");
+        IntStream.generate(() -> ThreadLocalRandom.current().nextInt(45)).limit(6).sorted().forEach(i -> System.out.println(String.format("%02d", i)));
+    }
+
+    public void execStreams_41() {
         // possible NPE !!!
         List<Employee> vdbEmployees1 = initEmployees().stream().filter(employee -> employee.getName().toLowerCase().lastIndexOf("van den brande") >= 0).collect(Collectors.toList());
         System.out.println("number of employees = " + vdbEmployees1.size() + ", : " + vdbEmployees1);
@@ -137,7 +147,7 @@ public class OefeningStreams {
         intStream.forEach(myInt -> System.out.println("Result = " + myInt));
     }
 
-    public void execSorted_41() {
+    public void execSorted_42() {
         // example of Sorted Set
         // ---------------------
 
@@ -174,6 +184,48 @@ public class OefeningStreams {
         // Returns a view of the portion of this set whose elements are greater than or equal to fromElement.
         SortedSet tailSet = employeesSorted.tailSet(employee3);
         System.out.println("tailSet: " + tailSet);
+
+    }
+
+    public void execStreamsOlympicMedals_43() {
+        Map<String, Map<String, Integer>> olympicMedalsPerYearPerCountry = new HashMap<>();
+
+        Map<String, Integer> mapOfTotalMedalsByCountry = new HashMap<>();
+
+        Map<String, Integer> mapOfMedals2016 = new HashMap<>();
+        mapOfMedals2016.put("NL", 12);
+        mapOfMedals2016.put("BE", 4);
+        mapOfMedals2016.put("US", 22);
+        mapOfMedals2016.put("RUS", 1);
+
+        olympicMedalsPerYearPerCountry.put("2016", mapOfMedals2016);
+
+        Map<String, Integer> mapOfMedals2020 = new HashMap<>();
+        mapOfMedals2020.put("NL", 6);
+        mapOfMedals2020.put("BE", 40);
+        mapOfMedals2020.put("US", 5);
+        mapOfMedals2020.put("RUS", 0);
+
+        olympicMedalsPerYearPerCountry.put("2020", mapOfMedals2020);
+
+        // example of a foreach in a foreach
+
+        olympicMedalsPerYearPerCountry.forEach(
+                (keyYear, mapMedalsPerCountry) -> {
+                    mapMedalsPerCountry.forEach((keyCountry, numberOfMedalsByYearByCountry) -> {
+                        System.out.println("Entry : year = " + keyYear + ", country = " + keyCountry + ", number = " + numberOfMedalsByYearByCountry);
+                        if (mapOfTotalMedalsByCountry.get(keyCountry) == null) {
+                            mapOfTotalMedalsByCountry.put(keyCountry, numberOfMedalsByYearByCountry);
+                        }
+                        else {
+                            mapOfTotalMedalsByCountry.put(keyCountry, mapOfTotalMedalsByCountry.get(keyCountry) + numberOfMedalsByYearByCountry);
+                        }
+                    });
+                }
+        );
+
+        // number of medals per country
+        mapOfTotalMedalsByCountry.forEach((keyCountry, value) -> System.out.println("Country = " + keyCountry + ", # of medals: " + value));
 
     }
 }
