@@ -65,13 +65,45 @@ public class OefeningStreams {
         IntStream.iterate(0, i -> i + 1).limit(5).forEach(i -> System.out.println(i));
         System.out.println("kwadraat");
         IntStream.rangeClosed(1, 10).forEach((int i)->System.out.println(i*i));
-        System.out.println("... getallen");
+        OptionalInt max = IntStream.rangeClosed(1, 10).max();
+
+        // review question 1
+        System.out.println("... review question 1 ");
+        Stream<String> stream = Stream.iterate("", s -> s + "1");
+        System.out.println(stream.limit(2).map(x -> x + "2"));
+
+        // TODO : why stream 2 ???
+        // TODO : actual solution
+        System.out.println("... review question 1 ");
+        Stream<String> stream2 = Stream.iterate("", s -> s + "1");
+        stream2.limit(2).map(x -> x + "2").forEach(System.out::print);
+
+        // generate 1
+        System.out.println("");
+        System.out.println("... generate - dummy");
+        Stream.generate(Math::random)
+                .limit(5)
+                .forEach(System.out::println);
+
+        // generate 2
+        System.out.println("... lotto getallen");
         IntStream.generate(() -> ThreadLocalRandom.current().nextInt(45)).limit(6).sorted().forEach(i -> System.out.println(String.format("%02d", i)));
+
+        // reduce
+        System.out.println("... reduce ");
+        System.out.println("Faculteit van 6 = "
+                + IntStream.rangeClosed(1, 6).reduce(10, (acc, el) -> acc * el));
+
     }
 
     public void execStreams_41() {
         // possible NPE !!!
-        List<Employee> vdbEmployees1 = initEmployees().stream().filter(employee -> employee.getName().toLowerCase().lastIndexOf("van den brande") >= 0).collect(Collectors.toList());
+        List<Employee> vdbEmployees1 =
+                initEmployees()
+                        .stream()
+                        .filter(employee -> employee.getName().toLowerCase().lastIndexOf("van den brande") >= 0)
+                        .collect(Collectors.toList());
+
         System.out.println("number of employees = " + vdbEmployees1.size() + ", : " + vdbEmployees1);
         List<Employee> vdbEmployees2 = initEmployees().stream().filter((employee) -> employee.getName() != null && employee.getName().toLowerCase().lastIndexOf("van den brande") >= 0).collect(Collectors.toList());
         System.out.println("number of employees = " + vdbEmployees2.size() + ", : " + vdbEmployees2);
@@ -94,12 +126,16 @@ public class OefeningStreams {
         System.out.println("employeesSortedByAge: " + employeesSortedByAge);
 
         // example of Optional
-        Optional<Employee> optionalEmployee = initEmployees().stream().filter(employee -> employee.getGender() == Worker.Gender.FEMALE).findFirst();
+        Optional<Employee> optionalEmployee =
+                initEmployees()
+                        .stream()
+                        .filter(employee -> employee.getGender() == Worker.Gender.FEMALE)
+                        .findFirst();
         if (optionalEmployee.isPresent()) {
-            System.out.println("Our employees contain multiple genders.");
+            System.out.println("Our employees contain multiple genders. A female employee = " + optionalEmployee.get());
         }
         else {
-            System.out.println("No woman across our employees.");
+            System.out.println("Our employees doesn't contain multiple genders.");
         }
 
         // example with array (useful ???)
@@ -108,19 +144,28 @@ public class OefeningStreams {
         System.out.println("aantal woorden (distinct)" + Stream.of(words).distinct().count());
 
         // example of parallel stream
-        // Parallel streams make sense if the collection is large enough and your computer has enough cores!!!
+        // Parallel streams make sense if the collection is large enough and your computer
+        // has enough cores!!!
         // Issues ????
 
         initEmployees().parallelStream().filter(employee -> employee.getGender() == Worker.Gender.OTHER).collect(Collectors.toList());
 
         Employee myEmployeesArray[] = employeesSortedByAge.toArray(new Employee[employeesSortedByAge.size()]);
-        List<Employee> employeesSortedByName = Arrays.stream(myEmployeesArray).sorted(comparing(Employee::getName)).collect(Collectors.toList());
+        List<Employee> employeesSortedByName =
+                Arrays
+                        .stream(myEmployeesArray)
+                        .sorted(comparing(Employee::getName))
+                        .collect(Collectors.toList());
         System.out.println("employeesSortedByName: " + employeesSortedByName);
 
-        Boolean anyMatchBoolean = initEmployees().stream().anyMatch(employee -> new Integer(71).equals(employee.getAge()));
+        Boolean anyMatchBoolean = initEmployees()
+                .stream()
+                .anyMatch(employee -> new Integer(71).equals(employee.getAge()));
         System.out.println("anyMatchBoolean: " + anyMatchBoolean);
 
-        Boolean allMatch = initEmployees().stream().allMatch(employee -> employee.getId() > 0);
+        Boolean allMatch = initEmployees()
+                .stream()
+                .allMatch(employee -> employee.getId() > 0);
         System.out.println("allMatchBoolean: " + allMatch);
 
         // example of the flatmap !!! (asked in an interview)
@@ -145,6 +190,13 @@ public class OefeningStreams {
 
         IntStream intStream = IntStream.rangeClosed(0, 10);
         intStream.forEach(myInt -> System.out.println("Result = " + myInt));
+
+        optionalEmployee =
+                initEmployees()
+                        .stream()
+                        .filter(employee -> employee.getGender() == Worker.Gender.FEMALE)
+                        .findFirst();
+
     }
 
     public void execSorted_42() {
@@ -214,12 +266,17 @@ public class OefeningStreams {
                 (keyYear, mapMedalsPerCountry) -> {
                     mapMedalsPerCountry.forEach((keyCountry, numberOfMedalsByYearByCountry) -> {
                         System.out.println("Entry : year = " + keyYear + ", country = " + keyCountry + ", number = " + numberOfMedalsByYearByCountry);
+                        // do we prefer this
+
                         if (mapOfTotalMedalsByCountry.get(keyCountry) == null) {
                             mapOfTotalMedalsByCountry.put(keyCountry, numberOfMedalsByYearByCountry);
                         }
                         else {
                             mapOfTotalMedalsByCountry.put(keyCountry, mapOfTotalMedalsByCountry.get(keyCountry) + numberOfMedalsByYearByCountry);
                         }
+
+                        // or do we prefer this ???
+//                        mapOfTotalMedalsByCountry.merge(keyCountry, numberOfMedalsByYearByCountry, (a, b) -> a + b);
                     });
                 }
         );

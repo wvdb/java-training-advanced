@@ -68,13 +68,13 @@ public class MyApplication {
                 break;
             case 4:
                 OefeningStreams oefeningStreams = new OefeningStreams();
-//                oefeningStreams.execBasicStreams_40();
-//                oefeningStreams.execStreams_41();
+                oefeningStreams.execBasicStreams_40();
+//                  oefeningStreams.execStreams_41();
 //                oefeningStreams.execSorted_42();
                 oefeningStreams.execStreamsOlympicMedals_43();
                 break;
             case 5:
-                MyApplication.oefeningFile_5();
+                MyApplication.oefeningFile_50();
                 break;
             case 6:
                 MyApplication.oefeningSerialisation_6();
@@ -100,7 +100,7 @@ public class MyApplication {
 
     }
 
-    private static void oefeningFile_5() {
+    private static void oefeningFile_50() {
         Path path = Paths.get(TEMP_TXT);
         byte[] bytes = {1,2,3};
 //        List<String> strings = Arrays.asList("1", "2", "3");
@@ -110,7 +110,7 @@ public class MyApplication {
             Files.write(path, bytes);
 //            Files.write(path, strings, Charset.defaultCharset(), StandardOpenOption.APPEND);
         } catch (IOException e) {
-            // TO BE AVOIDED
+            // TODO : TO BE AVOIDED
             e.printStackTrace();
         }
 
@@ -322,11 +322,6 @@ public class MyApplication {
         Predicate<Employee> predicate = employee -> employee.getAge() < 65;
         predicate.and(getAllMaleEmployeesPredicate());
         return predicate;
-    }
-
-    private static void oefeningStreams_4() {
-        OefeningStreams oefeningStreams = new OefeningStreams();
-        oefeningStreams.execStreams_41();
     }
 
     // Predicate using Static Method References
