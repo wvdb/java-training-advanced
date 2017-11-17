@@ -14,12 +14,17 @@ public class OefeningThreads extends Thread {
 
     @Override
     public void run() {
+            String threadName = Thread.currentThread().getName();
+            System.out.print("\nthreadName " + threadName + ":");
+
+        //        try {
+//            Thread.sleep(20_000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+
         for (int i=0; i<count; i++) {
             System.out.print(c);
         }
-
-        String threadName = Thread.currentThread().getName();
-        System.err.println("\nthreadName " + threadName);
-
     }
 }

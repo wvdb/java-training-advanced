@@ -99,7 +99,7 @@ public class OefeningStreams {
     public void execStreams_41() {
         // possible NPE !!!
         List<Employee> vdbEmployees1 =
-                initEmployees()
+                        employees
                         .stream()
                         .filter(employee -> employee.getName().toLowerCase().lastIndexOf("van den brande") >= 0)
                         .collect(Collectors.toList());
@@ -170,15 +170,17 @@ public class OefeningStreams {
 
         // example of the flatmap !!! (asked in an interview)
         // NPE als getDepartment geen lazy initialization bevat
+        // TODO : to verify why we need flatmap and distinct
         List<Department> departments =
-                initEmployees()
+                employees
                         .stream()
                         .map(Employee::getDepartment)
                         .flatMap(Collection::stream)
+                        .peek(department -> System.out.println("department = " + department))
                         .distinct()
                         .collect(Collectors.toList());
-        System.out.println("departments (collected with a flatmap) : " + departments);
 
+        System.out.println("departments (collected with a flatmap) : " + departments);
 
         // streams and sort by Id (using Comparable interface and compareTo method)
         System.out.println("Streams and sort - example 1");
@@ -239,7 +241,7 @@ public class OefeningStreams {
 
     }
 
-    public void execStreamsOlympicMedals_43() {
+    public void execOlympicMedalsWithForEach_43() {
         Map<String, Map<String, Integer>> olympicMedalsPerYearPerCountry = new HashMap<>();
 
         Map<String, Integer> mapOfTotalMedalsByCountry = new HashMap<>();
