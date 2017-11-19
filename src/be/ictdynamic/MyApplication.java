@@ -9,15 +9,24 @@ import be.ictdynamic.oefeningGenerics_0.OefeningGenerics;
 import be.ictdynamic.oefeningStreams_4.OefeningStreams;
 import be.ictdynamic.oefeningThreads_11.MyRunnableImpl;
 import be.ictdynamic.oefeningThreads_11.OefeningThreads;
+import be.ictdynamic.utilities.DateUtility;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.nio.file.attribute.DosFileAttributes;
+import java.time.LocalDate;
 import java.util.*;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.zip.DeflaterOutputStream;
 import java.util.zip.GZIPOutputStream;
 
 public class MyApplication {
@@ -28,11 +37,15 @@ public class MyApplication {
     public static final String HANS_DULFER_FILE = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\streetbeats.mp3";
     public static final String COPY_HANS_DULFER_FILE = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\copy - streetbeats.mp3";
 
+    public static final String PROPERTY_FILE_AS_TEXT = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\properties.txt";
+    public static final String PROPERTY_FILE_AS_XML = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\properties.xml";
+
     public static final String SERIALIZED_FILE = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\Test.ser";
     public static final String LARGE_SERIALIZED_FILE_1 = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\LargeTest1.ser";
     public static final String LARGE_SERIALIZED_FILE_2 = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\LargeTest2.ser";
 
     public static final String TEMP_TXT = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\temp.txt";
+    public static final String TEMP_ZIP = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\temp.zip";
     private static final String VERY_LARGE_NAME = "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT" + "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS" + "UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU";
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
@@ -71,14 +84,21 @@ public class MyApplication {
 //                oefeningStreams.execOlympicMedalsWithForEach_43();
                 break;
             case 5:
-                MyApplication.oefeningFile_50();
+//                MyApplication.oefeningFile_50();
+//                MyApplication.oefeningFile_PDF_51();
+                MyApplication.oefeningFile_MP3_51();
+//                MyApplication.oefeningFile_52_wim();
+//                MyApplication.oefeningFile_52_noel();
                 break;
             case 6:
-                MyApplication.oefeningSerialisation_6();
+                MyApplication.oefeningSerialisation_failing_6();
                 break;
             case 7:
                 MyApplication.oefeningSerialisation_7a();
                 MyApplication.oefeningSerialisation_7b();
+                break;
+            case 8:
+                MyApplication.oefeningRead_Properties_8();
                 break;
             case 11:
                 MyApplication.oefeningThreads_11();
@@ -125,16 +145,29 @@ public class MyApplication {
     private static void oefeningFile_50() {
         Path path = Paths.get(TEMP_TXT);
         byte[] bytes = {1, 2, 3};
-//        List<String> strings = Arrays.asList("1", "2", "3");
+        List<String> strings = Arrays.asList("4", "5", "6");
 
         try {
-            Files.createFile(path);
+            if (!Files.exists(path)) {
+                Files.createFile(path);
+            }
             Files.write(path, bytes);
-//            Files.write(path, strings, Charset.defaultCharset(), StandardOpenOption.APPEND);
+            Files.write(path, strings, Charset.defaultCharset(), StandardOpenOption.APPEND);
+            DosFileAttributes dosFileAttributes = Files.readAttributes(path, DosFileAttributes.class);
+
+            System.out.println("isArchive = " + dosFileAttributes.isArchive());
+            System.out.println("isReadOnly = " + dosFileAttributes.isReadOnly());
+
         } catch (IOException e) {
             // TODO : TO BE AVOIDED
-            e.printStackTrace();
+//            e.printStackTrace();
+            System.err.println("Aanmaken of schrijven ging fout : exception = " + e);
         }
+
+    }
+
+    private static void oefeningFile_PDF_51() {
+        // syntax : try with resources
 
         try (BufferedInputStream inputStream =
                      new BufferedInputStream(new FileInputStream(JSP_PDF_FILE));
@@ -150,10 +183,10 @@ public class MyApplication {
             // perform actual read (one go)
             int bytesRead = inputStream.read(myByteArray);
 
-            // impl with blocks of 1024 bytes
-            //            while (inputStream.read(myByteArray, 0 , 1024) > 0) {
-            //                outputStream.write(myByteArray);
-            //            }
+//             impl READ and WRITE with blocks of 1024 bytes
+//                        while (inputStream.read(myByteArray, 0 , 1024) > 0) {
+//                            outputStream.write(myByteArray);
+//                        }
 
             // let's create a corrupt PDF -> explain the importance of correctness of every single byte/bit
 //            myByteArray[0] = 0;
@@ -172,13 +205,94 @@ public class MyApplication {
         }
     }
 
-    private static void oefeningSerialisation_6() {
+    private static void oefeningFile_MP3_51() {
+        try (BufferedInputStream inputStream =
+                     new BufferedInputStream(new FileInputStream(HANS_DULFER_FILE));
+             BufferedOutputStream outputStream =
+                     new BufferedOutputStream(new FileOutputStream(COPY_HANS_DULFER_FILE))) {
+
+            // get number of bytes available
+            int numByte = inputStream.available();
+
+            // ho ho : we allocate a lot of memory at once
+            byte[] myByteArray = new byte[numByte];
+
+            // perform actual read (one go)
+            int bytesRead = inputStream.read(myByteArray);
+
+//             impl READ and WRITE with blocks of 1024 bytes
+//                        while (inputStream.read(myByteArray, 0 , 1024) > 0) {
+//                            outputStream.write(myByteArray);
+//                        }
+
+            System.out.println("Number of bytes available (can be read) = " + numByte);
+            System.out.println("Number of bytes read = " + bytesRead);
+
+            // perform actual write (one go)
+            outputStream.write(myByteArray);
+        } catch (IOException e) {
+            System.out.println("!!!Something went wrong: " + e.getMessage());
+        }
+    }
+
+    private static void oefeningFile_52_wim() {
+        FileOutputStream outputStream = null;
+        DeflaterOutputStream deflaterOutputStream = null;
+        PrintStream printStream = null;
+
+        try {
+            String test = "this is a test";
+
+//            outputStream = new BufferedOutputStream(new FileOutputStream(TEMP_ZIP));
+//            deflaterOutputStream = new DeflaterOutputStream(outputStream);
+//            printStream = new PrintStream(deflaterOutputStream);
+
+            outputStream = new FileOutputStream(TEMP_ZIP);
+            deflaterOutputStream = new DeflaterOutputStream(outputStream);
+            printStream = new PrintStream(deflaterOutputStream);
+
+            outputStream.write(test.getBytes());
+
+        } catch (IOException e) {
+            System.out.println("!!!Something went wrong: " + e.getMessage());
+        }
+        finally {
+            try {
+                if (printStream != null) {
+                    printStream.close();
+                }
+                if (deflaterOutputStream != null) {
+                    deflaterOutputStream.close();
+                }
+                if (outputStream != null) {
+                    outputStream.close();
+                }
+            }
+            catch (Exception e) {
+                System.err.println("error when closing: exception = " + e);
+            }
+        }
+    }
+
+    private static void oefeningFile_52_noel() {
+        try (PrintStream printStream = new PrintStream(
+                new GZIPOutputStream(
+                        new FileOutputStream(TEMP_ZIP)))) {
+            for (int i = 0; i < 1_000_000; i++) {
+                printStream.println("Hello World");
+            }
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private static void oefeningSerialisation_failing_6() {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(SERIALIZED_FILE));) {
             Project2 project2 = new Project2();
             outputStream.writeObject(project2);
         } catch (IOException e) {
             System.out.println("!!!Something went wrong: " + e.getMessage());
-//            System.out.println("!!!Something went wrong: Message = " + e.getMessage() + ". Type exception = " + e.getClass());
+            System.out.println("!!!Something went wrong: Message = " + e.getMessage() + ". Type exception = " + e.getClass());
         }
     }
 
@@ -205,6 +319,8 @@ public class MyApplication {
         try {
             Project project = new Project();
             project.setName(VERY_LARGE_NAME);
+            project.setProjectStartDate(DateUtility.convertLocalDateToDate(LocalDate.of(2001, 1, 1)));
+            project.setProjectEndDate(DateUtility.convertLocalDateToDate(LocalDate.of(2019, 12, 31)));
 
             ObjectOutputStream outputStream2 = new ObjectOutputStream(new FileOutputStream(LARGE_SERIALIZED_FILE_2));
             outputStream2.writeObject(project);
@@ -216,7 +332,26 @@ public class MyApplication {
         }
     }
 
-    private static void oefeningGenerics_0() {
+    private static void oefeningRead_Properties_8() {
+        try (FileInputStream fileInputStream = new FileInputStream(PROPERTY_FILE_AS_TEXT);
+             FileInputStream fileInputStream_XML = new FileInputStream(PROPERTY_FILE_AS_XML);
+            ) {
+            Properties properties1 = new Properties();
+            properties1.load(fileInputStream);
+            properties1.list(System.out);
+            System.out.println("\nValue van dummy = " + properties1.get("dummy") + "\n");
+
+            Properties properties2 = new Properties();
+            properties2.loadFromXML(fileInputStream_XML);
+            properties2.list(System.out);
+        }
+        catch (Exception e){
+            System.err.println("Exception = " + e);
+        }
+
+    }
+
+        private static void oefeningGenerics_0() {
         OefeningGenerics.demoGenericsBasic();
 //        OefeningGenerics.demoGenerics0();
 

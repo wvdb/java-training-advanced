@@ -6,6 +6,7 @@ import java.util.Date;
  * Created by wvdbrand on 6/09/2017.
  */
 public class Project extends DatabaseEntity {
+
     private String name;
     private Date projectStartDate;
     private Date projectEndDate;
