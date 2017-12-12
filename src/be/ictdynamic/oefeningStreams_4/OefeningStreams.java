@@ -168,19 +168,27 @@ public class OefeningStreams {
                 .allMatch(employee -> employee.getId() > 0);
         System.out.println("allMatchBoolean: " + allMatch);
 
-        // example of the flatmap !!! (asked in an interview)
+        // example of the flatmap !!!
         // NPE als getDepartment geen lazy initialization bevat
-        // TODO : to verify why we need flatmap and distinct
+        // TODO : to explain why we need flatmap and distinct
+        // The map converts, per employee, to a set of departments (so still a list).
+        // The flatMap converts the 2 lists to one list of departments (with 4 entries).
+        //      So ALL the departments of ALL the employees.
+        // The distinct selects the unique departments (3 out of 4)
         List<Department> departments =
                 employees
                         .stream()
-                        .map(Employee::getDepartment)
+//                        example of method reference
+//                        .map(Employee::getDepartment)
+                        .map(employee -> employee.getDepartment())
+                        .peek(department -> System.out.println("department (after map) = " + department))
                         .flatMap(Collection::stream)
-                        .peek(department -> System.out.println("department = " + department))
+                        .peek(department -> System.out.println("department (after flatMap) = " + department))
                         .distinct()
+                        .peek(department -> System.out.println("department (after distinct) = " + department))
                         .collect(Collectors.toList());
 
-        System.out.println("departments (collected with a flatmap) : " + departments);
+        System.out.println("departments (collected with a flatMap) : " + departments);
 
         // streams and sort by Id (using Comparable interface and compareTo method)
         System.out.println("Streams and sort - example 1");

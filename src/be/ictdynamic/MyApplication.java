@@ -78,8 +78,8 @@ public class MyApplication {
                 break;
             case 4:
                 OefeningStreams oefeningStreams = new OefeningStreams();
-                oefeningStreams.execBasicStreams_40();
-//                  oefeningStreams.execStreams_41();
+//                oefeningStreams.execBasicStreams_40();
+                  oefeningStreams.execStreams_41();
 //                oefeningStreams.execSorted_42();
 //                oefeningStreams.execOlympicMedalsWithForEach_43();
                 break;
