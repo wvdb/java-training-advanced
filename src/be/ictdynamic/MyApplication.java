@@ -48,7 +48,7 @@ public class MyApplication {
     public static final String TEMP_ZIP = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\temp.zip";
     private static final String VERY_LARGE_NAME = "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT" + "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS" + "UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU";
 
-    public static void main(String[] args) throws InterruptedException, ExecutionException {
+    public static void main(String[] args) throws InterruptedException, ExecutionException, ClassNotFoundException {
         Scanner reader = new Scanner(System.in);
         System.out.println("Enter identifier of the exercise ");
         int oefeningInteger = reader.nextInt();
@@ -225,6 +225,10 @@ public class MyApplication {
 //                            outputStream.write(myByteArray);
 //                        }
 
+            // enforce a corrupted MP3 file (one byte randomly chosen)
+//            myByteArray[0] = -1;
+//            myByteArray[1000] = 0;
+
             System.out.println("Number of bytes available (can be read) = " + numByte);
             System.out.println("Number of bytes read = " + bytesRead);
 
@@ -286,10 +290,25 @@ public class MyApplication {
         }
     }
 
-    private static void oefeningSerialisation_failing_6() {
-        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(SERIALIZED_FILE));) {
-            Project2 project2 = new Project2();
-            outputStream.writeObject(project2);
+    private static void oefeningSerialisation_failing_6() throws ClassNotFoundException {
+        try (
+//                ObjectOutputStream outputStream
+//                     = new ObjectOutputStream(new FileOutputStream(SERIALIZED_FILE));
+             ObjectInputStream inputStream
+                     = new ObjectInputStream(new FileInputStream(SERIALIZED_FILE));
+        ) {
+//            Project2 project2 = new Project2();
+//            project2.setName("dummy");
+//            project2.setDummy(new Project2.Dummy());
+//            outputStream.writeObject(project2);
+
+            Object myObject = inputStream.readObject();
+            System.out.println("ClassName of myObject = " + myObject.getClass().getSimpleName());
+
+//            if (myObject instanceof Project2) {
+//                System.out.println("we serialized and de-serialized our object perfectly");
+//                System.out.println("name of project = " + ((Project2)myObject).getName());
+//            }
         } catch (IOException e) {
             System.out.println("!!!Something went wrong: " + e.getMessage());
             System.out.println("!!!Something went wrong: Message = " + e.getMessage() + ". Type exception = " + e.getClass());

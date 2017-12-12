@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public final class DateUtility {
     // this is a utility class with class-methods only,
-    // we don't wanMyApplicationt this class to be instantiated
+    // we don't want this class to be instantiated
     private DateUtility() {
     }
 
