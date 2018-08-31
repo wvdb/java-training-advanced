@@ -9,6 +9,7 @@ import be.ictdynamic.oefeningGenerics_0.OefeningGenerics;
 import be.ictdynamic.oefeningStreams_4.OefeningStreams;
 import be.ictdynamic.oefeningThreads_11.MyRunnableImpl;
 import be.ictdynamic.oefeningThreads_11.OefeningThreads;
+import be.ictdynamic.oefening_function_10.ExampleOfAFunction;
 import be.ictdynamic.utilities.DateUtility;
 
 import java.io.*;
@@ -48,6 +49,10 @@ public class MyApplication {
     public static final String TEMP_ZIP = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\temp.zip";
     private static final String VERY_LARGE_NAME = "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT" + "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS" + "UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU";
 
+    public static void main()  {
+
+    }
+
     public static void main(String[] args) throws InterruptedException, ExecutionException, ClassNotFoundException {
         Scanner reader = new Scanner(System.in);
         System.out.println("Enter identifier of the exercise ");
@@ -69,9 +74,9 @@ public class MyApplication {
                 // A lambda expression represents an anonymous function.
                 // It comprises of a set of parameters, a lambda operator (->) and a function body.
                 MyApplication.oefeningLambdas_3();
-//                ExampleOfAFunction exampleOfAFunction = new ExampleOfAFunction();
-//                exampleOfAFunction.gettingNameOfTheEmployeeVeryFancy_3();
-//                exampleOfAFunction.gettingNameOfTheEmployeeRegular_3();
+                ExampleOfAFunction exampleOfAFunction = new ExampleOfAFunction();
+                exampleOfAFunction.gettingNameOfTheEmployeeVeryFancy_3();
+                exampleOfAFunction.gettingNameOfTheEmployeeRegular_3();
                 break;
             case 30:
                 MyApplication.oefeningMethodReferences_30();
@@ -374,19 +379,19 @@ public class MyApplication {
         OefeningGenerics.demoGenericsBasic();
 //        OefeningGenerics.demoGenerics0();
 
-        Woning<MateriaalHout> woning1 = new Woning<>();
-//        Woning<String> woning2 = new Woning<>();
+        Building<WoodMaterialType> building1 = new Building<>();
 
-//         TODO : compile or does not compile
-//        Woning<Object> woningx = new Woning<>();
-        Woning woning = new Woning();
+        // DOES this work ???
 
-        OefeningGenerics.demoGenerics1();
-        OefeningGenerics.demoGenerics2();
-        OefeningGenerics.demoGenerics3();
+//        Building<String> building2 = new Building<>();
+//        Building<Object> building3 = new Building<>();
+//        Building building4 = new Building();
 
-        OefeningGenerics oefeningGenerics = new OefeningGenerics();
-        oefeningGenerics.demoComparable();
+//        OefeningGenerics.demoGenerics1();
+//        OefeningGenerics.demoGenerics2();
+//        OefeningGenerics.demoGenerics3();
+
+        new OefeningGenerics().demoComparable();
     }
 
     private static void demoHashSetVsLinkedHashSetAndEquals_1A() {
@@ -399,7 +404,10 @@ public class MyApplication {
     }
 
     private static void oefeningLambdas_3() {
-        List<Employee> employees = Arrays.asList(new Employee(1, "wim van den brande", 49, Worker.Gender.MALE, null), new Employee(2, "hillary clinton", 72, Worker.Gender.FEMALE, null), new Employee(3, "floriaan van den brande", 16, Worker.Gender.MALE, null), new Employee(4, "leo van den brande", 80, Worker.Gender.MALE, null));
+        List<Employee> employees = Arrays.asList(new Employee(1, "wim van den brande", 49, Worker.Gender.MALE, null),
+                new Employee(2, "hillary clinton", 72, Worker.Gender.FEMALE, null),
+                new Employee(3, "floriaan van den brande", 16, Worker.Gender.MALE, null),
+                new Employee(4, "leo van den brande", 80, Worker.Gender.MALE, null));
 
         useEmployeePredicateAndLogResult(employees, getAllMaleEmployeesPredicate(), "All Male");
         useEmployeePredicateAndLogResult(employees, getAllNotRetiredMaleEmployeesPredicate(), "Not Retired");

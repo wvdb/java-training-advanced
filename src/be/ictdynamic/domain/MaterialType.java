@@ -1,6 +1,6 @@
 package be.ictdynamic.domain;
 
-public class MateriaalType {
+public class MaterialType {
     private float kostPerKubiekeMeter;
 
     public float getKostPerKubiekeMeter() {

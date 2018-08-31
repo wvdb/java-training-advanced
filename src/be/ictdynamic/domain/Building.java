@@ -1,6 +1,6 @@
 package be.ictdynamic.domain;
 
-public class Woning <E extends MateriaalType> {
+public class Building<E extends MaterialType> {
 //public class Woning <MateriaalType> {
 //    private MateriaalType muren2;
 //    private MateriaalType plafond;

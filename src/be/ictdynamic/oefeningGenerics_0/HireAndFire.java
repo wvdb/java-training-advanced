@@ -7,15 +7,16 @@ import be.ictdynamic.domain.Worker;
 /**
  * Created by admin on 11/09/2017.
  */
-public class HireAndFire<T extends Worker> extends Hire<T> {
-    public float executeFire(T worker, int noticePeriod) {
+public class HireAndFire<T extends Worker, U extends Number> extends Hire<T> {
+    public U executeFire(T worker) {
+        Float noticePeriod = 0.0f;
         if (worker instanceof Employee) {
-            noticePeriod *= 1.5;
+            noticePeriod *= new Float(1.5);
         } else if (worker instanceof Manager) {
-            noticePeriod *= 2;
+            noticePeriod *= new Float(2);
         } else {
-            noticePeriod *= 3;
+            noticePeriod *= new Float(3);
         }
-        return noticePeriod;
+        return (U) noticePeriod;
     }
 }

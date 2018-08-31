@@ -31,8 +31,57 @@ public class OefeningGenerics {
             else {
                 return dummy2;
             }
-//            return dummy1.compareTo(dummy2);
         }
+    }
+
+    public static void demoGenericsBasic() {
+        // actual problem before Java 1.5 (no generics available)
+
+        // REMARK 1 : generics are not obligatory
+
+        List employees1 = new ArrayList();
+        Employee createdEmployee = new Employee(1, "wim van den brande", 49, null, null);
+        String string = "this is a test";
+
+        employees1.add(createdEmployee);
+        employees1.add(string);
+
+        // TODO : to ask question : is this gonna work
+
+        Employee employee1A = (Employee) employees1.get(0);
+//        Employee employee1B = (Employee) employees1.get(1);
+
+
+
+
+
+        // throws ClassCastException
+        // GENERICS HAVE BEEN DESIGNED TO AVOID RUNTIME ERRORS (and to make java more secure!!!)
+
+        List<Employee> employees2 = new ArrayList<>();
+
+//         TODO : to ask question : is this gonna work
+
+//        employees2.add(createdEmployee);
+//        employees2.add(string);
+
+
+
+
+        List employees3 = new ArrayList();
+
+        employees3.add(createdEmployee);
+        employees3.add(string);
+
+        for (Object object : employees3) {
+            if (object instanceof Employee)  {
+                Employee employee3 = (Employee) object;
+            }
+            else {
+                String dummyString = (String) object;
+            }
+        }
+
     }
 
     public void demoComparable() {
@@ -41,63 +90,10 @@ public class OefeningGenerics {
 
         // DOES THIS WORK ???
 
-//        MyComparable<Department> myComparable2 = new MyComparable<>("ABC", "DEF");
-//        System.out.println(myComparable2.getHighest());
-
-        // THIS DOES WORK !!!
-
-        // TASK : USE MyComparable in combination with Employee and use AGE, id, totalCost ....
-
-        MyComparable<Employee> myComparable3 = new MyComparable<>(new Employee(1, "Wim", 50), new Employee(2, "Kris", 47));
-        System.out.println("Employee with highest age = " + myComparable3.getHighest().getName());
-
-//        System.out.println("ABC".compareTo("DEF") > 0 ? "ABC" : "DEF");
+        MyComparable<Department> myComparable2 = new MyComparable<>(new Department(1, "dept A", ""), new Department(2, "dept B", ""));
+        System.out.println(myComparable2.getHighest());
     }
 
-    public static void demoGenericsBasic() {
-        // actual problem before Java 1.5 (no generics available)
-
-        List employees1 = new ArrayList();
-        Employee createdEmployee = new Employee(1, "wim van den brande", 49, null, null);
-        String string = "dit is een test";
-
-        employees1.add(createdEmployee);
-        employees1.add(string);
-
-        // TODO : to ask question : is this gonna work
-
-        Employee employee1A = (Employee) employees1.get(0);
-        Employee employee1B = (Employee) employees1.get(1);
-
-        // throws ClassCastException
-        // GENERICS HAVE BEEN DESIGNED TO AVOID RUNTIME ERRORS (and to make java more secure!!!)
-
-                List<Employee> employees2 = new ArrayList<>();
-
-//         TODO : to ask question : is this gonna work
-
-//        employees2.add(createdEmployee);
-//        employees2.add(string);
-
-
-        // TODO : to ask question : which operator would be helpful
-
-//        List<Object> employees3 = new ArrayList();
-//
-//        employees3.add(createdEmployee);
-//        employees3.add(string);
-//
-//        for (Object object : employees3) {
-//            if (object instanceof Employee)  {
-//                Employee employee3 = (Employee) object;
-//            }
-//            else {
-//                String dummyString = (String) object;
-//            }
-//        }
-
-
-    }
 
     public static void demoGenerics0() {
         List<Employee> employees = new ArrayList<>();

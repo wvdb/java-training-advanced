@@ -1,5 +1,5 @@
 package be.ictdynamic.domain;
 
-public class MateriaalBeton extends MateriaalType{
+public class ConcreteMaterialType extends MaterialType {
     private float kostPerKubiekeMeter = 25;
 }

@@ -3,7 +3,7 @@ package be.ictdynamic.domain;
 /**
  * Created by wvdbrand on 6/09/2017.
  */
-public class Department extends DatabaseEntity {
+public class Department extends DatabaseEntity implements Comparable<Department> {
     private String departmentName;
     private String departmentAddress;
 
@@ -40,6 +40,11 @@ public class Department extends DatabaseEntity {
                 "id=" + getId() +
                 ", departmentName='" + departmentName + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Department o) {
+        return departmentName.compareTo(o.departmentName);
     }
 
     public static class DepartmentBuilder {
