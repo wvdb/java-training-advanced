@@ -60,7 +60,11 @@ public class MyApplication {
 
         switch (oefeningInteger) {
             case 0:
-                MyApplication.oefeningGenerics_0();
+                MyApplication.demoGenericsBasic();
+                MyApplication.demoGenericsWorker();
+
+                ProcessEmployeeToBeFired processEmployeeToBeFired = new ProcessEmployeeToBeFired();
+                MyApplication.demoGenericsMethod(processEmployeeToBeFired);
                 break;
             case 1:
 //                MyApplication.demoHashSetVsLinkedHashSetAndEquals_1A();
@@ -375,9 +379,8 @@ public class MyApplication {
 
     }
 
-        private static void oefeningGenerics_0() {
+    private static void demoGenericsBasic() {
         OefeningGenerics.demoGenericsBasic();
-//        OefeningGenerics.demoGenerics0();
 
         Building<WoodMaterialType> building1 = new Building<>();
 
@@ -392,6 +395,15 @@ public class MyApplication {
 //        OefeningGenerics.demoGenerics3();
 
         new OefeningGenerics().demoComparable();
+    }
+
+    private static void demoGenericsWorker() {
+        OefeningGenerics.demoGenericsWorker();
+    }
+
+    private static void demoGenericsMethod(ProcessEmployeeToBeFired<? extends Employee> processEmployeeToBeFired) {
+        GoodEmployee employee = new GoodEmployee(1, "wim van den brande", 51, Worker.Gender.MALE, null);
+        processEmployeeToBeFired.fire(employee);
     }
 
     private static void demoHashSetVsLinkedHashSetAndEquals_1A() {
@@ -430,14 +442,14 @@ public class MyApplication {
             }
 
             private void printProcessedWords(WordProcessor wordProcessor) {
-                for (String word : sentence.split(" ")) {
+                for (String word : sentence.replace(".","").split(" ")) {
                     System.out.println(wordProcessor.process(word));
                 }
             }
 
             private void printFilteredWords(WorldFilter wordFilterProcessor) {
-                for (String word : sentence.split(" ")) {
-                    System.out.println(wordFilterProcessor.isValid(word));
+                for (String word : sentence.replace(".","").split(" ")) {
+                    System.out.println("Word " + word + ":" + wordFilterProcessor.isValid(word));
                 }
             }
         }
@@ -445,31 +457,54 @@ public class MyApplication {
         Text text = new Text("Study hard. Work harder. Be kind. Stay humble.");
 
         // ex 0
-        System.out.println("");
-        final String filterString = "e";
-//        String myWord;
-        text.printFilteredWords(myWord -> myWord.contains(filterString));
+        System.out.println("Usage 0A of FunctionalInterface");
+        text.printFilteredWords(myWord -> myWord.contains("e"));
+        System.out.println("Usage 0B of FunctionalInterface");
+        text.printFilteredWords(myWord -> myWord.startsWith("S"));
+        System.out.println("Usage 0C of FunctionalInterface");
+        text.printFilteredWords(myWord -> {
+                int count = 0;
+                for (char c : myWord.toCharArray()) {
+                    if (c == 'r')
+                        count++;
+                }
+                if (count == 2) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+        });
+        /* text.printFilteredWords(myWord -> {
+            if (myWord.contains("e") && myWord.contains("a")) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }); */
 
         // ex 1
-        System.out.println("");
+        System.out.println("Usage 1 of FunctionalInterface");
         text.printProcessedWords(myWord -> String.format(">>%s<<", myWord));
 
         // ex 2
-        System.out.println("");
+        System.out.println("Usage of method reference");
         text.printProcessedWords(TextUtil::formatQuote);
 
         // ex 3 (simplified version with streams)
-        System.out.println("");
+        System.out.println("Usage of a stream");
         List<String> words = Arrays.asList("Study hard. Work harder. Be kind. Stay humble.".split(" "));
         List<String> myConvertedWords = words.stream().map(word -> ">>" + word + "<<").collect(Collectors.toList());
 
+        System.out.println("Another example of method reference");
         myConvertedWords.forEach(System.out::println);
+
         // of
         for (String myConvertedWord : myConvertedWords) {
             System.out.println(myConvertedWord);
         }
 
-        // ex 4 (predicates)
     }
 
     public static void useEmployeePredicateAndLogResult(List<Employee> employees, Predicate<Employee> predicate, String predicateType) {

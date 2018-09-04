@@ -3,7 +3,6 @@ package be.ictdynamic.oefeningGenerics_0;
 import be.ictdynamic.domain.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +36,7 @@ public class OefeningGenerics {
     public static void demoGenericsBasic() {
         // actual problem before Java 1.5 (no generics available)
 
+        // REMARK 0 : List is a dynamic array
         // REMARK 1 : generics are not obligatory
 
         List employees1 = new ArrayList();
@@ -95,27 +95,9 @@ public class OefeningGenerics {
     }
 
 
-    public static void demoGenerics0() {
-        List<Employee> employees = new ArrayList<>();
-        List<Employee> managers = new ArrayList<>();
-        List<String> strings = new ArrayList<>();
-
-        countNumberOfWorkers1(employees);
-        countNumberOfWorkers1(managers);
-
-        // does not compile (generics issue) !!!
-//        countNumberOfWorkers1(strings);
-
-        countEntriesInList(strings);
-
-        Map<String, Employee> mapOfEmployees = new HashMap<>();
-        Map<String, Manager> mapOfManagers = new HashMap<>();
-        Map<String, String> mapOfStrings = new HashMap<>();
-
-        exampleWithAMap(mapOfEmployees);
-        exampleWithAMap(mapOfManagers);
-        // does not compile !!!
-//        exampleWithAMap(mapOfStrings);
+    public static void demoGenericsWorker() {
+        ProcessWorker processWorker = new ProcessWorker();
+        processWorker.hire(new Employee(1, "wim van den brande", 51, Worker.Gender.MALE, null));
     }
 
     public static void demoGenerics1() {
