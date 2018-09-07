@@ -2,6 +2,7 @@ package be.ictdynamic;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class IteratingApplication {
     public static void main(String[] args) {
@@ -12,7 +13,7 @@ public class IteratingApplication {
     public static void iterateMethod1() {
 //        List<String> strings = Arrays.asList(new String("aaa"), new String("bbb"), new String("ccc"));
 
-        ArrayList<String> strings = new ArrayList<>();
+        List<String> strings = new ArrayList<>();
         strings.add("aaa");
         strings.add("bbb");
         strings.add("ccc");
@@ -43,6 +44,11 @@ public class IteratingApplication {
             strings.add("bbb");
             strings.add("ccc");
         }
+
+        /* Note that Iterator.remove() is the only safe way to modify a collection during iteration;
+           the behavior is unspecified when the underlying collection is modified in any other way while
+           the iteration is in progress.
+         */
 
         Iterator<String> iterator = strings.iterator();
         while(iterator.hasNext()){

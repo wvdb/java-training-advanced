@@ -447,10 +447,16 @@ public class MyApplication {
                 }
             }
 
-            private void printFilteredWords(WorldFilter wordFilterProcessor) {
+            private void printFilteredWords(WorldFilter worldFilter) {
                 for (String word : sentence.replace(".","").split(" ")) {
-                    System.out.println("Word " + word + ":" + wordFilterProcessor.isValid(word));
+                    System.out.println("Word " + word + ":" + worldFilter.isValid(word));
                 }
+            }
+        }
+
+        class DummyClass {
+            public String toUpperCase(String s) {
+                return s.toUpperCase();
             }
         }
 
@@ -459,9 +465,11 @@ public class MyApplication {
         // ex 0
         System.out.println("Usage 0A of FunctionalInterface");
         text.printFilteredWords(myWord -> myWord.contains("e"));
+
         System.out.println("Usage 0B of FunctionalInterface");
         text.printFilteredWords(myWord -> myWord.startsWith("S"));
-        System.out.println("Usage 0C of FunctionalInterface");
+
+        System.out.println("Usage 0C of FunctionalInterface: words with 2 occurrences of 'r'");
         text.printFilteredWords(myWord -> {
                 int count = 0;
                 for (char c : myWord.toCharArray()) {
@@ -475,32 +483,45 @@ public class MyApplication {
                     return false;
                 }
         });
-        /* text.printFilteredWords(myWord -> {
+
+        System.out.println("Usage 0D of FunctionalInterface: words containing an 'e' and and 'a'");
+        text.printFilteredWords(myWord -> {
             if (myWord.contains("e") && myWord.contains("a")) {
                 return true;
             }
             else {
                 return false;
             }
-        }); */
+        });
 
-        // ex 1
+        // printProcessedWords
+        // -------------------
+
+        // ex 1 : lambda
         System.out.println("Usage 1 of FunctionalInterface");
         text.printProcessedWords(myWord -> String.format(">>%s<<", myWord));
 
-        // ex 2
-        System.out.println("Usage of method reference");
+        // ex 2 : static method reference
+        System.out.println("Usage of static method reference");
         text.printProcessedWords(TextUtil::formatQuote);
 
-        // ex 3 (simplified version with streams)
+        // ex 3 : unbound method reference
+        System.out.println("Usage of unbound method reference");
+        text.printProcessedWords(String::toUpperCase);
+
+        // ex 4 : bound method reference
+        System.out.println("Usage of bound method reference");
+        DummyClass dummyClass = new DummyClass();
+        text.printProcessedWords(dummyClass::toUpperCase);
+
+        // (simplified version with streams)
         System.out.println("Usage of a stream");
         List<String> words = Arrays.asList("Study hard. Work harder. Be kind. Stay humble.".split(" "));
         List<String> myConvertedWords = words.stream().map(word -> ">>" + word + "<<").collect(Collectors.toList());
 
-        System.out.println("Another example of method reference");
         myConvertedWords.forEach(System.out::println);
 
-        // of
+        // or
         for (String myConvertedWord : myConvertedWords) {
             System.out.println(myConvertedWord);
         }
