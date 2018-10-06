@@ -139,4 +139,41 @@ public class OefeningCollections {
 
     }
 
+    @Deprecated
+    public static void demoCollectionAndRemoveA() {
+        List<String> words = new ArrayList<>();
+        words.add("this");
+        words.add("is");
+        words.add("a");
+        words.add("test");
+
+        int index = 0;
+        for (String word : words ) {
+            if (word.length() > 2) {
+                words.remove(index);
+            }
+            index +=1;
+        }
+
+        System.out.println("number of words = " + words.size());
+    }
+
+    public static void demoCollectionAndRemoveB() {
+        List<String> words = new ArrayList<>();
+        words.add("this");
+        words.add("is");
+        words.add("a");
+        words.add("test");
+
+        Iterator<String> iterator = words.iterator();
+        while (iterator.hasNext()) {
+            String word = iterator.next();
+            if (word.length() > 2) {
+                iterator.remove();
+            }
+        }
+
+        System.out.println("number of words = " + words.size());
+    }
+
 }

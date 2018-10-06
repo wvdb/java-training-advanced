@@ -1,13 +1,13 @@
 package be.ictdynamic.domain;
 
 public class MaterialType {
-    private float kostPerKubiekeMeter;
+    private float costPerCubicMeter;
 
-    public float getKostPerKubiekeMeter() {
-        return kostPerKubiekeMeter;
+    public float getCostPerCubicMeter() {
+        return costPerCubicMeter;
     }
 
-    public void setKostPerKubiekeMeter(float kostPerKubiekeMeter) {
-        this.kostPerKubiekeMeter = kostPerKubiekeMeter;
+    public void setCostPerCubicMeter(float costPerCubicMeter) {
+        this.costPerCubicMeter = costPerCubicMeter;
     }
 }

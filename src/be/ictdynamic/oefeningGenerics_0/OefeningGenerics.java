@@ -38,6 +38,7 @@ public class OefeningGenerics {
 
         // REMARK 0 : List is a dynamic array
         // REMARK 1 : generics are not obligatory
+        // REMARK 2 : generics should be ONLY used when truly necessarry (when designing generic things)
 
         List employees1 = new ArrayList();
         Employee createdEmployee = new Employee(1, "wim van den brande", 49, null, null);
@@ -49,7 +50,10 @@ public class OefeningGenerics {
         // TODO : to ask question : is this gonna work
 
         Employee employee1A = (Employee) employees1.get(0);
-//        Employee employee1B = (Employee) employees1.get(1);
+        Employee employee1B = (Employee) employees1.get(1);
+
+
+
 
 
 

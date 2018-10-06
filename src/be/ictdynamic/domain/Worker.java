@@ -74,12 +74,15 @@ public abstract class Worker extends DatabaseEntity{
         return getAge().equals(worker.getAge());
 
     }
-//
-//    @Override
-//    public int hashCode() {
-////        int result = this.hashCode();
-//        int result = 31 * getAge().hashCode();
-//        return result;
-//    }
 
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + age.hashCode();
+        result = 31 * result + gender.hashCode();
+        result = 31 * result + transportTypes.hashCode();
+        result = 31 * result + remunerations.hashCode();
+        return result;
+    }
 }

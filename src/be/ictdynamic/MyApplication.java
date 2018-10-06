@@ -2,14 +2,13 @@ package be.ictdynamic;
 
 import be.ictdynamic.domain.*;
 import be.ictdynamic.functional_interfaces.TextUtil;
+import be.ictdynamic.functional_interfaces.WordFilter;
 import be.ictdynamic.functional_interfaces.WordProcessor;
-import be.ictdynamic.functional_interfaces.WorldFilter;
 import be.ictdynamic.oefeningCollections_1_and_2.OefeningCollections;
 import be.ictdynamic.oefeningGenerics_0.OefeningGenerics;
 import be.ictdynamic.oefeningStreams_4.OefeningStreams;
 import be.ictdynamic.oefeningThreads_11.MyRunnableImpl;
 import be.ictdynamic.oefeningThreads_11.OefeningThreads;
-import be.ictdynamic.oefening_function_10.ExampleOfAFunction;
 import be.ictdynamic.utilities.DateUtility;
 
 import java.io.*;
@@ -25,6 +24,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.zip.DeflaterOutputStream;
@@ -49,10 +49,6 @@ public class MyApplication {
     public static final String TEMP_ZIP = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\temp.zip";
     private static final String VERY_LARGE_NAME = "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT" + "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS" + "UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU";
 
-    public static void main()  {
-
-    }
-
     public static void main(String[] args) throws InterruptedException, ExecutionException, ClassNotFoundException {
         Scanner reader = new Scanner(System.in);
         System.out.println("Enter identifier of the exercise ");
@@ -63,24 +59,29 @@ public class MyApplication {
                 MyApplication.demoGenericsBasic();
                 MyApplication.demoGenericsWorker();
 
-                ProcessEmployeeToBeFired processEmployeeToBeFired = new ProcessEmployeeToBeFired();
-                MyApplication.demoGenericsMethod(processEmployeeToBeFired);
+//                ProcessEmployeeToBeFired processEmployeeToBeFired = new ProcessEmployeeToBeFired();
+//                MyApplication.demoGenericsMethod(processEmployeeToBeFired);
                 break;
             case 1:
 //                MyApplication.demoHashSetVsLinkedHashSetAndEquals_1A();
 //                OefeningCollections.demoLinkedList_1B();
-                OefeningCollections.demoListOfLists_1C();
+//                OefeningCollections.demoListOfLists_1C();
+                OefeningCollections.demoCollectionAndRemoveA();
+//                OefeningCollections.demoCollectionAndRemoveB();
                 break;
             case 2:
                 MyApplication.oefeningCollectionsMap();
                 break;
             case 3:
-                // A lambda expression represents an anonymous function.
-                // It comprises of a set of parameters, a lambda operator (->) and a function body.
-                MyApplication.oefeningLambdas_3();
-                ExampleOfAFunction exampleOfAFunction = new ExampleOfAFunction();
-                exampleOfAFunction.gettingNameOfTheEmployeeVeryFancy_3();
-                exampleOfAFunction.gettingNameOfTheEmployeeRegular_3();
+                // with this exercise we demonstrate how we can reuse small portions of logic (predicates or conditions)
+//                MyApplication.oefeningPredicates_3();
+//
+//                ExampleOfAFunction exampleOfAFunction = new ExampleOfAFunction();
+//                exampleOfAFunction.gettingNameOfTheEmployeeVeryFancy_3();
+//                exampleOfAFunction.gettingNameOfTheEmployeeRegular_3();
+
+                MyApplication.oefeningConsumer_3();
+
                 break;
             case 30:
                 MyApplication.oefeningMethodReferences_30();
@@ -141,7 +142,7 @@ public class MyApplication {
                 break;
             case 19:
                 MyApplication myApplication4 = new MyApplication();
-                myApplication4.oefeningThreadsCallable_19();
+                myApplication4.oefeningFuture_19();
                 break;
             default:
                 System.err.println("!!!No exercise supported.");
@@ -390,15 +391,11 @@ public class MyApplication {
 //        Building<Object> building3 = new Building<>();
 //        Building building4 = new Building();
 
-//        OefeningGenerics.demoGenerics1();
-//        OefeningGenerics.demoGenerics2();
-//        OefeningGenerics.demoGenerics3();
-
-        new OefeningGenerics().demoComparable();
     }
 
     private static void demoGenericsWorker() {
-        OefeningGenerics.demoGenericsWorker();
+        ProcessWorker processWorker = new ProcessWorker();
+        processWorker.hire(new Employee(1, "wim van den brande", 51, Worker.Gender.MALE, null));
     }
 
     private static void demoGenericsMethod(ProcessEmployeeToBeFired<? extends Employee> processEmployeeToBeFired) {
@@ -415,7 +412,7 @@ public class MyApplication {
         OefeningCollections.demoQueue();
     }
 
-    private static void oefeningLambdas_3() {
+    private static void oefeningPredicates_3() {
         List<Employee> employees = Arrays.asList(new Employee(1, "wim van den brande", 49, Worker.Gender.MALE, null),
                 new Employee(2, "hillary clinton", 72, Worker.Gender.FEMALE, null),
                 new Employee(3, "floriaan van den brande", 16, Worker.Gender.MALE, null),
@@ -433,6 +430,28 @@ public class MyApplication {
         usePredicateAndLogResult(myInts, IntPredicates::isEven, "Integer divisible by 2");
     }
 
+    private static void oefeningConsumer_3() {
+        Employee employee = new Employee(1, "wim van den brande", 49, Worker.Gender.MALE, null);
+
+        // dummyMethod1 consumes an employee
+        Consumer<Employee> consumer1 = MyApplication::dummyMethod1;
+        Consumer<Employee> consumer2 = MyApplication::dummyMethod2;
+
+        MyApplication.usageOfConsumer(consumer1.andThen(consumer2), employee);
+    }
+
+    private static void dummyMethod1(Employee employee) {
+        System.out.println("Name = " + employee.getName().toUpperCase());
+    }
+
+    private static void dummyMethod2(Employee employee) {
+        System.out.println("Age = " + employee.getAge());
+    }
+
+    private static void usageOfConsumer(Consumer consumer, Employee employee) {
+        consumer.accept(employee);
+    }
+
     private static void oefeningMethodReferences_30() {
         class Text {
             private String sentence;
@@ -442,12 +461,14 @@ public class MyApplication {
             }
 
             private void printProcessedWords(WordProcessor wordProcessor) {
+                // we want all the words except for the dot
                 for (String word : sentence.replace(".","").split(" ")) {
                     System.out.println(wordProcessor.process(word));
                 }
             }
 
-            private void printFilteredWords(WorldFilter worldFilter) {
+            private void printFilteredWords(WordFilter worldFilter) {
+                // we want all the words except for the dot
                 for (String word : sentence.replace(".","").split(" ")) {
                     System.out.println("Word " + word + ":" + worldFilter.isValid(word));
                 }
@@ -546,7 +567,7 @@ public class MyApplication {
         }
     }
 
-    // Predicate is an example of a functional interfaces
+    // Predicate is an example of a Standard functional interface (vs bespoke functional interface)
 
     private static Predicate<Employee> getAllMaleEmployeesPredicate() {
         return employee -> employee.getGender() == Worker.Gender.MALE;
@@ -775,7 +796,7 @@ public class MyApplication {
 
     }
 
-    private void oefeningThreadsCallable_19() throws ExecutionException, InterruptedException {
+    private void oefeningFuture_19() throws ExecutionException, InterruptedException {
         long startTime = System.currentTimeMillis();
         PrimeCalculator primeCalculator = new PrimeCalculator(10_000_000);
         ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -789,7 +810,7 @@ public class MyApplication {
         List<Long> primes = future.get();
 
 //        long endTime = System.currentTimeMillis();
-        System.out.println("Er zijn " + primes.size() + " priemgetallen");
+        System.out.println("There are  " + primes.size() + " prime numbers in the range of 1 to 10_000_000.");
 
         executorService.shutdown();
     }

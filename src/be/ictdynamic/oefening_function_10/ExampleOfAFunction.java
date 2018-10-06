@@ -18,7 +18,7 @@ public class ExampleOfAFunction {
 
         List<Employee> employees = getEmployees();
 
-        List<String> empNameList = this.convertEmpListToNamesList1(employees, getNameOfEmployeeFunction);
+        List<String> empNameList = this.convertEmployeeListToStringWithNamesList(employees, getNameOfEmployeeFunction);
 
         empNameList.forEach(System.out::println);
     }
@@ -26,7 +26,7 @@ public class ExampleOfAFunction {
     public void gettingNameOfTheEmployeeRegular_3() {
         List<Employee> employees = getEmployees();
 
-        List<String> empNameList = this.convertEmpListToNamesList2(employees);
+        List<String> empNameList = this.convertEmployeeListToStringWithNamesList(employees);
 
         empNameList.forEach(System.out::println);
     }
@@ -39,16 +39,16 @@ public class ExampleOfAFunction {
                 new Employee(5, "Deborah Sprightly", 29, null, null));
     }
 
-    public List<String> convertEmpListToNamesList1(List<Employee> employees, Function<Employee, String> funcEmpToString){
+    public List<String> convertEmployeeListToStringWithNamesList(List<Employee> employees, Function<Employee, String> funcEmpToString){
         List<String> employeeNames = new ArrayList<>();
         for (Employee employee: employees){
-            // apply the actual function on the employee
+            // apply the actual function (get the name of the employee) on the employee
             employeeNames.add(funcEmpToString.apply(employee));
         }
         return employeeNames;
     }
 
-    public List<String> convertEmpListToNamesList2(List<Employee> employees){
+    public List<String> convertEmployeeListToStringWithNamesList(List<Employee> employees){
 //        List<String> employeeNames = new ArrayList<>();
 //        for (Employee employee: employees){
 //            employeeNames.add(getNameOfEmployee(employee));

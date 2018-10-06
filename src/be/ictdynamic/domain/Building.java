@@ -1,24 +1,23 @@
 package be.ictdynamic.domain;
 
 public class Building<E extends MaterialType> {
-//public class Woning <MateriaalType> {
-//    private MateriaalType muren2;
-//    private MateriaalType plafond;
-//    private MateriaalType vloeren;
+    // Building exists of walls/ceiling/floor and these are all of a certain Material-Type
+    private E walls;
+    private E ceiling;
+    private E floor;
 
-    private E muren;
-    private E plafond;
-    private E vloeren;
+    public void constructBuilding(E materialType) {
+    }
 
-//    public E getMuren() {
-////        return muren.getKostPerKubiekeMeter();
-//    }
+    public void tearDownBuilding(E materialType) {
+    }
 
-//    public MateriaalType getMuren2() {
-//        return muren2.getKostPerKubiekeMeter();
-//    }
+    public void setCost() {
+        // since walls|ceilings|floors are of a certain material-type
+        // we can use the methods of the MaterialType
+        this.walls.setCostPerCubicMeter(10.00F);
+        this.ceiling.setCostPerCubicMeter(20.00F);
+        this.floor.setCostPerCubicMeter(30.00F);
+    }
 
-    //    public Woning(MateriaalType muren) {
-//        this.muren = muren;
-//    }
 }
