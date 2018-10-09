@@ -96,6 +96,7 @@ public class OefeningCollections {
         linkedListOfIntegers.add(2, "something ");
         linkedListOfIntegers.add(3, "we cannot do with an ArrayList");
 
+        // addFirst, addLast methods don't exist for ArrayList
         linkedListOfIntegers.addFirst("Ho Ho Ho");
 
         for (String string : linkedListOfIntegers) {

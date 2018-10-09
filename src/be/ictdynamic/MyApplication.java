@@ -9,6 +9,7 @@ import be.ictdynamic.oefeningGenerics_0.OefeningGenerics;
 import be.ictdynamic.oefeningStreams_4.OefeningStreams;
 import be.ictdynamic.oefeningThreads_11.MyRunnableImpl;
 import be.ictdynamic.oefeningThreads_11.OefeningThreads;
+import be.ictdynamic.oefening_function_10.ExampleOfAFunction;
 import be.ictdynamic.utilities.DateUtility;
 
 import java.io.*;
@@ -57,28 +58,25 @@ public class MyApplication {
         switch (oefeningInteger) {
             case 0:
                 MyApplication.demoGenericsBasic();
-                MyApplication.demoGenericsWorker();
-
-//                ProcessEmployeeToBeFired processEmployeeToBeFired = new ProcessEmployeeToBeFired();
-//                MyApplication.demoGenericsMethod(processEmployeeToBeFired);
+                MyApplication.demoGenericsBuilding();
                 break;
             case 1:
-//                MyApplication.demoHashSetVsLinkedHashSetAndEquals_1A();
-//                OefeningCollections.demoLinkedList_1B();
-//                OefeningCollections.demoListOfLists_1C();
+                MyApplication.demoHashSetVsLinkedHashSetAndEquals_1A();
+                OefeningCollections.demoLinkedList_1B();
+                OefeningCollections.demoListOfLists_1C();
                 OefeningCollections.demoCollectionAndRemoveA();
-//                OefeningCollections.demoCollectionAndRemoveB();
+                OefeningCollections.demoCollectionAndRemoveB();
                 break;
             case 2:
                 MyApplication.oefeningCollectionsMap();
                 break;
             case 3:
                 // with this exercise we demonstrate how we can reuse small portions of logic (predicates or conditions)
-//                MyApplication.oefeningPredicates_3();
-//
-//                ExampleOfAFunction exampleOfAFunction = new ExampleOfAFunction();
-//                exampleOfAFunction.gettingNameOfTheEmployeeVeryFancy_3();
-//                exampleOfAFunction.gettingNameOfTheEmployeeRegular_3();
+                MyApplication.oefeningPredicates_3();
+
+                ExampleOfAFunction exampleOfAFunction = new ExampleOfAFunction();
+                exampleOfAFunction.gettingNameOfTheEmployeeVeryFancy_3();
+                exampleOfAFunction.gettingNameOfTheEmployeeRegular_3();
 
                 MyApplication.oefeningConsumer_3();
 
@@ -382,25 +380,26 @@ public class MyApplication {
 
     private static void demoGenericsBasic() {
         OefeningGenerics.demoGenericsBasic();
+    }
 
-        Building<WoodMaterialType> building1 = new Building<>();
+    private static void demoGenericsBuilding() {
+
+        ConcreteMaterialType concrete = new ConcreteMaterialType();
+        WoodMaterialType wood = new WoodMaterialType();
+
+        BuildingImpl<WoodMaterialType> building1 = new BuildingImpl<>();
+        building1.constructBuilding(wood);
+//        building1.constructBuilding(concrete);
+
+        BuildingImpl2 building2 = new BuildingImpl2();
+        building2.constructBuilding(concrete);
+        building2.tearDownBuilding(wood);
 
         // DOES this work ???
 
 //        Building<String> building2 = new Building<>();
 //        Building<Object> building3 = new Building<>();
 //        Building building4 = new Building();
-
-    }
-
-    private static void demoGenericsWorker() {
-        ProcessWorker processWorker = new ProcessWorker();
-        processWorker.hire(new Employee(1, "wim van den brande", 51, Worker.Gender.MALE, null));
-    }
-
-    private static void demoGenericsMethod(ProcessEmployeeToBeFired<? extends Employee> processEmployeeToBeFired) {
-        GoodEmployee employee = new GoodEmployee(1, "wim van den brande", 51, Worker.Gender.MALE, null);
-        processEmployeeToBeFired.fire(employee);
     }
 
     private static void demoHashSetVsLinkedHashSetAndEquals_1A() {
@@ -433,11 +432,18 @@ public class MyApplication {
     private static void oefeningConsumer_3() {
         Employee employee = new Employee(1, "wim van den brande", 49, Worker.Gender.MALE, null);
 
-        // dummyMethod1 consumes an employee
+        // consumer1 and consumer2 consume an employee
         Consumer<Employee> consumer1 = MyApplication::dummyMethod1;
         Consumer<Employee> consumer2 = MyApplication::dummyMethod2;
 
+        // consumer3 is a generic consumer
+        Consumer<Object> consumer3 = MyApplication::dummyMethod3;
+
         MyApplication.usageOfConsumer(consumer1.andThen(consumer2), employee);
+        MyApplication.usageOfGenericConsumer(consumer3, "myObject");
+
+//        MyApplication.dummyMethod1(employee);
+//        MyApplication.dummyMethod2(employee);
     }
 
     private static void dummyMethod1(Employee employee) {
@@ -448,8 +454,16 @@ public class MyApplication {
         System.out.println("Age = " + employee.getAge());
     }
 
+    private static void dummyMethod3(Object anObject) {
+        System.out.println("This code will be triggered by a generic consumer.");
+    }
+
     private static void usageOfConsumer(Consumer consumer, Employee employee) {
         consumer.accept(employee);
+    }
+
+    private static void usageOfGenericConsumer(Consumer consumer, Object o) {
+        consumer.accept(o);
     }
 
     private static void oefeningMethodReferences_30() {
