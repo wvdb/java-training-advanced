@@ -61,11 +61,11 @@ public class MyApplication {
                 MyApplication.demoGenericsBuilding();
                 break;
             case 1:
-                MyApplication.demoHashSetVsLinkedHashSetAndEquals_1A();
+//                MyApplication.demoHashSetVsLinkedHashSetAndEquals_1A();
                 OefeningCollections.demoLinkedList_1B();
                 OefeningCollections.demoListOfLists_1C();
                 OefeningCollections.demoCollectionAndRemoveA();
-                OefeningCollections.demoCollectionAndRemoveB();
+//                OefeningCollections.demoCollectionAndRemoveB();
                 break;
             case 2:
                 MyApplication.oefeningCollectionsMap();
@@ -81,25 +81,33 @@ public class MyApplication {
                 MyApplication.oefeningConsumer_3();
 
                 break;
+            case 20:
+                // with this exercise we demonstrate how we can use the builder
+                EmployeeB employee = new EmployeeB.EmployeeBuilder(10L, "wvdb")
+                                        .withHireDate(new Date())
+                                        .withProjects(null)
+                                        .build();
+                break;
             case 30:
                 MyApplication.oefeningMethodReferences_30();
                 break;
             case 4:
                 OefeningStreams oefeningStreams = new OefeningStreams();
 //                oefeningStreams.execBasicStreams_40();
-                  oefeningStreams.execStreams_41();
-//                oefeningStreams.execSorted_42();
+//                  oefeningStreams.execStreams_41();
+                oefeningStreams.execSorted_42();
 //                oefeningStreams.execOlympicMedalsWithForEach_43();
                 break;
             case 5:
-//                MyApplication.oefeningFile_50();
+                MyApplication.oefeningFile_50();
 //                MyApplication.oefeningFile_PDF_51();
-                MyApplication.oefeningFile_MP3_51();
+//                MyApplication.oefeningFile_MP3_51();
 //                MyApplication.oefeningFile_52_wim();
 //                MyApplication.oefeningFile_52_noel();
                 break;
             case 6:
-                MyApplication.oefeningSerialisation_failing_6();
+//                MyApplication.oefeningSerialisation_write();
+                MyApplication.oefeningSerialisation_nameIsNullBecauseOfTransient_6();
                 break;
             case 7:
                 MyApplication.oefeningSerialisation_7a();
@@ -161,6 +169,7 @@ public class MyApplication {
             }
             Files.write(path, bytes);
             Files.write(path, strings, Charset.defaultCharset(), StandardOpenOption.APPEND);
+            // doesn't work on MAC  !!!
             DosFileAttributes dosFileAttributes = Files.readAttributes(path, DosFileAttributes.class);
 
             System.out.println("isArchive = " + dosFileAttributes.isArchive());
@@ -298,29 +307,41 @@ public class MyApplication {
         }
     }
 
-    private static void oefeningSerialisation_failing_6() throws ClassNotFoundException {
+    private static void oefeningSerialisation_write() throws ClassNotFoundException {
         try (
-//                ObjectOutputStream outputStream
-//                     = new ObjectOutputStream(new FileOutputStream(SERIALIZED_FILE));
-             ObjectInputStream inputStream
-                     = new ObjectInputStream(new FileInputStream(SERIALIZED_FILE));
+                ObjectOutputStream outputStream
+                        = new ObjectOutputStream(new FileOutputStream(SERIALIZED_FILE));
         ) {
-//            Project2 project2 = new Project2();
-//            project2.setName("dummy");
-//            project2.setDummy(new Project2.Dummy());
-//            outputStream.writeObject(project2);
-
-            Object myObject = inputStream.readObject();
-            System.out.println("ClassName of myObject = " + myObject.getClass().getSimpleName());
-
-//            if (myObject instanceof Project2) {
-//                System.out.println("we serialized and de-serialized our object perfectly");
-//                System.out.println("name of project = " + ((Project2)myObject).getName());
-//            }
+            Project2 project2 = new Project2();
+            project2.setName("another Challenging Java Project");
+            project2.setDummy(new Project2.Dummy());
+            outputStream.writeObject(project2);
         } catch (IOException e) {
             System.out.println("!!!Something went wrong: " + e.getMessage());
             System.out.println("!!!Something went wrong: Message = " + e.getMessage() + ". Type exception = " + e.getClass());
         }
+    }
+
+    private static void oefeningSerialisation_nameIsNullBecauseOfTransient_6() throws ClassNotFoundException {
+        Date now = new Date();
+
+        try (
+             ObjectInputStream inputStream
+                     = new ObjectInputStream(new FileInputStream(SERIALIZED_FILE));
+        ) {
+            Object myObject = inputStream.readObject();
+            System.out.println("ClassName of myObject = " + myObject.getClass().getSimpleName());
+
+            if (myObject instanceof Project2) {
+                System.out.println("We serialized and de-serialized our object perfectly");
+                System.out.println("Name of project = " + ((Project2)myObject).getName());
+            }
+        } catch (IOException e) {
+            System.out.println("!!!Something went wrong: " + e.getMessage());
+            System.out.println("!!!Something went wrong: Message = " + e.getMessage() + ". Type exception = " + e.getClass());
+        }
+
+        System.out.println("Method processing time (ms): " + (new Date().getTime() - now.getTime()));
     }
 
     private static void oefeningSerialisation_7a() {
@@ -371,6 +392,7 @@ public class MyApplication {
             Properties properties2 = new Properties();
             properties2.loadFromXML(fileInputStream_XML);
             properties2.list(System.out);
+            System.out.println("Properties read from XML file: " + properties2);
         }
         catch (Exception e){
             System.err.println("Exception = " + e);
@@ -383,7 +405,6 @@ public class MyApplication {
     }
 
     private static void demoGenericsBuilding() {
-
         ConcreteMaterialType concrete = new ConcreteMaterialType();
         WoodMaterialType wood = new WoodMaterialType();
 

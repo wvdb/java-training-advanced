@@ -105,6 +105,7 @@ public class OefeningCollections {
 
         // TO DO : to elaborate on random - access = we do a get but
         // because of impl, an iteration will occur
+        // linked list : ADD = FASTER but GET[index] is SLOWER
         linkedListOfIntegers.get(0);
     }
 
@@ -148,12 +149,10 @@ public class OefeningCollections {
         words.add("a");
         words.add("test");
 
-        int index = 0;
         for (String word : words ) {
             if (word.length() > 2) {
-                words.remove(index);
+                words.remove(word);
             }
-            index +=1;
         }
 
         System.out.println("number of words = " + words.size());

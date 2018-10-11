@@ -197,6 +197,7 @@ public class OefeningStreams {
         // streams and sort by Age (using Comparable interface and compareTo method)
         System.out.println("Streams and sort - example 2");
         initEmployees().stream().sorted(comparing(Worker::getAge)).forEach(System.out::println);
+//        initEmployees().stream().sorted(comparing(Employee::getHireDate)).forEach(System.out::println);
 
         IntStream intStream = IntStream.rangeClosed(0, 10);
         intStream.forEach(myInt -> System.out.println("Result = " + myInt));
@@ -214,6 +215,7 @@ public class OefeningStreams {
         // ---------------------
 
         SortedSet<Employee> employeesSorted = new TreeSet<>();
+
         Employee employee = new Employee(1, "wim van den brande", 50, Worker.Gender.MALE, null);
         employeesSorted.add(employee);
 
@@ -229,24 +231,40 @@ public class OefeningStreams {
         Employee employee5 = new Employee(4, "hilary clinton", 72, Worker.Gender.FEMALE, null);
         employeesSorted.add(employee5);
 
-        employee = new Employee(0 ,"jan van den brande", 52, Worker.Gender.MALE, null);
-        employeesSorted.add(employee);
+        Employee employee6 = new Employee(0 ,"jan van den brande", 52, Worker.Gender.MALE, null);
+        employeesSorted.add(employee6);
 
-        System.out.println("emp3loyeesSortedDefault first: " + employeesSorted.first());
+        System.out.println("employeesSortedDefault: " + employeesSorted);
+
+        System.out.println("employeesSortedDefault first: " + employeesSorted.first());
         System.out.println("employeesSortedDefault last: " + employeesSorted.last());
         // comparator will be null since we are using the Comparable
         System.out.println("employeesSortedDefault: " + employeesSorted.comparator());
 
         // usage of headset
         // Returns a view of the portion of this set whose elements are strictly less than element
+        // Returns employees with age < 55
         SortedSet headSet = employeesSorted.headSet(employee3);
         System.out.println("headSet: " + headSet);
 
         // usage of tailSet
         // Returns a view of the portion of this set whose elements are greater than or equal to fromElement.
+        // Returns employees with age >= 55
         SortedSet tailSet = employeesSorted.tailSet(employee3);
         System.out.println("tailSet: " + tailSet);
 
+        // usage of subSet
+        // return a view of the portion of this set whose elements range from
+        //         <tt>fromElement</tt>, inclusive, to <tt>toElement</tt>, exclusive
+        // Returns employees with age between 50 and 55
+        SortedSet subSet = employeesSorted.subSet(employee, employee3);
+        System.out.println("subSet: " + subSet);
+
+        Employee employee7 = new Employee(100, "nicole kidman", 50, Worker.Gender.FEMALE, null);
+        employeesSorted.add(employee7);
+
+        // we lost Nicole Kidman !!!
+        System.out.println("employeesSorted !!!: " + employeesSorted);
     }
 
     public void execOlympicMedalsWithForEach_43() {

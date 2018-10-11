@@ -7,6 +7,7 @@ import java.util.Set;
 /**
  * Created by wvdbrand on 24/08/2017.
  */
+//public class Employee extends Worker {
 public class Employee extends Worker implements Comparable<Employee> {
     // every sub-class of worker has a hireDate, a worker doesn't
     private Date hireDate;
@@ -64,6 +65,7 @@ public class Employee extends Worker implements Comparable<Employee> {
 
     @Override
     public Float calculateSalary(Float... objects) {
+//        assert objects != null;
         if (objects == null) {
             throw new IllegalArgumentException("An Employee should have at least one remuneration.");
         }

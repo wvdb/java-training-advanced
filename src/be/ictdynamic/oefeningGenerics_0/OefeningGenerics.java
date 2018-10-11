@@ -129,16 +129,6 @@ public class OefeningGenerics {
         countNumberOfWorkers3A(managers, employees);
     }
 
-    public static void demoGenerics3() {
-        Hire hire = new Hire();
-        String dummy = "";
-        hire.executeHire(dummy);
-
-        HireAndFire hireAndFire = new HireAndFire();
-        // does not compile
-//        hireAndFire.executeFire(dummy1);
-    }
-
     private static int countNumberOfWorkers1(List<? extends Worker> listOfWorkers) {
         return listOfWorkers.size();
     }

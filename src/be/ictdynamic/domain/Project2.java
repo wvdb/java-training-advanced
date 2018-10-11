@@ -10,7 +10,9 @@ import java.util.Date;
 public class Project2 extends DatabaseEntity {
     private static final long serialVersionUID = -2308207887712196335L;
 
-    private transient String name;
+//    private transient String name;
+    private String name;
+    private String nameBis;
 //    private transient Date projectStartDate;
 //    private transient Date projectEndDate;
     private Date projectStartDate;
