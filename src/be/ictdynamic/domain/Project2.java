@@ -1,6 +1,5 @@
 package be.ictdynamic.domain;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,7 +7,11 @@ import java.util.Date;
  */
 //public class Project2 {
 public class Project2 extends DatabaseEntity {
-    private static final long serialVersionUID = -2308207887712196335L;
+    // You should change the serialVersionUID only when you deliberately want to break compatibility with all existing serializations
+    // additional details : https://www.oracle.com/technetwork/articles/java/javaserial-1536170.html
+
+    // changing the UID will cause an InvalidClassException
+    private static final long serialVersionUID = -2308207887712196336L;
 
 //    private transient String name;
     private String name;
@@ -18,14 +21,16 @@ public class Project2 extends DatabaseEntity {
     private Date projectStartDate;
     private Date projectEndDate;
     private Integer numberOfParticipants;
-    private Dummy dummy;
 
-    public Dummy getDummy() {
-        return dummy;
+    // changing the property will cause a java.lang.ClassCastException
+    private String propertyWeWillChange;
+
+    public String getPropertyWeWillChange() {
+        return propertyWeWillChange;
     }
 
-    public void setDummy(Dummy dummy) {
-        this.dummy = dummy;
+    public void setPropertyWeWillChange(String propertyWeWillChange) {
+        this.propertyWeWillChange = propertyWeWillChange;
     }
 
     public String getName() {
@@ -61,6 +66,4 @@ public class Project2 extends DatabaseEntity {
                 '}';
     }
 
-    public static class Dummy implements Serializable{
-    }
 }

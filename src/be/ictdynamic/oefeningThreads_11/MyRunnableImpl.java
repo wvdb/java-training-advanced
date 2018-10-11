@@ -18,5 +18,6 @@ public class MyRunnableImpl implements Runnable {
         for (int i=0; i<count; i++) {
             System.out.print(c);
         }
+        System.out.print("\n");
     }
 }

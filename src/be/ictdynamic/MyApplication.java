@@ -50,6 +50,8 @@ public class MyApplication {
     public static final String TEMP_ZIP = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\temp.zip";
     private static final String VERY_LARGE_NAME = "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT" + "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS" + "UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU";
 
+    public static char[] charactersToPrint = {'!', '?', '*', ':', '='};
+
     public static void main(String[] args) throws InterruptedException, ExecutionException, ClassNotFoundException {
         Scanner reader = new Scanner(System.in);
         System.out.println("Enter identifier of the exercise ");
@@ -106,8 +108,8 @@ public class MyApplication {
 //                MyApplication.oefeningFile_52_noel();
                 break;
             case 6:
-//                MyApplication.oefeningSerialisation_write();
-                MyApplication.oefeningSerialisation_nameIsNullBecauseOfTransient_6();
+                MyApplication.oefeningSerialisation_write();
+//                MyApplication.oefeningSerialisation_nameIsNullBecauseOfTransient_6();
                 break;
             case 7:
                 MyApplication.oefeningSerialisationWithGZIPOutputStream_7a();
@@ -117,13 +119,13 @@ public class MyApplication {
                 MyApplication.oefeningRead_Properties_8();
                 break;
             case 11:
-                MyApplication.oefeningThreads_11();
+                MyApplication.oefeningThreads_withExtendsOfThread_11();
                 break;
             case 12:
                 System.out.println("Enter aantal chars to print ");
                 int numberOfCharsToPrint = reader.nextInt();
 
-                MyApplication.oefeningThreads_12(numberOfCharsToPrint);
+                MyApplication.oefeningThreads_withClassImplementingRunnable_12(numberOfCharsToPrint);
                 break;
             case 13:
                 MyApplication.oefeningThreadsWithLambdas_13();
@@ -314,7 +316,7 @@ public class MyApplication {
         ) {
             Project2 project2 = new Project2();
             project2.setName("another Challenging Java Project");
-            project2.setDummy(new Project2.Dummy());
+            project2.setPropertyWeWillChange("this is a dummy string");
             outputStream.writeObject(project2);
         } catch (IOException e) {
             System.out.println("!!!Something went wrong: " + e.getMessage());
@@ -336,12 +338,12 @@ public class MyApplication {
                 System.out.println("We serialized and de-serialized our object perfectly");
                 System.out.println("Name of project = " + ((Project2)myObject).getName());
             }
+            System.out.println("Method processing time (ms): " + (new Date().getTime() - now.getTime()));
         } catch (IOException e) {
             System.out.println("!!!Something went wrong: " + e.getMessage());
             System.out.println("!!!Something went wrong: Message = " + e.getMessage() + ". Type exception = " + e.getClass());
         }
 
-        System.out.println("Method processing time (ms): " + (new Date().getTime() - now.getTime()));
     }
 
     private static void oefeningSerialisationWithGZIPOutputStream_7a() {
@@ -630,12 +632,10 @@ public class MyApplication {
         }
     }
 
-    private static void oefeningThreads_11() {
+    private static void oefeningThreads_withExtendsOfThread_11() {
         System.out.println("Enter number of chars to produce ");
         Scanner reader = new Scanner(System.in);
         int numberOfCharsToProduce = reader.nextInt();
-
-        char[] charactersToPrint = {'!', '?', '*', ':', '='};
 
         for (char characterToPrint : charactersToPrint) {
             OefeningThreads myThread = new OefeningThreads(characterToPrint, numberOfCharsToProduce);
@@ -645,6 +645,7 @@ public class MyApplication {
             else {
                 myThread.setPriority(Thread.MIN_PRIORITY);
             }
+            // actual start of new thread
             myThread.start();
         }
 
@@ -656,31 +657,31 @@ public class MyApplication {
 //            myThread.start();
 //        }
 
-        System.out.println("Done with oefeningThreads_11!");
+        System.out.println("Done with oefeningThreads_withExtendsOfThread_11!");
     }
 
-    private static void oefeningThreads_12(int numberOfCharsToPrint) {
-        char[] charactersToPrint = {'!', '?', '*', ':', '='};
-
+    private static void oefeningThreads_withClassImplementingRunnable_12(int numberOfCharsToPrint) {
         for (char characterToPrint : charactersToPrint) {
-
             MyRunnableImpl myRunnable = new MyRunnableImpl(characterToPrint, numberOfCharsToPrint);
 
             Thread myThread = new Thread(myRunnable);
             myThread.start();
         }
 
-        System.out.println("Done with oefeningThreads_12!");
+        System.out.println("Done with oefeningThreads_withClassImplementingRunnable_12!");
     }
 
     private static void oefeningThreadsWithLambdas_13() {
-        char[] charactersToPrint = {'!', '?', '*', ':', '='};
+        Scanner reader = new Scanner(System.in);
+        System.out.println("Enter aantal chars to print ");
+        int numberOfCharsToPrint = reader.nextInt();
+
 
         // thread with lambda
 
         for (char characterToPrint : charactersToPrint) {
             Thread thread = new Thread(() -> {
-                testMethod(characterToPrint, 60);
+                testMethod(characterToPrint, numberOfCharsToPrint);
             });
             thread.start();
         }
@@ -704,8 +705,6 @@ public class MyApplication {
     }
 
     private static void oefeningThreadsWithLambdas_14() throws InterruptedException {
-        char[] charactersToPrint = {'!', '?', '*', ':', '='};
-
 //        System.out.println("Aantal processors = " + Runtime.getRuntime().availableProcessors());
 
         Thread thread1 = new Thread(() -> myPrintMethod('#', 60));
@@ -733,6 +732,7 @@ public class MyApplication {
         for (int i = 0; i < count; i++) {
             System.out.print(c);
         }
+        System.out.print("\n");
     }
 
     private static void oefeningThreadsWithTimer_15() {
@@ -772,9 +772,7 @@ public class MyApplication {
         thread1.join();
         thread2.join();
 
-        long endTime = System.currentTimeMillis();
-
-        System.out.println("Resultaat = " + counter.getCount() + ", processing time in ms = " + (endTime - startTime));
+        System.out.println("Resultaat = " + counter.getCount() + ", processing time in ms = " + (System.currentTimeMillis() - startTime));
 
     }
 
@@ -879,9 +877,15 @@ public class MyApplication {
     public class Counter{
         private long counter = 0;
 
+        // remark 1 : why not all methods synchronized : because of a cost (slower)
+        // remark 2 : synchronized is possible for small portion of code (not always a method)
         public synchronized void increment() {
 //        public void increment() {
             counter++;
+
+//            synchronized(this){
+//                counter++;
+//            }
         }
 
         public synchronized void decrement() {
