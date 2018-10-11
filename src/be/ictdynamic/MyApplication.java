@@ -43,7 +43,7 @@ public class MyApplication {
     public static final String PROPERTY_FILE_AS_XML = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\properties.xml";
 
     public static final String SERIALIZED_FILE = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\Test.ser";
-    public static final String LARGE_SERIALIZED_FILE_1 = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\LargeTest1.ser";
+    public static final String LARGE_SERIALIZED_FILE_1 = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\LargeTest1.zip";
     public static final String LARGE_SERIALIZED_FILE_2 = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\LargeTest2.ser";
 
     public static final String TEMP_TXT = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\temp.txt";
@@ -110,8 +110,8 @@ public class MyApplication {
                 MyApplication.oefeningSerialisation_nameIsNullBecauseOfTransient_6();
                 break;
             case 7:
-                MyApplication.oefeningSerialisation_7a();
-                MyApplication.oefeningSerialisation_7b();
+                MyApplication.oefeningSerialisationWithGZIPOutputStream_7a();
+                MyApplication.oefeningSerialisationWithoutGZIPOutputStream_7b();
                 break;
             case 8:
                 MyApplication.oefeningRead_Properties_8();
@@ -344,7 +344,7 @@ public class MyApplication {
         System.out.println("Method processing time (ms): " + (new Date().getTime() - now.getTime()));
     }
 
-    private static void oefeningSerialisation_7a() {
+    private static void oefeningSerialisationWithGZIPOutputStream_7a() {
         try {
             Project project = new Project();
             project.setName(VERY_LARGE_NAME);
@@ -363,7 +363,7 @@ public class MyApplication {
         }
     }
 
-    private static void oefeningSerialisation_7b() {
+    private static void oefeningSerialisationWithoutGZIPOutputStream_7b() {
         try {
             Project project = new Project();
             project.setName(VERY_LARGE_NAME);
