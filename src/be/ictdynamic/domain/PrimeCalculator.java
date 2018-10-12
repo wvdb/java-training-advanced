@@ -12,7 +12,7 @@ public class PrimeCalculator implements Callable<List<Long>> {
     }
 
     @Override
-    public List<Long> call() throws Exception {
+    public List<Long> call()  {
         List<Long> primes = new ArrayList<>();
         for (long number = 2; number <= max; number++) {
             boolean isPrime = true;

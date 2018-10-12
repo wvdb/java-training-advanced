@@ -50,7 +50,7 @@ public class MyApplication {
     public static final String TEMP_ZIP = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\temp.zip";
     private static final String VERY_LARGE_NAME = "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT" + "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS" + "UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU";
 
-    public static char[] charactersToPrint = {'!', '?', '*', ':', '='};
+    public static char[] charactersToPrint = {'a', 'b', 'c', 'd', 'e'};
 
     public static void main(String[] args) throws InterruptedException, ExecutionException, ClassNotFoundException {
         Scanner reader = new Scanner(System.in);
@@ -639,7 +639,7 @@ public class MyApplication {
 
         for (char characterToPrint : charactersToPrint) {
             OefeningThreads myThread = new OefeningThreads(characterToPrint, numberOfCharsToProduce);
-            if (characterToPrint == '!') {
+            if (characterToPrint == 'x') {
                 myThread.setPriority(Thread.MAX_PRIORITY);
             }
             else {
@@ -705,11 +705,11 @@ public class MyApplication {
     }
 
     private static void oefeningThreadsWithLambdas_14() throws InterruptedException {
-//        System.out.println("Aantal processors = " + Runtime.getRuntime().availableProcessors());
+        System.out.println("Aantal processors = " + Runtime.getRuntime().availableProcessors());
 
-        Thread thread1 = new Thread(() -> myPrintMethod('#', 60));
+        Thread thread1 = new Thread(() -> myPrintMethod('a', 60));
 //        thread1.setDaemon(true);
-        Thread thread2 = new Thread(() -> myPrintMethod('*', 1000));
+        Thread thread2 = new Thread(() -> myPrintMethod('b', 10_000));
         thread2.setDaemon(true);
 
         thread1.start();
@@ -731,33 +731,40 @@ public class MyApplication {
     private static void testMethod(char c, int count) {
         for (int i = 0; i < count; i++) {
             System.out.print(c);
+            Thread.yield();
         }
         System.out.print("\n");
     }
 
     private static void oefeningThreadsWithTimer_15() {
-        TimeOutTask task = new TimeOutTask();
+        MyDummyTask task = new MyDummyTask();
         Timer timer = new Timer(true);
-        timer.schedule(task, 10_000);
+
+//        for (int i=0; i<5; i++) {
+//            timer.schedule(task, 10_000);
+//        }
+
+        timer.schedule(task, 5_000, 10_000);
 
         System.out.println("Even wachten");
+
         try {
-            Thread.sleep(20_100);
+            Thread.sleep(120_000);
         } catch (InterruptedException e) {
             System.err.println("an interrupted exception occurred: " + e);
         }
 
     }
 
-    private static class TimeOutTask extends TimerTask {
+    private static class MyDummyTask extends TimerTask {
         @Override
         public void run() {
-            System.out.println("Tijd is verstreken");
+            System.out.println("MyDummyTask is being executed");
         }
     }
 
     private void oefeningThreadsWithTimer_increment_16() throws InterruptedException {
-        Counter counter = new Counter();
+        CounterImpl counter = new CounterImpl();
 
         long startTime = System.currentTimeMillis();
 
@@ -765,12 +772,16 @@ public class MyApplication {
 //        Thread thread2 = new Thread(() -> increment(counter, Integer.MAX_VALUE));
         Thread thread1 = new Thread(() -> increment(counter, 100_000_000));
         Thread thread2 = new Thread(() -> increment(counter, 100_000_000));
+//        Thread thread1 = new Thread(() -> increment(counter, 10_000));
+//        Thread thread2 = new Thread(() -> increment(counter, 10_000));
 
         thread1.start();
         thread2.start();
 
         thread1.join();
         thread2.join();
+//        thread1.join(2000);
+//        thread2.join(2000);
 
         System.out.println("Resultaat = " + counter.getCount() + ", processing time in ms = " + (System.currentTimeMillis() - startTime));
 
@@ -842,7 +853,6 @@ public class MyApplication {
 
         List<Long> primes = future.get();
 
-//        long endTime = System.currentTimeMillis();
         System.out.println("There are  " + primes.size() + " prime numbers in the range of 1 to 10_000_000.");
 
         executorService.shutdown();
@@ -868,19 +878,24 @@ public class MyApplication {
 //        }
     }
 
-    private static void increment(Counter counter, int number) {
+    private static void increment(CounterImpl counterImpl, int number) {
+        int localCounter = 0;
+
         for (int i=0; i<number; i++) {
-            counter.increment();
+            counterImpl.increment();
+//            counterImpl.counter++;
+            localCounter++;
         }
+        System.out.println("Resultaat of localCounter = " + localCounter);
     }
 
-    public class Counter{
-        private long counter = 0;
+    public class CounterImpl {
+        public long counter = 0;
 
         // remark 1 : why not all methods synchronized : because of a cost (slower)
         // remark 2 : synchronized is possible for small portion of code (not always a method)
-        public synchronized void increment() {
-//        public void increment() {
+//        public synchronized void increment() {
+        public void increment() {
             counter++;
 
 //            synchronized(this){
