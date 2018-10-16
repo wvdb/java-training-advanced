@@ -14,10 +14,7 @@ import be.ictdynamic.utilities.DateUtility;
 
 import java.io.*;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.nio.file.*;
 import java.nio.file.attribute.DosFileAttributes;
 import java.time.LocalDate;
 import java.util.*;
@@ -41,6 +38,8 @@ public class MyApplication {
 
     public static final String PROPERTY_FILE_AS_TEXT = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\properties.txt";
     public static final String PROPERTY_FILE_AS_XML = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\properties.xml";
+
+    public static final String LARGE_FILE_AS_TEXT = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\large_file.txt";
 
     public static final String SERIALIZED_FILE = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\Test.ser";
     public static final String LARGE_SERIALIZED_FILE_1 = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\LargeTest1.zip";
@@ -112,8 +111,10 @@ public class MyApplication {
 //                MyApplication.oefeningSerialisation_nameIsNullBecauseOfTransient_6();
                 break;
             case 7:
-                MyApplication.oefeningSerialisationWithGZIPOutputStream_7a();
-                MyApplication.oefeningSerialisationWithoutGZIPOutputStream_7b();
+                MyApplication.oefening_NIO_ReadAllLines_7a();
+                MyApplication.oefening_IO_ReadAllLines_7b();
+//                MyApplication.oefening_IO_WithGZIPOutputStream_7b();
+//                MyApplication.oefening_IO_WithoutGZIPOutputStream_7c();
                 break;
             case 8:
                 MyApplication.oefeningRead_Properties_8();
@@ -346,7 +347,54 @@ public class MyApplication {
 
     }
 
-    private static void oefeningSerialisationWithGZIPOutputStream_7a() {
+    private static void oefening_NIO_ReadAllLines_7a() {
+        long startDate = new Date().getTime();
+        try {
+            List<String> lines = Files.readAllLines(FileSystems.getDefault().getPath(LARGE_FILE_AS_TEXT));
+        } catch (IOException e) {
+            System.out.println("!!!Something went wrong: Message = " + e.getMessage() + ". Type exception = " + e.getClass());
+            return;
+        }
+
+        System.out.println("Method with readAllLines took " + (new Date().getTime() - startDate) + " milli-seconds.");
+    }
+
+    private static void oefening_IO_ReadAllLines_7b() {
+        int[] sizesOfArray = {80, 2048, 2048*2, 2048*4, 2048*8};
+
+        for (int sizeOfArray : sizesOfArray) {
+            oefening_IO_actual_read(sizeOfArray);
+        }
+    }
+
+    private static void oefening_IO_actual_read(int sizeOfArray) {
+        long startDate = new Date().getTime();
+
+        File file = new File(LARGE_FILE_AS_TEXT);
+        FileInputStream fileInputStream = null;
+        BufferedInputStream bufferedInputStream = null;
+
+        try {
+            fileInputStream = new FileInputStream(file);
+            bufferedInputStream = new BufferedInputStream(fileInputStream);
+
+            byte[] buffer = new byte[sizeOfArray];
+            int bytesRead = 0;
+            while ((bytesRead = bufferedInputStream.read(buffer)) != -1) {
+//                System.out.println(new String(buffer, 0, bytesRead));
+            }
+
+            bufferedInputStream.close();
+            fileInputStream.close();
+        } catch (IOException e) {
+            System.out.println("!!!Something went wrong: Message = " + e.getMessage() + ". Type exception = " + e.getClass());
+            return;
+        }
+
+        System.out.println("Method with buffer of " + sizeOfArray + " bytes, took " + (new Date().getTime() - startDate) + " milli-seconds.");
+    }
+
+    private static void oefening_IO_WithGZIPOutputStream_7b() {
         try {
             Project project = new Project();
             project.setName(VERY_LARGE_NAME);
@@ -365,7 +413,7 @@ public class MyApplication {
         }
     }
 
-    private static void oefeningSerialisationWithoutGZIPOutputStream_7b() {
+    private static void oefening_IO_WithoutGZIPOutputStream_7c() {
         try {
             Project project = new Project();
             project.setName(VERY_LARGE_NAME);
