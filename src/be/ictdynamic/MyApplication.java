@@ -111,6 +111,8 @@ public class MyApplication {
 //                MyApplication.oefeningSerialisation_nameIsNullBecauseOfTransient_6();
                 break;
             case 7:
+                // conclusion 1: BufferedInputStream is much faster
+                // conclusion 2: Reading (in general) is very fast
                 MyApplication.oefening_NIO_ReadAllLines_7a();
                 MyApplication.oefening_IO_ReadAllLines_7b();
 //                MyApplication.oefening_IO_WithGZIPOutputStream_7b();
@@ -812,16 +814,16 @@ public class MyApplication {
     }
 
     private void oefeningThreadsWithTimer_increment_16() throws InterruptedException {
-        CounterImpl counter = new CounterImpl();
+        CounterImpl counterImpl = new CounterImpl();
 
         long startTime = System.currentTimeMillis();
 
-//        Thread thread1 = new Thread(() -> increment(counter, Integer.MAX_VALUE));
-//        Thread thread2 = new Thread(() -> increment(counter, Integer.MAX_VALUE));
-        Thread thread1 = new Thread(() -> increment(counter, 100_000_000));
-        Thread thread2 = new Thread(() -> increment(counter, 100_000_000));
-//        Thread thread1 = new Thread(() -> increment(counter, 10_000));
-//        Thread thread2 = new Thread(() -> increment(counter, 10_000));
+//        Thread thread1 = new Thread(() -> increment(counter1, Integer.MAX_VALUE));
+//        Thread thread2 = new Thread(() -> increment(counter1, Integer.MAX_VALUE));
+        Thread thread1 = new Thread(() -> increment(counterImpl, 100_000_000));
+        Thread thread2 = new Thread(() -> increment(counterImpl, 100_000_000));
+//        Thread thread1 = new Thread(() -> increment(counter1, 10_000));
+//        Thread thread2 = new Thread(() -> increment(counter1, 10_000));
 
         thread1.start();
         thread2.start();
@@ -831,8 +833,8 @@ public class MyApplication {
 //        thread1.join(2000);
 //        thread2.join(2000);
 
-        System.out.println("Resultaat = " + counter.getCount() + ", processing time in ms = " + (System.currentTimeMillis() - startTime));
-
+        System.out.println("Resultaat (increment of instance property) = " + counterImpl.getCounter1() + ", processing time in ms = " + (System.currentTimeMillis() - startTime));
+        System.out.println("Resultaat (increment of instance property with method synchronized) = " + counterImpl.getCounter2() + ", processing time in ms = " + (System.currentTimeMillis() - startTime));
     }
 
     private void oefeningThreadsWithTimer_populate_17() throws InterruptedException {
@@ -930,35 +932,44 @@ public class MyApplication {
         int localCounter = 0;
 
         for (int i=0; i<number; i++) {
-            counterImpl.increment();
-//            counterImpl.counter++;
+            counterImpl.increment1();
+            counterImpl.increment2();
+//            counterImpl.counter1++;
             localCounter++;
         }
         System.out.println("Resultaat of localCounter = " + localCounter);
     }
 
     public class CounterImpl {
-        public long counter = 0;
+        public long counter1 = 0;
+        public long counter2 = 0;
 
         // remark 1 : why not all methods synchronized : because of a cost (slower)
         // remark 2 : synchronized is possible for small portion of code (not always a method)
-//        public synchronized void increment() {
-        public void increment() {
-            counter++;
+        public void increment1() {
+            counter1++;
+        }
+
+        public synchronized void increment2() {
+            counter2++;
 
 //            synchronized(this){
-//                counter++;
+//                counter2++;
 //            }
         }
-
         public synchronized void decrement() {
-            counter--;
+            counter1--;
         }
 
-        public long getCount() {
-            return counter;
+        public long getCounter1() {
+            return counter1;
+        }
+
+        public long getCounter2() {
+            return counter2;
         }
     }
+
 
 }
 
