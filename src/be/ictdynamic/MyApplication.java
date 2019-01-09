@@ -96,8 +96,9 @@ public class MyApplication {
                 OefeningStreams oefeningStreams = new OefeningStreams();
 //                oefeningStreams.execBasicStreams_40();
 //                  oefeningStreams.execStreams_41();
-                oefeningStreams.execSorted_42();
-//                oefeningStreams.execOlympicMedalsWithForEach_43();
+//                oefeningStreams.execSorted_42();
+                System.out.println(oefeningStreams.execOptional_43());
+//                oefeningStreams.execOlympicMedalsWithForEach_44();
                 break;
             case 5:
                 MyApplication.oefeningFile_50();

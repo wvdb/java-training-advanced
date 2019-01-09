@@ -263,11 +263,44 @@ public class OefeningStreams {
         Employee employee7 = new Employee(100, "nicole kidman", 50, Worker.Gender.FEMALE, null);
         employeesSorted.add(employee7);
 
-        // we lost Nicole Kidman !!!
+        // we lost Nicole Kidman .... call Tom!!!
         System.out.println("employeesSorted !!!: " + employeesSorted);
     }
 
-    public void execOlympicMedalsWithForEach_43() {
+    public String execOptional_43() {
+        SortedSet<Employee> employeesSorted = new TreeSet<>();
+
+        Employee employee1 = new Employee(1, "wim van den brande", 50, Worker.Gender.MALE, null);
+        employeesSorted.add(employee1);
+
+        Employee employee2 = new Employee(2, "kris van den brande", 48, null, null);
+        employeesSorted.add(employee2);
+
+        Employee employee3 = new Employee(6, "michelle obama", 55, Worker.Gender.FEMALE, null);
+        employeesSorted.add(employee3);
+
+        Employee employee4 = new Employee(5, "donald trump", 71, Worker.Gender.MALE, null);
+        employeesSorted.add(employee4);
+
+        Employee employee5 = new Employee(4, "hilary clinton", 72, Worker.Gender.FEMALE, null);
+        employeesSorted.add(employee5);
+
+        Employee employee6 = new Employee(0 ,"jan van den brande", 52, Worker.Gender.MALE, null);
+        employeesSorted.add(employee6);
+
+        // Instead of a sequence of if-statements the filter and map methods are combined in a fluent style
+
+        return findMeAWomenOf50YearsOld(employeesSorted)
+                .map(employee -> "Me happy")
+                .orElse("I'm gonna be lonesome");
+    }
+
+    private Optional<Employee> findMeAWomenOf50YearsOld(SortedSet<Employee> employeesSorted) {
+        Optional<Employee> myWoman = employeesSorted.stream().filter(employee -> employee.getGender() == Worker.Gender.FEMALE && employee.getAge() == 50).findAny();
+        return myWoman;
+    }
+
+    public void execOlympicMedalsWithForEach_44() {
         Map<String, Map<String, Integer>> olympicMedalsPerYearPerCountry = new HashMap<>();
 
         Map<String, Integer> mapOfTotalMedalsByCountry = new HashMap<>();
