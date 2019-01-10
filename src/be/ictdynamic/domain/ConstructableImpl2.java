@@ -1,6 +1,6 @@
 package be.ictdynamic.domain;
 
-public class BuildingImpl2 implements Building {
+public class ConstructableImpl2 implements Constructable {
     // suddenly or BuildingImpl is a little more flexible
     private ConcreteMaterialType walls;
     private FillingMaterialType ceiling;

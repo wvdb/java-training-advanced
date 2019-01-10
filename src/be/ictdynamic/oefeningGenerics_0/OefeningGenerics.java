@@ -38,7 +38,7 @@ public class OefeningGenerics {
 
         // REMARK 0 : List is a dynamic array
         // REMARK 1 : generics are not obligatory
-        // REMARK 2 : generics should be ONLY used when truly necessarry (when designing generic things)
+        // REMARK 2 : generics should be ONLY used when truly necessary (when designing generic things)
 
         List employees1 = new ArrayList();
         Employee createdEmployee = new Employee(1, "wim van den brande", 49, null, null);
@@ -85,6 +85,11 @@ public class OefeningGenerics {
                 String dummyString = (String) object;
             }
         }
+
+        // theoretisch vb met enkele JPA-achtige zaken
+        BaseDao<Employee> baseDao = new BaseDao<>();
+        List<Employee> employees = baseDao.findAll();
+        Employee employee = baseDao.findOne();
 
     }
 

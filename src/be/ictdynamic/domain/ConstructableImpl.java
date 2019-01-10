@@ -1,6 +1,6 @@
 package be.ictdynamic.domain;
 
-public class BuildingImpl<E extends MaterialType> implements Building<E> {
+public class ConstructableImpl<E extends MaterialType> implements Constructable<E> {
     // Building exists of walls/ceiling/floor and these are all of a certain Material-Type
 
     // this is designed by the most linear architect in Belgium (walls in wood/concrete/bricks => everything in wood/concrete/bricks)

@@ -57,9 +57,13 @@ public class MyApplication {
         int oefeningInteger = reader.nextInt();
 
         switch (oefeningInteger) {
+            case -1:
+                System.out.println("Basic Cost = " + Constructable.BASIC_COST_OF_CUBE);;
+                System.out.println("Cost = " + Constructable.calculateBasicCost(100));;
+                break;
             case 0:
                 MyApplication.demoGenericsBasic();
-                MyApplication.demoGenericsBuilding();
+//                MyApplication.demoGenericsBuilding();
                 break;
             case 1:
 //                MyApplication.demoHashSetVsLinkedHashSetAndEquals_1A();
@@ -91,6 +95,7 @@ public class MyApplication {
                 break;
             case 30:
                 MyApplication.oefeningMethodReferences_30();
+                MyApplication.oefeningMethodReferences_31();
                 break;
             case 4:
                 OefeningStreams oefeningStreams = new OefeningStreams();
@@ -461,11 +466,11 @@ public class MyApplication {
         ConcreteMaterialType concrete = new ConcreteMaterialType();
         WoodMaterialType wood = new WoodMaterialType();
 
-        BuildingImpl<WoodMaterialType> building1 = new BuildingImpl<>();
+        ConstructableImpl<WoodMaterialType> building1 = new ConstructableImpl<>();
         building1.constructBuilding(wood);
 //        building1.constructBuilding(concrete);
 
-        BuildingImpl2 building2 = new BuildingImpl2();
+        ConstructableImpl2 building2 = new ConstructableImpl2();
         building2.constructBuilding(concrete);
         building2.tearDownBuilding(wood);
 
@@ -540,6 +545,11 @@ public class MyApplication {
         consumer.accept(o);
     }
 
+    private static void oefeningMethodReferences_31() {
+        String[] words2 = "You can't stop the waves, but you can learn how to surf.".split(" ");
+        System.out.println(Arrays.stream(words2).filter(word -> word.length() == 3).count());
+    }
+
     private static void oefeningMethodReferences_30() {
         class Text {
             private String sentence;
@@ -569,7 +579,7 @@ public class MyApplication {
             }
         }
 
-        Text text = new Text("Study hard. Work harder. Be kind. Stay humble.");
+        Text text = new Text("You can't stop the waves, but you can learn how to surf.");
 
         // ex 0
         System.out.println("Usage 0A of FunctionalInterface");
