@@ -84,9 +84,8 @@ public class Employee extends Worker implements Comparable<Employee> {
                 ", hireDate=" + hireDate +
                 ", projects=" + projects +
                 ", department=" + department +
-                "}\n";
+                "}";
     }
-
 
     @Override
     public int compareTo(Employee employeeOther) {

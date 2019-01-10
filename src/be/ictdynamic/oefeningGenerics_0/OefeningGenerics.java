@@ -93,6 +93,10 @@ public class OefeningGenerics {
 
     }
 
+    public static void demoGenericsDummy() {
+        DummyGeneric<Long> x = new DummyGeneric<>();
+    }
+
     public void demoComparable() {
         MyComparable<String> myComparable = new MyComparable<>("ABC", "DEF");
         System.out.println(myComparable.getHighest());

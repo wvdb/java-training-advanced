@@ -25,6 +25,7 @@ import java.util.concurrent.Future;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -94,7 +95,7 @@ public class MyApplication {
                                         .build();
                 break;
             case 30:
-                MyApplication.oefeningMethodReferences_30();
+//                MyApplication.oefeningMethodReferences_30();
                 MyApplication.oefeningMethodReferences_31();
                 break;
             case 4:
@@ -460,6 +461,7 @@ public class MyApplication {
 
     private static void demoGenericsBasic() {
         OefeningGenerics.demoGenericsBasic();
+        OefeningGenerics.demoGenericsDummy();
     }
 
     private static void demoGenericsBuilding() {
@@ -547,7 +549,15 @@ public class MyApplication {
 
     private static void oefeningMethodReferences_31() {
         String[] words2 = "You can't stop the waves, but you can learn how to surf.".split(" ");
+//        for (String word : words2) {
+//            System.out.println(word);
+//        }
         System.out.println(Arrays.stream(words2).filter(word -> word.length() == 3).count());
+        Stream.of(words2).forEach(System.out::println);
+        Stream.of(words2).forEach(word -> System.out.println());
+
+        List<Employee> employees = new ArrayList<>();
+        employees.forEach(employee -> System.out.println(">>>" + employee + "<<<"));
     }
 
     private static void oefeningMethodReferences_30() {
@@ -668,7 +678,8 @@ public class MyApplication {
     // Predicate is an example of a Standard functional interface (vs bespoke functional interface)
 
     private static Predicate<Employee> getAllMaleEmployeesPredicate() {
-        return employee -> employee.getGender() == Worker.Gender.MALE;
+        Predicate<Employee> employeePredicate = employee -> employee.getGender() == Worker.Gender.MALE;
+        return employeePredicate;
     }
 
     private static Predicate<Employee> getAllNotRetiredMaleEmployeesPredicate() {

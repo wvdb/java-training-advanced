@@ -273,7 +273,7 @@ public class OefeningStreams {
         Employee employee1 = new Employee(1, "wim van den brande", 50, Worker.Gender.MALE, null);
         employeesSorted.add(employee1);
 
-        Employee employee2 = new Employee(2, "kris van den brande", 48, null, null);
+        Employee employee2 = new Employee(2, "kris van den brande", 20, Worker.Gender.MALE, null);
         employeesSorted.add(employee2);
 
         Employee employee3 = new Employee(6, "michelle obama", 55, Worker.Gender.FEMALE, null);
@@ -289,15 +289,30 @@ public class OefeningStreams {
         employeesSorted.add(employee6);
 
         // Instead of a sequence of if-statements the filter and map methods are combined in a fluent style
+        // example of Functional Programming (new style)
 
-        return findMeAWomenOf50YearsOld(employeesSorted)
-                .map(employee -> "Me happy")
-                .orElse("I'm gonna be lonesome");
+        String result = findMeAnEmployeeOfLessThan30YearsOld(employeesSorted)
+                .map(employee -> "Hire")
+                .orElse("Keep on searching");
+
+
+        // example of Traditional Programming (down to earth style)
+
+        String result2;
+        if (findMeAnEmployeeOfLessThan30YearsOld(employeesSorted).isPresent()) {
+            result2 = "hire";
+        }
+        else {
+            result2 = "Keep on searching";
+        }
+
+        return result;
     }
 
-    private Optional<Employee> findMeAWomenOf50YearsOld(SortedSet<Employee> employeesSorted) {
-        Optional<Employee> myWoman = employeesSorted.stream().filter(employee -> employee.getGender() == Worker.Gender.FEMALE && employee.getAge() == 50).findAny();
-        return myWoman;
+    private Optional<Employee> findMeAnEmployeeOfLessThan30YearsOld(SortedSet<Employee> employeesSorted) {
+        Optional<Employee> myEmployee
+                = employeesSorted.stream().filter(employee -> employee.getGender() == Worker.Gender.FEMALE && employee.getAge() <= 30).findAny();
+        return myEmployee;
     }
 
     public void execOlympicMedalsWithForEach_44() {
