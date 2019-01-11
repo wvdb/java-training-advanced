@@ -69,9 +69,14 @@ public class MyApplication {
             case 1:
 //                MyApplication.demoHashSetVsLinkedHashSetAndEquals_1A();
                 OefeningCollections.demoLinkedList_1B();
-                OefeningCollections.demoListOfLists_1C();
-                OefeningCollections.demoCollectionAndRemoveA();
+//                OefeningCollections.demoListOfLists_1C();
+//                OefeningCollections.demoCollectionAndRemoveA();
 //                OefeningCollections.demoCollectionAndRemoveB();
+                break;
+            case 111:
+//                OefeningCollections.execSorted_111A();
+                OefeningCollections.execTreeSet_111B();
+//                OefeningCollections.execSet_111C();
                 break;
             case 2:
                 MyApplication.oefeningCollectionsMap();

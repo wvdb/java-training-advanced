@@ -210,64 +210,10 @@ public class OefeningStreams {
 
     }
 
-    public void execSorted_42() {
-        // example of Sorted Set
-        // ---------------------
-
-        SortedSet<Employee> employeesSorted = new TreeSet<>();
-
-        Employee employee = new Employee(1, "wim van den brande", 50, Worker.Gender.MALE, null);
-        employeesSorted.add(employee);
-
-        Employee employee2 = new Employee(2, "kris van den brande", 48, null, null);
-        employeesSorted.add(employee2);
-
-        Employee employee3 = new Employee(6, "michelle obama", 55, Worker.Gender.FEMALE, null);
-        employeesSorted.add(employee3);
-
-        Employee employee4 = new Employee(5, "donald trump", 71, Worker.Gender.MALE, null);
-        employeesSorted.add(employee4);
-
-        Employee employee5 = new Employee(4, "hilary clinton", 72, Worker.Gender.FEMALE, null);
-        employeesSorted.add(employee5);
-
-        Employee employee6 = new Employee(0 ,"jan van den brande", 52, Worker.Gender.MALE, null);
-        employeesSorted.add(employee6);
-
-        System.out.println("employeesSortedDefault: " + employeesSorted);
-
-        System.out.println("employeesSortedDefault first: " + employeesSorted.first());
-        System.out.println("employeesSortedDefault last: " + employeesSorted.last());
-        // comparator will be null since we are using the Comparable
-        System.out.println("employeesSortedDefault: " + employeesSorted.comparator());
-
-        // usage of headset
-        // Returns a view of the portion of this set whose elements are strictly less than element
-        // Returns employees with age < 55
-        SortedSet headSet = employeesSorted.headSet(employee3);
-        System.out.println("headSet: " + headSet);
-
-        // usage of tailSet
-        // Returns a view of the portion of this set whose elements are greater than or equal to fromElement.
-        // Returns employees with age >= 55
-        SortedSet tailSet = employeesSorted.tailSet(employee3);
-        System.out.println("tailSet: " + tailSet);
-
-        // usage of subSet
-        // return a view of the portion of this set whose elements range from
-        //         <tt>fromElement</tt>, inclusive, to <tt>toElement</tt>, exclusive
-        // Returns employees with age between 50 and 55
-        SortedSet subSet = employeesSorted.subSet(employee, employee3);
-        System.out.println("subSet: " + subSet);
-
-        Employee employee7 = new Employee(100, "nicole kidman", 50, Worker.Gender.FEMALE, null);
-        employeesSorted.add(employee7);
-
-        // we lost Nicole Kidman .... call Tom!!!
-        System.out.println("employeesSorted !!!: " + employeesSorted);
-    }
-
     public String execOptional_43() {
+        int age = 50;
+//        age = 60;
+
         SortedSet<Employee> employeesSorted = new TreeSet<>();
 
         Employee employee1 = new Employee(1, "wim van den brande", 50, Worker.Gender.MALE, null);
@@ -288,10 +234,17 @@ public class OefeningStreams {
         Employee employee6 = new Employee(0 ,"jan van den brande", 52, Worker.Gender.MALE, null);
         employeesSorted.add(employee6);
 
+        // reason why a forEach sometimes is a pain in the b...
+        // variables used in lambdas should be final !!!
+
+        employeesSorted.forEach(employee -> {
+                employee.getAge().equals(age);
+        });
+
         // Instead of a sequence of if-statements the filter and map methods are combined in a fluent style
         // example of Functional Programming (new style)
 
-        String result = findMeAnEmployeeOfLessThan30YearsOld(employeesSorted)
+        String result = findMeACandidateOfLessThan30YearsOld(employeesSorted)
                 .map(employee -> "Hire")
                 .orElse("Keep on searching");
 
@@ -299,7 +252,7 @@ public class OefeningStreams {
         // example of Traditional Programming (down to earth style)
 
         String result2;
-        if (findMeAnEmployeeOfLessThan30YearsOld(employeesSorted).isPresent()) {
+        if (findMeACandidateOfLessThan30YearsOld(employeesSorted).isPresent()) {
             result2 = "hire";
         }
         else {
@@ -309,7 +262,7 @@ public class OefeningStreams {
         return result;
     }
 
-    private Optional<Employee> findMeAnEmployeeOfLessThan30YearsOld(SortedSet<Employee> employeesSorted) {
+    private Optional<Employee> findMeACandidateOfLessThan30YearsOld(SortedSet<Employee> employeesSorted) {
         Optional<Employee> myEmployee
                 = employeesSorted.stream().filter(employee -> employee.getGender() == Worker.Gender.FEMALE && employee.getAge() <= 30).findAny();
         return myEmployee;
