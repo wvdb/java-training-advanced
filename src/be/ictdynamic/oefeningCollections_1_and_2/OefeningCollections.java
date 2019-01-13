@@ -121,7 +121,8 @@ public class OefeningCollections {
         // a HashMap does NOT support predictable iteration order
         // a LinkedHashMap DOES support predictable iteration order
 
-        Map<String, Integer> map1 = new HashMap<>();
+        // example of a map with capacity
+        Map<String, Integer> map1 = new HashMap<>(10);
         for (Integer i=0; i<100; i++) {
             map1.put(i.toString(), i);
         }
