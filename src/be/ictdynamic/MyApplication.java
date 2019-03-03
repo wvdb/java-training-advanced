@@ -466,7 +466,7 @@ public class MyApplication {
 
     private static void demoGenericsBasic() {
         OefeningGenerics.demoGenericsBasic();
-        OefeningGenerics.demoGenericsDummy();
+        OefeningGenerics.demoGenericsNumberDuo();
     }
 
     private static void demoGenericsBuilding() {
@@ -849,8 +849,8 @@ public class MyApplication {
 //        Thread thread2 = new Thread(() -> increment(counter1, Integer.MAX_VALUE));
         Thread thread1 = new Thread(() -> increment(counterImpl, 100_000_000));
         Thread thread2 = new Thread(() -> increment(counterImpl, 100_000_000));
-//        Thread thread1 = new Thread(() -> increment(counter1, 10_000));
-//        Thread thread2 = new Thread(() -> increment(counter1, 10_000));
+//        Thread thread1 = new Thread(() -> increment(counterImpl, 10_000));
+//        Thread thread2 = new Thread(() -> increment(counterImpl, 10_000));
 
         thread1.start();
         thread2.start();

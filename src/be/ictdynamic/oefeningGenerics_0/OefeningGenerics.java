@@ -2,6 +2,7 @@ package be.ictdynamic.oefeningGenerics_0;
 
 import be.ictdynamic.domain.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -93,8 +94,20 @@ public class OefeningGenerics {
 
     }
 
-    public static void demoGenericsDummy() {
-        DummyGeneric<Long> x = new DummyGeneric<>();
+    public static void demoGenericsNumberDuo() {
+//        NumberDuo<Number> numberDuoA = new NumberDuo<Integer>(7,5);
+
+        // solution 1 : solution of training (with Joker)
+        NumberDuo<?> numberDuoB = new NumberDuo<Integer>(7,5);
+
+        // solution 2 : preferred solution
+        // with instantiation, we re-use the generic-type of the declaration
+        NumberDuo<Number> numberDuoC1 = new NumberDuo<>(7,5);
+        NumberDuo<Number> numberDuoC2 = new NumberDuo<>(1.123456, 3.1416);
+        NumberDuo<Number> numberDuoC3 = new NumberDuo<>(BigDecimal.valueOf(123), BigDecimal.valueOf(456));
+        // cannot infer arguements
+        // infer = afleiden
+//        NumberDuo<Number> numberDuoC4 = new NumberDuo<>(7, "123");
     }
 
     public void demoComparable() {
