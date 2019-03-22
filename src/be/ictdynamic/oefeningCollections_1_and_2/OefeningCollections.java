@@ -141,7 +141,8 @@ public class OefeningCollections {
         }
     }
 
-    public static void demoQueue() {
+    public static void demoQueue_9() {
+        // Second Occurrence of our LinkedList (LinkedList implements List) !!!
         Queue<Employee> employees = new LinkedList<>(
                 Arrays.asList(  new Employee(1, "wim van den brande", 49, Worker.Gender.MALE, null),
                         new Employee(2, "hillary clinton", 72, Worker.Gender.FEMALE, null),
@@ -161,6 +162,9 @@ public class OefeningCollections {
         }
 
         System.out.println("Number of entries in queue = " + employees.size());
+
+        // The remove and poll methods differ in their behavior only when the queue is empty.
+        // Under these circumstances, remove throws NoSuchElementException , while poll returns null .
 
         while (employees.peek() != null) {
             Employee nextEmployee = employees.remove();
@@ -190,7 +194,7 @@ public class OefeningCollections {
             System.out.println(string);
         }
 
-        // addFirst, addLast methods don't exist for ArrayList
+        // descendingIterator doesn't exist for ArrayList
         Iterator iterator = linkedListOfIntegers.descendingIterator();
         System.out.println("iteratie na gebruik van descendingIterator");
         while (iterator.hasNext()) {

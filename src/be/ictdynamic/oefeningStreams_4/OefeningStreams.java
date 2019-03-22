@@ -148,6 +148,9 @@ public class OefeningStreams {
         // has enough cores!!!
         // Issues ????
 
+        List<Employee> sorted = new ArrayList<>();
+        Collections.sort(sorted);
+
         initEmployees().parallelStream().filter(employee -> employee.getGender() == Worker.Gender.OTHER).collect(Collectors.toList());
 
         Employee myEmployeesArray[] = employeesSortedByAge.toArray(new Employee[employeesSortedByAge.size()]);

@@ -20,6 +20,13 @@ public class BaseDao<T> {
     }
 
     public T create() {
-        return null;
+        return entity;
+    }
+
+    public T update() {
+        return entity;
+    }
+
+    public void delete(T entity) {
     }
 }

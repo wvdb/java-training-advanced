@@ -74,8 +74,8 @@ public class MyApplication {
 //                OefeningCollections.demoCollectionAndRemoveB();
                 break;
             case 111:
-//                OefeningCollections.execSorted_111A();
-                OefeningCollections.execTreeSet_111B();
+                OefeningCollections.execSorted_111A();
+//                OefeningCollections.execTreeSet_111B();
 //                OefeningCollections.execSet_111C();
                 break;
             case 2:
@@ -92,6 +92,9 @@ public class MyApplication {
                 MyApplication.oefeningConsumer_3();
 
                 break;
+            case 9:
+                OefeningCollections.demoQueue_9();
+                break;
             case 20:
                 // with this exercise we demonstrate how we can use the builder
                 EmployeeB employee = new EmployeeB.EmployeeBuilder(10L, "wvdb")
@@ -100,6 +103,7 @@ public class MyApplication {
                                         .build();
                 break;
             case 30:
+                MyApplication.oefeningLambda_30();
 //                MyApplication.oefeningMethodReferences_30();
                 MyApplication.oefeningMethodReferences_31();
                 break;
@@ -494,7 +498,6 @@ public class MyApplication {
 
     private static void oefeningCollectionsMap() {
         OefeningCollections.demoHashMapVersusLinkedHashMap();
-        OefeningCollections.demoQueue();
     }
 
     private static void oefeningPredicates_3() {
@@ -503,7 +506,9 @@ public class MyApplication {
                 new Employee(3, "floriaan van den brande", 16, Worker.Gender.MALE, null),
                 new Employee(4, "leo van den brande", 80, Worker.Gender.MALE, null));
 
+        useEmployeePredicateAndLogResult(employees, employee -> employee.getGender() == Worker.Gender.MALE, "All Male");
         useEmployeePredicateAndLogResult(employees, getAllMaleEmployeesPredicate(), "All Male");
+
         useEmployeePredicateAndLogResult(employees, getAllNotRetiredMaleEmployeesPredicate(), "Not Retired");
         useEmployeePredicateAndLogResult(employees, employee -> employee.getGender() == Worker.Gender.FEMALE, "Female employees");
         useEmployeePredicateAndLogResult(employees, getAllMaleEmployeesPredicate().and(getAllNotRetiredMaleEmployeesPredicate()), "Male and not retired");
@@ -563,6 +568,18 @@ public class MyApplication {
 
         List<Employee> employees = new ArrayList<>();
         employees.forEach(employee -> System.out.println(">>>" + employee + "<<<"));
+    }
+
+    private static void oefeningLambda_30() {
+        List<String> list = new ArrayList<>();
+
+        list.removeIf(s->s.isEmpty());
+//        list.removeIf(s->{s.isEmpty()});
+//        list.removeIf(s->{s.isEmpty();});
+        list.removeIf(s->{return s.isEmpty();});
+//        list.removeIf(String s -> s.isEmpty());
+        list.removeIf((String s) -> s.isEmpty());
+
     }
 
     private static void oefeningMethodReferences_30() {
