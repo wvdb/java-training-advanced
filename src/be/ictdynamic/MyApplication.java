@@ -1,9 +1,6 @@
 package be.ictdynamic;
 
 import be.ictdynamic.domain.*;
-import be.ictdynamic.functional_interfaces.TextUtil;
-import be.ictdynamic.functional_interfaces.WordFilter;
-import be.ictdynamic.functional_interfaces.WordProcessor;
 import be.ictdynamic.oefeningCollections_1_and_2.OefeningCollections;
 import be.ictdynamic.oefeningGenerics_0.OefeningGenerics;
 import be.ictdynamic.oefeningStreams_4.OefeningStreams;
@@ -497,7 +494,8 @@ public class MyApplication {
     }
 
     private static void oefeningCollectionsMap() {
-        OefeningCollections.demoHashMapVersusLinkedHashMap();
+//        OefeningCollections.demoHashMapVersusLinkedHashMap_2();
+        OefeningCollections.demoMapOlympicGames_2A();
     }
 
     private static void oefeningPredicates_3() {
@@ -583,87 +581,6 @@ public class MyApplication {
     }
 
     private static void oefeningMethodReferences_30() {
-        class Text {
-            private String sentence;
-
-            private Text(String sentence) {
-                this.sentence = sentence;
-            }
-
-            private void printProcessedWords(WordProcessor wordProcessor) {
-                // we want all the words except for the dot
-                for (String word : sentence.replace(".","").split(" ")) {
-                    System.out.println(wordProcessor.process(word));
-                }
-            }
-
-            private void printFilteredWords(WordFilter worldFilter) {
-                // we want all the words except for the dot
-                for (String word : sentence.replace(".","").split(" ")) {
-                    System.out.println("Word " + word + ":" + worldFilter.isValid(word));
-                }
-            }
-        }
-
-        class DummyClass {
-            public String toUpperCase(String s) {
-                return s.toUpperCase();
-            }
-        }
-
-        Text text = new Text("You can't stop the waves, but you can learn how to surf.");
-
-        // ex 0
-        System.out.println("Usage 0A of FunctionalInterface");
-        text.printFilteredWords(myWord -> myWord.contains("e"));
-
-        System.out.println("Usage 0B of FunctionalInterface");
-        text.printFilteredWords(myWord -> myWord.startsWith("S"));
-
-        System.out.println("Usage 0C of FunctionalInterface: words with 2 occurrences of 'r'");
-        text.printFilteredWords(myWord -> {
-                int count = 0;
-                for (char c : myWord.toCharArray()) {
-                    if (c == 'r')
-                        count++;
-                }
-                if (count == 2) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
-        });
-
-        System.out.println("Usage 0D of FunctionalInterface: words containing an 'e' and and 'a'");
-        text.printFilteredWords(myWord -> {
-            if (myWord.contains("e") && myWord.contains("a")) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        });
-
-        // printProcessedWords
-        // -------------------
-
-        // ex 1 : lambda
-        System.out.println("Usage 1 of FunctionalInterface");
-        text.printProcessedWords(myWord -> String.format(">>%s<<", myWord));
-
-        // ex 2 : static method reference
-        System.out.println("Usage of static method reference");
-        text.printProcessedWords(TextUtil::formatQuote);
-
-        // ex 3 : unbound method reference
-        System.out.println("Usage of unbound method reference");
-        text.printProcessedWords(String::toUpperCase);
-
-        // ex 4 : bound method reference
-        System.out.println("Usage of bound method reference");
-        DummyClass dummyClass = new DummyClass();
-        text.printProcessedWords(dummyClass::toUpperCase);
 
         // (simplified version with streams)
         System.out.println("Usage of a stream");

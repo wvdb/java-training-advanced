@@ -117,7 +117,7 @@ public class OefeningCollections {
         System.out.println("employees !!!: " + employees);
     }
 
-    public static void demoHashMapVersusLinkedHashMap() {
+    public static void demoHashMapVersusLinkedHashMap_2() {
         // a HashMap does NOT support predictable iteration order
         // a LinkedHashMap DOES support predictable iteration order
 
@@ -139,6 +139,39 @@ public class OefeningCollections {
         for (Map.Entry<String, Integer> entry : map2.entrySet()) {
             System.out.println("Entry has key " + entry.getKey() + " and value " + entry.getValue());
         }
+    }
+
+    public static void demoMapOlympicGames_2A() {
+        Map<Integer, Map<String, Integer>> olympicGamesMap = new LinkedHashMap<Integer, Map<String, Integer>>(){{
+            put(2016, new LinkedHashMap<String, Integer>() {{
+                put("Norway", 39);
+                put("Netherlands", 20);
+                put("Belgium", 1);
+                put("Portugal", 1);
+            }});
+            put(2018, new LinkedHashMap<String, Integer>() {{
+                put("US", 121);
+                put("Netherlands", 19);
+                put("Belgium", 6);
+            }});
+        }};
+
+        for (Integer olympicGamesYear : olympicGamesMap.keySet()) {
+            Map<String, Integer> olympicGamesbyOccurranceMap = olympicGamesMap.get(olympicGamesYear);
+            int total = 0;
+            for (String country : olympicGamesbyOccurranceMap.keySet()) {
+                total += olympicGamesbyOccurranceMap.get(country);
+            }
+            System.out.println(String.format("Total number of medals for year %s is %d.", olympicGamesYear, total));
+        }
+
+        olympicGamesMap.forEach((olympicGamesYear, olympicGamesbyOccurranceMap) -> {
+          final int[] total = {0};
+          olympicGamesbyOccurranceMap.forEach((country, numberOfMedalsByyearByCountry) -> {
+              total[0] += numberOfMedalsByyearByCountry;
+          });
+          System.out.println(String.format("Total number of medals for year %s is %d.", olympicGamesYear, total[0]));
+        });
     }
 
     public static void demoQueue_9() {
