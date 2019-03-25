@@ -15,7 +15,7 @@ public class TextApp {
         Text text = new Text("You can't stop the waves, but you can learn how to surrrrf.");
 
         // ex 0A
-        System.out.println("Anonymous impl of WorldFilter");
+        System.out.println("Anonymous impl of WordFilter");
 
         WordFilter wordFilter = new WordFilter() {
             @Override

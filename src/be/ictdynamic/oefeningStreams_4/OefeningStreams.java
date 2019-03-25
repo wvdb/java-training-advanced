@@ -274,8 +274,6 @@ public class OefeningStreams {
     public void execOlympicMedalsWithForEach_44() {
         Map<String, Map<String, Integer>> olympicMedalsPerYearPerCountry = new HashMap<>();
 
-        Map<String, Integer> mapOfTotalMedalsByCountry = new HashMap<>();
-
         Map<String, Integer> mapOfMedals2016 = new HashMap<>();
         mapOfMedals2016.put("NL", 12);
         mapOfMedals2016.put("BE", 4);
@@ -285,14 +283,16 @@ public class OefeningStreams {
         olympicMedalsPerYearPerCountry.put("2016", mapOfMedals2016);
 
         Map<String, Integer> mapOfMedals2020 = new HashMap<>();
-        mapOfMedals2020.put("NL", 6);
-        mapOfMedals2020.put("BE", 40);
+        mapOfMedals2020.put("NL", 16);
+        mapOfMedals2020.put("BE", 16);
         mapOfMedals2020.put("US", 5);
         mapOfMedals2020.put("RUS", 0);
 
         olympicMedalsPerYearPerCountry.put("2020", mapOfMedals2020);
 
         // example of a foreach in a foreach
+
+        Map<String, Integer> mapOfTotalMedalsByCountry = new HashMap<>();
 
         olympicMedalsPerYearPerCountry.forEach(
                 (keyYear, mapMedalsPerCountry) -> {
@@ -307,7 +307,7 @@ public class OefeningStreams {
                             mapOfTotalMedalsByCountry.put(keyCountry, mapOfTotalMedalsByCountry.get(keyCountry) + numberOfMedalsByYearByCountry);
                         }
 
-                        // or do we prefer this ???
+                        // or do we prefer the merge ???
 //                        mapOfTotalMedalsByCountry.merge(keyCountry, numberOfMedalsByYearByCountry, (a, b) -> a + b);
                     });
                 }

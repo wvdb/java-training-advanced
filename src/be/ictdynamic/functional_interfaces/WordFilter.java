@@ -1,6 +1,6 @@
 package be.ictdynamic.functional_interfaces;
 
-@FunctionalInterface
+//@FunctionalInterface
 public interface WordFilter {
    // Classes implementing this interface have only ONE function
 

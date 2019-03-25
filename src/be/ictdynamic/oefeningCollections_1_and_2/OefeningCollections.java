@@ -117,6 +117,26 @@ public class OefeningCollections {
         System.out.println("employees !!!: " + employees);
     }
 
+    public static void compareArrayAndArrayList_112() {
+        Integer[] array1 = {10, 20, 30};
+        Integer[] array2 = {10, 20, 30};
+
+        System.out.println(array1.equals(array2) ? "arrays are equal" : "arrays are not equal");
+
+        ArrayList<String> strings1 = new ArrayList<String>() {{
+            add("Geeks");
+            add("for");
+            add("Geeks");
+        }};
+        ArrayList<String> strings2 = new ArrayList<String>() {{
+            add("Geeks");
+            add("for");
+            add("Geeks");
+        }};
+
+        System.out.println(strings1.equals(strings2) ? "ArrayLists are equal" : "ArrayLists are not equal");
+    }
+
     public static void demoHashMapVersusLinkedHashMap_2() {
         // a HashMap does NOT support predictable iteration order
         // a LinkedHashMap DOES support predictable iteration order

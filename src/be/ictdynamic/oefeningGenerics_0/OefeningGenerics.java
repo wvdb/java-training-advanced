@@ -5,7 +5,6 @@ import be.ictdynamic.domain.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by wvdbrand on 11/09/2017.
@@ -103,9 +102,11 @@ public class OefeningGenerics {
         // solution 2 : preferred solution
         // with instantiation, we re-use the generic-type of the declaration
         NumberDuo<Number> numberDuoC1 = new NumberDuo<>(7,5);
-        NumberDuo<Number> numberDuoC2 = new NumberDuo<>(1.123456, 3.1416);
+        NumberDuo<Number> numberDuoC2A = new NumberDuo<>(1.123456, 3.1416);
+        NumberDuo<Number> numberDuoC2B = new NumberDuo<>(1.123456, 3);
         NumberDuo<Number> numberDuoC3 = new NumberDuo<>(BigDecimal.valueOf(123), BigDecimal.valueOf(456));
-        // cannot infer arguements
+
+        // cannot infer arguments
         // infer = afleiden
 //        NumberDuo<Number> numberDuoC4 = new NumberDuo<>(7, "123");
     }
@@ -124,31 +125,6 @@ public class OefeningGenerics {
     public static void demoGenericsWorker() {
         ProcessWorker processWorker = new ProcessWorker();
         processWorker.hire(new Employee(1, "wim van den brande", 51, Worker.Gender.MALE, null));
-    }
-
-    public static void demoGenerics1() {
-        Employee employee = new Employee(1, "wim van den brande", 49, null, null);
-        Worker worker = employee;
-
-        // if Foo is a subtype of Bar, and G is some generic type declaration, it is not the case that G<Foo> is a subtype of G<Bar>
-
-        List<Employee> employees = new ArrayList<>();
-        employees.add(employee);
-        // does not compile !!!
-        // WHY -> course -> page 271
-//        List<Worker> workers = employees;
-    }
-
-    public static void demoGenerics2() {
-        List<Employee> employees = new ArrayList<>();
-        List<Employee> managers = new ArrayList<>();
-        List<String> strings = new ArrayList<>();
-
-        countNumberOfWorkers2(employees);
-        countNumberOfWorkers2(managers);
-        countNumberOfWorkers2(strings);
-
-        countNumberOfWorkers3A(managers, employees);
     }
 
     private static int countNumberOfWorkers1(List<? extends Worker> listOfWorkers) {
@@ -208,10 +184,6 @@ public class OefeningGenerics {
         // does not compile
 //        genericList.add(new String());
         return genericList.size();
-    }
-
-    private static int exampleWithAMap(Map<String, ? extends Worker> mapOfWorkers) {
-        return mapOfWorkers.size();
     }
 
 }

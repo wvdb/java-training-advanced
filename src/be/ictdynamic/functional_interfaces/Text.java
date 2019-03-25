@@ -9,8 +9,10 @@ public class Text {
 
     public void printFilteredWords(WordFilter wordFilter) {
         // we want all the words except for the dot
-        for (String word : sentence.replace(".", "").split(" ")) {
-//            System.out.println("Word " + word + ":" + wordFilter.isValid(word));
+//        for (String word : sentence.replace(".", "").split(" ")) {
+
+        String[] words = sentence.split(" ");
+        for (String word : words) {
             if (wordFilter.isValid(word)) {
                 System.out.println(word);
             }

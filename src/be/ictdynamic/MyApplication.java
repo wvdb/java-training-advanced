@@ -61,7 +61,6 @@ public class MyApplication {
                 break;
             case 0:
                 MyApplication.demoGenericsBasic();
-//                MyApplication.demoGenericsBuilding();
                 break;
             case 1:
 //                MyApplication.demoHashSetVsLinkedHashSetAndEquals_1A();
@@ -70,13 +69,8 @@ public class MyApplication {
 //                OefeningCollections.demoCollectionAndRemoveA();
 //                OefeningCollections.demoCollectionAndRemoveB();
                 break;
-            case 111:
-                OefeningCollections.execSorted_111A();
-//                OefeningCollections.execTreeSet_111B();
-//                OefeningCollections.execSet_111C();
-                break;
             case 2:
-                MyApplication.oefeningCollectionsMap();
+                OefeningCollections.demoMapOlympicGames_2A();
                 break;
             case 3:
                 // with this exercise we demonstrate how we can reuse small portions of logic (predicates or conditions)
@@ -89,9 +83,6 @@ public class MyApplication {
                 MyApplication.oefeningConsumer_3();
 
                 break;
-            case 9:
-                OefeningCollections.demoQueue_9();
-                break;
             case 20:
                 // with this exercise we demonstrate how we can use the builder
                 EmployeeB employee = new EmployeeB.EmployeeBuilder(10L, "wvdb")
@@ -101,7 +92,7 @@ public class MyApplication {
                 break;
             case 30:
                 MyApplication.oefeningLambda_30();
-//                MyApplication.oefeningMethodReferences_30();
+                MyApplication.oefeningMethodReferences_30();
                 MyApplication.oefeningMethodReferences_31();
                 break;
             case 4:
@@ -109,7 +100,7 @@ public class MyApplication {
 //                oefeningStreams.execBasicStreams_40();
 //                  oefeningStreams.execStreams_41();
 //                oefeningStreams.execSorted_42();
-                System.out.println(oefeningStreams.execOptional_43());
+//                System.out.println(oefeningStreams.execOptional_43());
 //                oefeningStreams.execOlympicMedalsWithForEach_44();
                 break;
             case 5:
@@ -133,6 +124,9 @@ public class MyApplication {
                 break;
             case 8:
                 MyApplication.oefeningRead_Properties_8();
+                break;
+            case 9:
+                OefeningCollections.demoQueue_9();
                 break;
             case 11:
                 MyApplication.oefeningThreads_withExtendsOfThread_11();
@@ -167,6 +161,30 @@ public class MyApplication {
             case 19:
                 MyApplication myApplication4 = new MyApplication();
                 myApplication4.oefeningFuture_19();
+                break;
+            case 44:
+                OefeningStreams oefeningStreams1 = new OefeningStreams();
+                oefeningStreams1.execOlympicMedalsWithForEach_44();
+                break;
+            case 50:
+                MyApplication myApplication5 = new MyApplication();
+                myApplication5.oefening50_OCA_1();
+                break;
+            case 51:
+                MyApplication myApplication51 = new MyApplication();
+                myApplication51.oefening51_OCA_2();
+                break;
+            case 52:
+                MyApplication myApplication52 = new MyApplication();
+                myApplication52.oefening52_OCA_3();
+                break;
+            case 111:
+                OefeningCollections.execSorted_111A();
+//                OefeningCollections.execTreeSet_111B();
+//                OefeningCollections.execSet_111C();
+                break;
+            case 112:
+                OefeningCollections.compareArrayAndArrayList_112();
                 break;
             default:
                 System.err.println("!!!No exercise supported.");
@@ -470,32 +488,8 @@ public class MyApplication {
         OefeningGenerics.demoGenericsNumberDuo();
     }
 
-    private static void demoGenericsBuilding() {
-        ConcreteMaterialType concrete = new ConcreteMaterialType();
-        WoodMaterialType wood = new WoodMaterialType();
-
-        ConstructableImpl<WoodMaterialType> building1 = new ConstructableImpl<>();
-        building1.constructBuilding(wood);
-//        building1.constructBuilding(concrete);
-
-        ConstructableImpl2 building2 = new ConstructableImpl2();
-        building2.constructBuilding(concrete);
-        building2.tearDownBuilding(wood);
-
-        // DOES this work ???
-
-//        Building<String> building2 = new Building<>();
-//        Building<Object> building3 = new Building<>();
-//        Building building4 = new Building();
-    }
-
     private static void demoHashSetVsLinkedHashSetAndEquals_1A() {
         OefeningCollections.demoHashSetVsLinkedHashSetAndEquals_1A();
-    }
-
-    private static void oefeningCollectionsMap() {
-//        OefeningCollections.demoHashMapVersusLinkedHashMap_2();
-        OefeningCollections.demoMapOlympicGames_2A();
     }
 
     private static void oefeningPredicates_3() {
@@ -555,19 +549,6 @@ public class MyApplication {
         consumer.accept(o);
     }
 
-    private static void oefeningMethodReferences_31() {
-        String[] words2 = "You can't stop the waves, but you can learn how to surf.".split(" ");
-//        for (String word : words2) {
-//            System.out.println(word);
-//        }
-        System.out.println(Arrays.stream(words2).filter(word -> word.length() == 3).count());
-        Stream.of(words2).forEach(System.out::println);
-        Stream.of(words2).forEach(word -> System.out.println());
-
-        List<Employee> employees = new ArrayList<>();
-        employees.forEach(employee -> System.out.println(">>>" + employee + "<<<"));
-    }
-
     private static void oefeningLambda_30() {
         List<String> list = new ArrayList<>();
 
@@ -594,6 +575,17 @@ public class MyApplication {
             System.out.println(myConvertedWord);
         }
 
+    }
+
+    private static void oefeningMethodReferences_31() {
+        String[] words2 = "You can't stop the waves, but you can learn how to surf.".split(" ");
+
+        System.out.println(Arrays.stream(words2).filter(word -> word.length() == 3).count());
+        Stream.of(words2).forEach(System.out::println);
+        Stream.of(words2).forEach(word -> System.out.println());
+
+        List<Employee> employees = new ArrayList<>();
+        employees.forEach(employee -> System.out.println(">>>" + employee + "<<<"));
     }
 
     public static void useEmployeePredicateAndLogResult(List<Employee> employees, Predicate<Employee> predicate, String predicateType) {
@@ -849,6 +841,42 @@ public class MyApplication {
 
         System.out.println("Size of list = " + list.size() + ", processing time in ms = " + (endTime - startTime));
 
+    }
+
+    private void oefening50_OCA_1() {
+        ArrayList<Integer> integers = new ArrayList<>();
+        integers.add(56);
+        integers.add(56);
+        integers.add(3);
+
+        TreeSet<Integer> set = new TreeSet<>(integers);
+        System.out.println(set.iterator().next());
+    }
+
+    private void oefening51_OCA_2() {
+        String[] words1 = {"dit", "is", "een", "test"};
+        int x = Arrays.binarySearch(words1, "een");
+        System.out.println(x);
+
+        String[] words2 = {"dit", "een", "is", "test"};
+        x = Arrays.binarySearch(words2, "een");
+        System.out.println(x);
+
+        x = Arrays.binarySearch(words2, "kanarie");
+        System.out.println(x);
+   }
+
+    private void oefening52_OCA_3() {
+        ArrayList<Integer> integers = new ArrayList<>();
+        integers.add(0, 56);
+        integers.add(1, 56);
+        integers.add(2, 3);
+
+        integers.set(1, 100);
+
+        integers.removeIf(integer -> integer > 50);
+
+        System.out.println(integers);
     }
 
     private void oefeningFuture_19() throws ExecutionException, InterruptedException {
