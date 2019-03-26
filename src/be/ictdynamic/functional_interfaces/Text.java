@@ -26,4 +26,10 @@ public class Text {
         }
     }
 
+    public void printNumberValues(NumberParser numberParser) {
+        for (String word : sentence.split(" ")) {
+            System.out.print(String.format("%d\n", numberParser.parse(word)));
+        }
+    }
+
 }

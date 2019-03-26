@@ -1,5 +1,6 @@
 package be.ictdynamic.oefeningCollections_1_and_2;
 
+import be.ictdynamic.domain.Box;
 import be.ictdynamic.domain.Employee;
 import be.ictdynamic.domain.Manager;
 import be.ictdynamic.domain.Worker;
@@ -115,6 +116,18 @@ public class OefeningCollections {
 
         System.out.println("we haven't lost Nicole Kidman");
         System.out.println("employees !!!: " + employees);
+    }
+
+    public static void compareBoxes_113() {
+        SortedSet<Box> boxes = new TreeSet<>();
+        boxes.add(new Box(3,5,2));
+        boxes.add(new Box(4,3,7));
+        boxes.add(new Box(1,1,1));
+
+        for (Box b: boxes) {
+            System.out.println(b);
+        }
+
     }
 
     public static void compareArrayAndArrayList_112() {
@@ -293,7 +306,7 @@ public class OefeningCollections {
     }
 
     @Deprecated
-    public static void demoCollectionAndRemoveA() {
+    public static void demoCollectionAndRemoveUnsafe() {
         List<String> words = new ArrayList<>(10);
         words.add("this");
         words.add("is");
@@ -309,7 +322,7 @@ public class OefeningCollections {
         System.out.println("number of words = " + words.size());
     }
 
-    public static void demoCollectionAndRemoveB() {
+    public static void demoCollectionAndRemoveSafe() {
         List<String> words = new ArrayList<>();
         words.add("this");
         words.add("is");

@@ -1,8 +1,11 @@
 package be.ictdynamic.functional_interfaces;
 
-//@FunctionalInterface
-public interface TextUtil {
-    public static String formatQuote(String string) {
+public class TextUtil {
+    public static String format(String string) {
         return String.format(">>%s<<", string);
+    }
+    public static String reverse(String string) {
+        StringBuilder stringBuilder = new StringBuilder(string);
+        return stringBuilder.reverse().toString();
     }
 }

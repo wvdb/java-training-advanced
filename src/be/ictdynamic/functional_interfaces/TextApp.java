@@ -14,6 +14,8 @@ public class TextApp {
     public static void main(String[] args) {
         Text text = new Text("You can't stop the waves, but you can learn how to surrrrf.");
 
+//        String myWord;
+
         // ex 0A
         System.out.println("Anonymous impl of WordFilter");
 
@@ -27,7 +29,9 @@ public class TextApp {
 
         // ex 0A (lambda of 1 line in stead of anonymous class of 7 lines)
         System.out.println("Usage 0A of FunctionalInterface");
-        text.printFilteredWords((String myWord) -> myWord.contains("e"));
+        text.printFilteredWords(myWord -> myWord.contains("e"));
+//        text.printFilteredWords((String myWord) -> myWord.contains(myVar));
+//        text.printFilteredWords(myWord -> myWord.toUpperCase());
 
         // ex 0B
         System.out.println("Usage 0B of FunctionalInterface");
@@ -50,12 +54,13 @@ public class TextApp {
                 if (c == 'r')
                     count++;
             }
-            if (count >= 2) {
-                return true;
-            }
-            else {
-                return false;
-            }
+            return count >= 2;
+//            if (count >= 2) {
+//                return true;
+//            }
+//            else {
+//                return false;
+//            }
         });
 
         // printProcessedWords
@@ -63,11 +68,15 @@ public class TextApp {
 
         // ex 1 : lambda
 //        System.out.println("Usage 1 of FunctionalInterface");
-//        text.printProcessedWords(myWord -> String.format(">>%s<<", myWord));
+        text.printProcessedWords(myWord -> String.format(">>%s<<", myWord));
 
-        // ex 2 : static method reference
+//         ex 2 : static method reference
 //        System.out.println("Usage of static method reference");
-//        text.printProcessedWords(TextUtil::formatQuote);
+//        text.printProcessedWords(TextUtil::format);
+
+//         ex 2 : static method reference
+        System.out.println("Usage of static method reference");
+        text.printProcessedWords(TextUtil::reverse);
 
         // ex 3 : unbound method reference
 //        System.out.println("Usage of unbound method reference");
@@ -76,6 +85,13 @@ public class TextApp {
 //        TextApp textApp = new TextApp();
 //        textApp.method1();
 //        textApp.method_OCA();
+
+        // NumberParser
+        // ------------
+
+        text = new Text("145 235 22 33");
+        System.out.println("Usage 1 of FunctionalInterface");
+        text.printNumberValues(Long::new);
 
     }
 

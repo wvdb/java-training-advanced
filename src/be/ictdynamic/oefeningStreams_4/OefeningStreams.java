@@ -252,6 +252,10 @@ public class OefeningStreams {
                 .orElse("Keep on searching");
 
 
+        boolean recruiting = findMeACandidateOfLessThan30YearsOld(employeesSorted)
+                .map(employee -> true)
+                .orElse(false);
+
         // example of Traditional Programming (down to earth style)
 
         String result2;
@@ -267,7 +271,10 @@ public class OefeningStreams {
 
     private Optional<Employee> findMeACandidateOfLessThan30YearsOld(SortedSet<Employee> employeesSorted) {
         Optional<Employee> myEmployee
-                = employeesSorted.stream().filter(employee -> employee.getGender() == Worker.Gender.FEMALE && employee.getAge() <= 30).findAny();
+                = employeesSorted
+                    .stream()
+                    .filter(employee -> employee.getGender() == Worker.Gender.FEMALE && employee.getAge() <= 30)
+                    .findAny();
         return myEmployee;
     }
 

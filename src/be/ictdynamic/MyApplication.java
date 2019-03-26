@@ -6,7 +6,6 @@ import be.ictdynamic.oefeningGenerics_0.OefeningGenerics;
 import be.ictdynamic.oefeningStreams_4.OefeningStreams;
 import be.ictdynamic.oefeningThreads_11.MyRunnableImpl;
 import be.ictdynamic.oefeningThreads_11.OefeningThreads;
-import be.ictdynamic.oefening_function_10.ExampleOfAFunction;
 import be.ictdynamic.utilities.DateUtility;
 
 import java.io.*;
@@ -22,6 +21,7 @@ import java.util.concurrent.Future;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.GZIPOutputStream;
@@ -64,23 +64,24 @@ public class MyApplication {
                 break;
             case 1:
 //                MyApplication.demoHashSetVsLinkedHashSetAndEquals_1A();
-                OefeningCollections.demoLinkedList_1B();
+//                OefeningCollections.demoLinkedList_1B();
 //                OefeningCollections.demoListOfLists_1C();
-//                OefeningCollections.demoCollectionAndRemoveA();
-//                OefeningCollections.demoCollectionAndRemoveB();
+//                OefeningCollections.demoCollectionAndRemoveUnsafe();
+//                OefeningCollections.demoCollectionAndRemoveSafe();
                 break;
             case 2:
                 OefeningCollections.demoMapOlympicGames_2A();
                 break;
             case 3:
                 // with this exercise we demonstrate how we can reuse small portions of logic (predicates or conditions)
-                MyApplication.oefeningPredicates_3();
+//                MyApplication.oefeningPredicates_3A();
+                MyApplication.oefeningPredicates_3B();
 
-                ExampleOfAFunction exampleOfAFunction = new ExampleOfAFunction();
-                exampleOfAFunction.gettingNameOfTheEmployeeVeryFancy_3();
-                exampleOfAFunction.gettingNameOfTheEmployeeRegular_3();
-
-                MyApplication.oefeningConsumer_3();
+//                ExampleOfAFunction exampleOfAFunction = new ExampleOfAFunction();
+//                exampleOfAFunction.gettingNameOfTheEmployeeVeryFancy_3();
+//                exampleOfAFunction.gettingNameOfTheEmployeeRegular_3();
+//
+//                MyApplication.oefeningConsumer_3();
 
                 break;
             case 20:
@@ -185,6 +186,9 @@ public class MyApplication {
                 break;
             case 112:
                 OefeningCollections.compareArrayAndArrayList_112();
+                break;
+            case 113:
+                OefeningCollections.compareBoxes_113();
                 break;
             default:
                 System.err.println("!!!No exercise supported.");
@@ -492,7 +496,7 @@ public class MyApplication {
         OefeningCollections.demoHashSetVsLinkedHashSetAndEquals_1A();
     }
 
-    private static void oefeningPredicates_3() {
+    private static void oefeningPredicates_3A() {
         List<Employee> employees = Arrays.asList(new Employee(1, "wim van den brande", 49, Worker.Gender.MALE, null),
                 new Employee(2, "hillary clinton", 72, Worker.Gender.FEMALE, null),
                 new Employee(3, "floriaan van den brande", 16, Worker.Gender.MALE, null),
@@ -510,6 +514,27 @@ public class MyApplication {
 
         // We are not invoking the method, we are just referencing its name (method-references)
         usePredicateAndLogResult(myInts, IntPredicates::isEven, "Integer divisible by 2");
+    }
+
+    private static void oefeningPredicates_3B() {
+        String[] words = {"this", "is", "an", "abcde", "edcba", null};
+        Predicate<String> predicate = word -> word.contains("a") && word.contains("e");
+
+        words = Stream.of(words)
+                .filter(word -> word == null ? false : word.length() > 2)
+                .toArray(String[]::new);
+
+        for (String word : words) {
+//            System.out.println(word + " " +  predicate.test(word));
+            System.out.println(word);
+        }
+
+        OptionalInt optionalInt = IntStream.of().max();
+        if (optionalInt.isPresent()) {
+            int max = optionalInt.getAsInt();
+        }
+//
+//        Stream.of(words).forEach(System.out::println);
     }
 
     private static void oefeningConsumer_3() {
