@@ -64,7 +64,7 @@ public class MyApplication {
                 break;
             case 1:
 //                MyApplication.demoHashSetVsLinkedHashSetAndEquals_1A();
-//                OefeningCollections.demoLinkedList_1B();
+                OefeningCollections.demoLinkedList_1B();
 //                OefeningCollections.demoListOfLists_1C();
 //                OefeningCollections.demoCollectionAndRemoveUnsafe();
 //                OefeningCollections.demoCollectionAndRemoveSafe();

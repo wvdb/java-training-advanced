@@ -1,9 +1,9 @@
 package be.ictdynamic.domain;
 
 public class Box implements  Comparable<Box> {
-     private int width;
-     private int length;
-     private int height;
+     public int width;
+     public int length;
+     public int height;
 
     public Box(int w, int l, int h) {
         this.width = w;

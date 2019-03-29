@@ -1,9 +1,6 @@
 package be.ictdynamic.oefeningCollections_1_and_2;
 
-import be.ictdynamic.domain.Box;
-import be.ictdynamic.domain.Employee;
-import be.ictdynamic.domain.Manager;
-import be.ictdynamic.domain.Worker;
+import be.ictdynamic.domain.*;
 
 import java.util.*;
 
@@ -124,6 +121,9 @@ public class OefeningCollections {
         boxes.add(new Box(4,3,7));
         boxes.add(new Box(1,1,1));
 
+        SortedSet<Box2> boxes2 = new TreeSet<>();
+        boxes2.add(new Box2(3,5,2));
+
         for (Box b: boxes) {
             System.out.println(b);
         }
@@ -175,6 +175,29 @@ public class OefeningCollections {
     }
 
     public static void demoMapOlympicGames_2A() {
+
+        Map<String, Integer> myMap = new HashMap<>();
+
+        // map and iteration : flavor 1
+
+        for (Map.Entry entry : myMap.entrySet()) {
+            System.out.println("key = " + entry.getKey() + " ,  value = " + entry.getValue());
+        }
+
+        // map and iteration : flavor 2 : forEach
+
+        // problem 1 : x has to be final
+        // problem 2 : exception behaves different
+
+        String x = "";
+        x = "x";
+
+//        myMap.forEach((k, v) -> {
+//            if (k.equals(x)) {
+//                System.out.println("key = " + "k" );
+//            }
+//        });
+
         Map<Integer, Map<String, Integer>> olympicGamesMap = new LinkedHashMap<Integer, Map<String, Integer>>(){{
             put(2016, new LinkedHashMap<String, Integer>() {{
                 put("Norway", 39);
@@ -251,6 +274,7 @@ public class OefeningCollections {
         linkedListOfIntegers.add("is");
         linkedListOfIntegers.add(2, "something ");
         linkedListOfIntegers.add(3, "we cannot do with an ArrayList");
+        linkedListOfIntegers.add("test");
 
         // addFirst, addLast methods don't exist for ArrayList
         linkedListOfIntegers.addFirst("Ho Ho Ho");
