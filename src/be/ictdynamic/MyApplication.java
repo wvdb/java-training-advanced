@@ -190,6 +190,9 @@ public class MyApplication {
             case 113:
                 OefeningCollections.compareBoxes_113();
                 break;
+            case 114:
+                spelTest_114();
+                break;
             default:
                 System.err.println("!!!No exercise supported.");
         }
@@ -216,9 +219,7 @@ public class MyApplication {
             System.out.println("isReadOnly = " + dosFileAttributes.isReadOnly());
 
         } catch (IOException e) {
-            // TODO : TO BE AVOIDED
-//            e.printStackTrace();
-            System.err.println("Aanmaken of schrijven ging fout : exception = " + e);
+            System.err.println("Creating or writing the file went wrong: exception = " + e);
         }
 
     }
@@ -468,6 +469,8 @@ public class MyApplication {
     }
 
     private static void oefeningRead_Properties_8() {
+        System.out.println("\nValue van testje = " + System.getProperty("testje") + "\n");
+
         try (FileInputStream fileInputStream = new FileInputStream(PROPERTY_FILE_AS_TEXT);
              FileInputStream fileInputStream_XML = new FileInputStream(PROPERTY_FILE_AS_XML);
             ) {
@@ -866,6 +869,9 @@ public class MyApplication {
 
         System.out.println("Size of list = " + list.size() + ", processing time in ms = " + (endTime - startTime));
 
+    }
+
+    private static void spelTest_114() {
     }
 
     private void oefening50_OCA_1() {
