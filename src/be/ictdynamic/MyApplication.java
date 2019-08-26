@@ -28,23 +28,24 @@ import java.util.zip.GZIPOutputStream;
 
 public class MyApplication {
 
-    public static final String JSP_PDF_FILE = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\jsp.pdf";
-    public static final String COPY_JSP_PDF_FILE = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\copy - jsp.pdf";
+    public static final String JSP_PDF_FILE = "C:\\wim\\JAVA - training\\cursus_data_input_output\\jsp.pdf";
+    public static final String COPY_JSP_PDF_FILE = "C:\\wim\\JAVA - training\\cursus_data_input_output\\copy - jsp.pdf";
 
-    public static final String HANS_DULFER_FILE = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\streetbeats.mp3";
-    public static final String COPY_HANS_DULFER_FILE = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\copy - streetbeats.mp3";
+    public static final String HANS_DULFER_FILE = "C:\\wim\\JAVA - training\\cursus_data_input_output\\streetbeats.mp3";
+    public static final String COPY_HANS_DULFER_FILE = "C:\\wim\\JAVA - training\\cursus_data_input_output\\copy - streetbeats.mp3";
 
-    public static final String PROPERTY_FILE_AS_TEXT = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\properties.txt";
-    public static final String PROPERTY_FILE_AS_XML = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\properties.xml";
+    public static final String PROPERTY_FILE_AS_TEXT = "C:\\wim\\JAVA - training\\cursus_data_input_output\\properties.txt";
+    public static final String PROPERTY_FILE_AS_XML = "C:\\wim\\JAVA - training\\cursus_data_input_output\\properties.xml";
 
-    public static final String LARGE_FILE_AS_TEXT = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\large_file.txt";
+    public static final String LARGE_FILE_AS_TEXT = "C:\\wim\\JAVA - training\\cursus_data_input_output\\large_file.txt";
 
-    public static final String SERIALIZED_FILE = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\Test.ser";
-    public static final String LARGE_SERIALIZED_FILE_1 = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\LargeTest1.zip";
-    public static final String LARGE_SERIALIZED_FILE_2 = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\LargeTest2.ser";
+    public static final String SERIALIZED_FILE = "C:\\wim\\JAVA - training\\cursus_data_input_output\\Test.ser";
+    public static final String LARGE_SERIALIZED_FILE_1 = "C:\\wim\\JAVA - training\\cursus_data_input_output\\LargeTest1.zip";
+    public static final String LARGE_SERIALIZED_FILE_2 = "C:\\wim\\JAVA - training\\cursus_data_input_output\\LargeTest2.ser";
 
-    public static final String TEMP_TXT = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\temp.txt";
-    public static final String TEMP_ZIP = "C:\\wim\\oak3 - cronos- training\\cursus_data_input_output\\temp.zip";
+    public static final String FOLDER = "C:\\wim\\JAVA - training\\cursus_data_input_output";
+    public static final String TEMP_TXT = "C:\\wim\\JAVA - training\\cursus_data_input_output\\temp.txt";
+    public static final String TEMP_ZIP = "C:\\wim\\JAVA - training\\cursus_data_input_output\\temp.zip";
     private static final String VERY_LARGE_NAME = "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT" + "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS" + "UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU";
 
     public static char[] charactersToPrint = {'a', 'b', 'c', 'd', 'e'};
@@ -70,7 +71,8 @@ public class MyApplication {
 //                OefeningCollections.demoCollectionAndRemoveSafe();
                 break;
             case 2:
-                OefeningCollections.demoMapOlympicGames_2A();
+//                OefeningCollections.demoMapOlympicGames_2A();
+                OefeningCollections.demoAllMatch_2B();
                 break;
             case 3:
                 // with this exercise we demonstrate how we can reuse small portions of logic (predicates or conditions)
@@ -106,7 +108,7 @@ public class MyApplication {
                 break;
             case 5:
                 MyApplication.oefeningFile_50();
-//                MyApplication.oefeningFile_PDF_51();
+                MyApplication.oefeningFile_PDF_51();
 //                MyApplication.oefeningFile_MP3_51();
 //                MyApplication.oefeningFile_52_wim();
 //                MyApplication.oefeningFile_52_noel();
@@ -118,7 +120,7 @@ public class MyApplication {
             case 7:
                 // conclusion 1: BufferedInputStream is much faster
                 // conclusion 2: Reading (in general) is very fast
-                MyApplication.oefening_NIO_ReadAllLines_7a();
+//                MyApplication.oefening_NIO_ReadAllLines_7a();
                 MyApplication.oefening_IO_ReadAllLines_7b();
 //                MyApplication.oefening_IO_WithGZIPOutputStream_7b();
 //                MyApplication.oefening_IO_WithoutGZIPOutputStream_7c();
@@ -202,18 +204,23 @@ public class MyApplication {
     }
 
     private static void oefeningFile_50() {
-        Path path = Paths.get(TEMP_TXT);
+        Path pathtoFolder = Paths.get(FOLDER);
+        Path pathToFile = Paths.get(TEMP_TXT);
+
+        File file = new File(TEMP_TXT);
+        System.out.println("Filename = " + file.getName());
+
         byte[] bytes = {1, 2, 3};
         List<String> strings = Arrays.asList("4", "5", "6");
 
         try {
-            if (!Files.exists(path)) {
-                Files.createFile(path);
+            if (!Files.exists(pathToFile)) {
+                Files.createFile(pathToFile);
             }
-            Files.write(path, bytes);
-            Files.write(path, strings, Charset.defaultCharset(), StandardOpenOption.APPEND);
+            Files.write(pathToFile, bytes);
+            Files.write(pathToFile, strings, Charset.defaultCharset(), StandardOpenOption.APPEND);
             // doesn't work on MAC  !!!
-            DosFileAttributes dosFileAttributes = Files.readAttributes(path, DosFileAttributes.class);
+            DosFileAttributes dosFileAttributes = Files.readAttributes(pathToFile, DosFileAttributes.class);
 
             System.out.println("isArchive = " + dosFileAttributes.isArchive());
             System.out.println("isReadOnly = " + dosFileAttributes.isReadOnly());
@@ -389,6 +396,7 @@ public class MyApplication {
         long startDate = new Date().getTime();
         try {
             List<String> lines = Files.readAllLines(FileSystems.getDefault().getPath(LARGE_FILE_AS_TEXT));
+//            List<String> lines = Files.readAllLines(Paths.get(LARGE_FILE_AS_TEXT));
         } catch (IOException e) {
             System.out.println("!!!Something went wrong: Message = " + e.getMessage() + ". Type exception = " + e.getClass());
             return;

@@ -13,10 +13,16 @@ public class Employee extends Worker implements Comparable<Employee> {
     private Date hireDate;
     private Set<Project> projects;
     private Set<Department> department;
+    private String country;
 
     public Employee(Integer id, String name, Integer age, Gender gender, Date hireDate) {
         super(id, name, age, gender);
         this.hireDate = hireDate;
+    }
+
+    public Employee(Integer id, String name, Integer age, Gender gender, Date hireDate, String country) {
+        this(id, name, age, gender, hireDate);
+        this.country = country;
     }
 
     public Employee() {
@@ -24,6 +30,10 @@ public class Employee extends Worker implements Comparable<Employee> {
 
     public Employee(Integer id, String name, Integer age) {
         super(id, name, age, null);
+    }
+
+    public String getCountry() {
+        return country;
     }
 
     public Date getHireDate() {

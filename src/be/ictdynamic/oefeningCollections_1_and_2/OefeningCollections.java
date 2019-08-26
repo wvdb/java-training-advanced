@@ -230,6 +230,29 @@ public class OefeningCollections {
         });
     }
 
+    public static void demoAllMatch_2B() {
+        List<Employee> employeesOf_EU = new ArrayList<>(
+                Arrays.asList(new Employee(1, "wim van den brande", 52, Worker.Gender.MALE, null, "Belgium"),
+                        new Employee(2, "merkel", 67, Worker.Gender.FEMALE, null, "Germany"),
+                        new Employee(3, "macron", 48, Worker.Gender.MALE, null, "France"),
+                        new Employee(4, "floriaan van den brande", 18, Worker.Gender.MALE, null, "Belgium")));
+
+        List<Employee> employeesNotOf_EU = new ArrayList<>(
+                Arrays.asList(new Employee(1, "wim van den brande", 52, Worker.Gender.MALE, null, "Belgium"),
+                        new Employee(2, "Johnsons", 67, Worker.Gender.MALE, null, "UK"),
+                        new Employee(4, "floriaan van den brande", 18, Worker.Gender.MALE, null, "Belgium")));
+
+        List<String> euCountries = new ArrayList<>(Arrays.asList("Belgium", "Netherlands", "Luxembourg", "France", "Germany", "Spain"));
+
+        if (employeesOf_EU.stream().allMatch(employee -> euCountries.contains(employee.getCountry()))) {
+            System.out.println("All employeesOf_EU are of EU.");
+        }
+
+        if (!employeesNotOf_EU.stream().allMatch(employee -> euCountries.contains(employee.getCountry()))) {
+            System.out.println("Not all employeesNotOf_EU are of EU.");
+        }
+    }
+
     public static void demoQueue_9() {
         // Second Occurrence of our LinkedList (LinkedList implements List) !!!
         Queue<Employee> employees = new LinkedList<>(
