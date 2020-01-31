@@ -13,6 +13,7 @@ import java.nio.charset.Charset;
 import java.nio.file.*;
 import java.nio.file.attribute.DosFileAttributes;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -86,7 +87,7 @@ public class MyApplication {
 //                MyApplication.oefeningConsumer_3();
 
                 break;
-            case 20:
+            case 25:
                 // with this exercise we demonstrate how we can use the builder
                 EmployeeB employee = new EmployeeB.EmployeeBuilder(10L, "wvdb")
                                         .withHireDate(new Date())
@@ -141,29 +142,35 @@ public class MyApplication {
                 MyApplication.oefeningThreads_withClassImplementingRunnable_12(numberOfCharsToPrint);
                 break;
             case 13:
-                MyApplication.oefeningThreadsWithLambdas_13();
+                // this exercise starts T1 and T2 X number of times and it demonstrates T1/T2 are not always paired
+                MyApplication.oefeningThreadsHelloGoodbye_13();
                 break;
             case 14:
                 MyApplication.oefeningThreadsWithLambdas_14();
                 break;
             case 15:
-                MyApplication.oefeningThreadsWithTimer_15();
+                MyApplication.oefeningThreadsWithLambdas_15();
                 break;
             case 16:
-                MyApplication myApplication = new MyApplication();
-                myApplication.oefeningThreadsWithTimer_increment_16();
+                MyApplication.oefeningThreadsWithTimer_16();
                 break;
             case 17:
-                MyApplication myApplication2 = new MyApplication();
-                myApplication2.oefeningThreadsWithTimer_populate_17();
+                MyApplication myApplication = new MyApplication();
+                myApplication.oefeningThreadsWithTimer_increment_17();
                 break;
             case 18:
-                MyApplication myApplication3 = new MyApplication();
-                myApplication3.oefeningThreadsWithTimer_populate_18();
+                MyApplication myApplication2 = new MyApplication();
+                myApplication2.oefeningThreadsWithTimer_populate_18();
                 break;
             case 19:
+                MyApplication myApplication3 = new MyApplication();
+                myApplication3.oefeningThreadsWithTimer_populate_19();
+                break;
+            case 20:
                 MyApplication myApplication4 = new MyApplication();
-                myApplication4.oefeningFuture_19();
+                // this is a demo of a future
+                myApplication4.oefeningFuture_20A();
+//                myApplication4.oefeningFuture_20B();
                 break;
             case 44:
                 OefeningStreams oefeningStreams1 = new OefeningStreams();
@@ -700,6 +707,7 @@ public class MyApplication {
     }
 
     private static void oefeningThreads_withClassImplementingRunnable_12(int numberOfCharsToPrint) {
+        // let's kick off 5 threads. each thread will print a character X times
         for (char characterToPrint : charactersToPrint) {
             MyRunnableImpl myRunnable = new MyRunnableImpl(characterToPrint, numberOfCharsToPrint);
 
@@ -710,7 +718,29 @@ public class MyApplication {
         System.out.println("Done with oefeningThreads_withClassImplementingRunnable_12!");
     }
 
-    private static void oefeningThreadsWithLambdas_13() {
+    private static void oefeningThreadsHelloGoodbye_13() {
+        Runnable runnable1 = () -> {
+          for (int i = 1; i<=1000; i++) {
+              System.out.println("Hello " + i + " at " + LocalDateTime.now());
+          }
+        };
+
+        Runnable runnable2 = () -> {
+            for (int i = 1; i<=1000; i++) {
+                System.out.println("Goodbye " + i + " at " + LocalDateTime.now());
+            }
+        };
+
+        ExecutorService executor = Executors.newCachedThreadPool();
+        executor.execute(runnable1);
+        executor.execute(runnable2);
+
+        executor.shutdown();
+
+        System.out.println("Done with oefeningThreads_withClassImplementingRunnable_13! at " + LocalDateTime.now());
+    }
+
+    private static void oefeningThreadsWithLambdas_14() {
         Scanner reader = new Scanner(System.in);
         System.out.println("Enter aantal chars to print ");
         int numberOfCharsToPrint = reader.nextInt();
@@ -743,7 +773,7 @@ public class MyApplication {
 
     }
 
-    private static void oefeningThreadsWithLambdas_14() throws InterruptedException {
+    private static void oefeningThreadsWithLambdas_15() throws InterruptedException {
         System.out.println("Aantal processors = " + Runtime.getRuntime().availableProcessors());
 
         Thread thread1 = new Thread(() -> myPrintMethod('a', 60));
@@ -775,7 +805,7 @@ public class MyApplication {
         System.out.print("\n");
     }
 
-    private static void oefeningThreadsWithTimer_15() {
+    private static void oefeningThreadsWithTimer_16() {
         MyDummyTask task = new MyDummyTask();
         Timer timer = new Timer(true);
 
@@ -802,7 +832,7 @@ public class MyApplication {
         }
     }
 
-    private void oefeningThreadsWithTimer_increment_16() throws InterruptedException {
+    private void oefeningThreadsWithTimer_increment_17() throws InterruptedException {
         CounterImpl counterImpl = new CounterImpl();
 
         long startTime = System.currentTimeMillis();
@@ -826,7 +856,7 @@ public class MyApplication {
         System.out.println("Resultaat (increment of instance property with method synchronized) = " + counterImpl.getCounter2() + ", processing time in ms = " + (System.currentTimeMillis() - startTime));
     }
 
-    private void oefeningThreadsWithTimer_populate_17() throws InterruptedException {
+    private void oefeningThreadsWithTimer_populate_18() throws InterruptedException {
         List<Integer> list = new ArrayList<>();
 //        List<Integer> list = Collections.synchronizedList(new ArrayList<>());
 
@@ -847,7 +877,7 @@ public class MyApplication {
 
     }
 
-    private void oefeningThreadsWithTimer_populate_18() {
+    private void oefeningThreadsWithTimer_populate_19() {
         long startTime = System.currentTimeMillis();
 
         List<Integer> list = Collections.synchronizedList(new ArrayList<>());
@@ -918,22 +948,32 @@ public class MyApplication {
         System.out.println(integers);
     }
 
-    private void oefeningFuture_19() throws ExecutionException, InterruptedException {
+    private void oefeningFuture_20A() throws ExecutionException, InterruptedException {
         long startTime = System.currentTimeMillis();
         PrimeCalculator primeCalculator = new PrimeCalculator(10_000_000);
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        ExecutorService executor = Executors.newSingleThreadExecutor();
 
-        Future<List<Long>> future  = executorService.submit(primeCalculator);
+        Future<List<Long>> future  = executor.submit(primeCalculator);
 
+        // within this time window we could be doing something else
         while (!future.isDone()) {
-            System.out.println("waiting");
+//            System.out.println("waiting");
         }
 
         List<Long> primes = future.get();
 
         System.out.println("There are  " + primes.size() + " prime numbers in the range of 1 to 10_000_000.");
+        System.out.println("Calculation took " + (System.currentTimeMillis() - startTime) + " ms");
 
-        executorService.shutdown();
+        executor.shutdown();
+    }
+
+    private void oefeningFuture_20B() {
+        long startTime = System.currentTimeMillis();
+        PrimeCalculator primeCalculator = new PrimeCalculator(10_000_000);
+
+        System.out.println("There are  " + primeCalculator.simpleCalculate().size() + " prime numbers in the range of 1 to 10_000_000.");
+        System.out.println("Calculation took " + (System.currentTimeMillis() - startTime) + " ms");
     }
 
     private void populate(List<Integer> list, int count) {
